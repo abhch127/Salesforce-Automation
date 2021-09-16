@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="1" total="1" passed="0">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Salesforce Automation" duration-ms="77949" started-at="2021-09-09T09:00:39Z" finished-at="2021-09-09T09:01:57Z">
+    <groups>
+      <group name="cucumber">
+        <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper, io.cucumber.testng.FeatureWrapper)[pri:0, instance:runners.Runner@4520ebad]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
+      </group> <!-- cucumber -->
+    </groups>
+    <test name="Regression" duration-ms="77949" started-at="2021-09-09T09:00:39Z" finished-at="2021-09-09T09:01:57Z">
+      <class name="runners.Runner">
+        <test-method status="PASS" signature="setUpClass()[pri:0, instance:runners.Runner@4520ebad]" name="setUpClass" is-config="true" duration-ms="1112" started-at="2021-09-09T14:30:39Z" finished-at="2021-09-09T14:30:40Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpClass -->
+        <test-method status="FAIL" signature="runScenario(io.cucumber.testng.PickleWrapper, io.cucumber.testng.FeatureWrapper)[pri:0, instance:runners.Runner@4520ebad]" name="runScenario" duration-ms="63589" started-at="2021-09-09T14:30:40Z" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2021-09-09T14:31:44Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Adding a Pipeline to a Account"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Optional[New Pipeline Creation]"]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[The following asserts failed:
+	Failed to find Year Textbox in 20 sec,
+	Failed to enter the text '2022' in Year Textbox]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: The following asserts failed:
+	Failed to find Year Textbox in 20 sec,
+	Failed to enter the text '2022' in Year Textbox
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:43)
+	at hooks.Hooks.assert_all(Hooks.java:65)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method status="PASS" signature="tearDownClass()[pri:0, instance:runners.Runner@4520ebad]" name="tearDownClass" is-config="true" duration-ms="13225" started-at="2021-09-09T14:31:44Z" finished-at="2021-09-09T14:31:57Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownClass -->
+      </class> <!-- runners.Runner -->
+    </test> <!-- Regression -->
+  </suite> <!-- Salesforce Automation -->
+</testng-results>

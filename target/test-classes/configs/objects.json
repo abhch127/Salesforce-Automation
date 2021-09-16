@@ -1,0 +1,56 @@
+{
+"salesforce": {
+  	"LoginPage.UserName": "//input[@name='username']",
+  	"LoginPage.Password":"//input[@id='password']",
+  	"LoginPage.SubmitButton": "//input[@type='submit']",
+  	
+  	"HomePage.AccountsTab":"//one-app-nav-bar-item-root//a[contains(@title, 'Accounts')]",
+  	"HomePage.NewButton":"//ul[contains(@class,'branding-actions')]//a[@title='New']",
+  	
+  	"NewAccount.Header" : "//header[@class='slds-modal__header']//h2",
+  	"NewAccount.AdvertiserRadioButton" : "//span[contains(text(), 'Advertiser [')]/..//span[@class='slds-radio_faux']",
+  	"NewAccount.AgencyRadioButton" : "//span[contains(text(), 'Agency [')]/..//span[@class='slds-radio_faux']",
+  	"NewAccount.BrandRadioButton" : "//span[contains(text(), 'Brand [')]/..//span[@class='slds-radio_faux']",
+  	"NewAccount.NextButton" : "//button[@title='Next']",
+  	
+  	"ExistingAccountMatch.Header" : "//h2[contains(text(), 'Search For An Active Existing Account')]",
+  	"ExistingAccountMatch.AccountNameTextBox" : "//input[@name='account-search']",
+  	"ExistingAccountMatch.NoSuchAccountFoundText" : "//h2[contains(text(), 'No such Account record(s) found')]",
+  	"ExistingAccountMatch.CreateNewAdvertiserButton" : "//button[@title='Create New Advertiser']",
+  	"ExistingAccountMatch.CreateNewAgencyButton" : "//button[@title='Create New Agency']",
+  	"ExistingAccountMatch.CreateNewBrandButton" : "//button[@title='Create New Brand']",
+  	
+  	"Advertiser.Header" : "//h2[text()='New Account: Advertiser']",
+  	"NewAccount.AccountName" : "//span[text()='Account Name']/../..//input[@type='text']",
+  	"NewAccount.BillingCity.TextBox":"//span[text()='Billing City']/../..//input[@type='text']",
+  	"NewAccount.BillingZip.TextBox":"//span[text()='Billing Zip/Postal Code']/../..//input[@type='text']",
+  	"NewAccount.Type.Dropdown" : "//span[text()='Type']/../..//a[@class='select']",
+  	
+  	
+  	"Account Name textBox" : "//span[text()='Account Name']/../..//input[@type='text']",
+  	"New.Account.Advertiser.CopyAddress.Checkbox" :"(//input[@type='checkbox'])[2]",
+  	"New.Account.Advertiser.Save.Button" : "//button[@title='Save']",
+  	
+  	"Account.Created.Notification": "//span[@class='custom-truncate uiOutputText']",
+  	
+  	"HomePage GearIcon" : "//a[contains(@class,'menuTriggerLink')]",
+  	"Setup Option" : "//div[contains(@class,'popupTargetContainer menu')]/div/ul/li[@id='related_setup_app_home']//a",
+  	"Setup Page Global Search TextBox" : "//input[contains(@class,'uiInputTextForAutocomplete')]",
+  	"User HomePage Global Search TextBox":"//button[@aria-label='Search']",
+  	"HomePage Global Search TextBox":"//div[contains(@class, 'slds-combobox-group')]//input[@type='search']",
+  	"Global Search Option" : "//a[contains(@class,'SETUP_NODE')]",
+  	"Global Search Account Option" : "//span[text()='Account']/ancestor::div[@role='option']",
+  	"Login Button" : "//td[@id='topButtonRow']//input[@title='Login']",
+  	"Approve Bread Crumb" : "//a[@data-tab-name='Approved']",
+  	"Mark as Current Account Approval Status Button":"//span[contains(text(),'Current Account Approval')]",
+  	"Account Status":"//span[text()='Account Status']/ancestor::force-record-layout-item//lightning-formatted-text",
+  	
+  	"Create New Pipeline Button" : "//button[text()='Create New Pipeline']",
+  	"New Pipeline for the Account Popup" : "//h2[contains(text(), 'New Pipeline for')]",
+  	"Parent Advertiser Clear button" : "//button[@title='Clear Selection']",
+  	"Parent Advertiser Dropdown Element" : "//div[contains(@id, 'dropdown-element')]//ul//li",
+  	"Parent Advertiser Textbox" : "//div[contains(@class, 'c-container')]//input[@role='combobox']",
+  	"Year TextBox":"//label[text()='Year']/..//input[@type='text']",
+  	"Pipeline Popup Save Button" : "//button[text()='Save']"
+  	}
+}

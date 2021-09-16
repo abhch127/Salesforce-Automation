@@ -9,6 +9,8 @@ import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -31,8 +33,9 @@ public class GenericUtils extends BaseUtil {
 			WebDriverWait wait = new WebDriverWait(driver, timeoutinSec);
 			wait.until(ExpectedConditions.elementToBeClickable(byXpath));
 		} catch (Exception e) {
-			e.printStackTrace();
 			softAssert.fail("Failed to find " + ElementName + " in "+timeoutinSec+" sec");
+			take_screenshot();
+			e.printStackTrace();
 		}
 	}
 
@@ -42,8 +45,9 @@ public class GenericUtils extends BaseUtil {
 			WebDriverWait wait = new WebDriverWait(driver, timeoutinSec);
 			wait.until(ExpectedConditions.presenceOfElementLocated(byXpath));
 		} catch (Exception e) {
-			e.printStackTrace();
 			softAssert.fail("Unable to locate "+ElementName);
+			take_screenshot();
+			e.printStackTrace();
 		}
 	}
 
@@ -58,6 +62,7 @@ public class GenericUtils extends BaseUtil {
 			new WebDriverWait(driver, 100).until(pageloadcondition);
 		} catch (Exception e) {
 			softAssert.fail("Failed to load the page within the given time");
+			take_screenshot();
 			e.printStackTrace();
 		}
 	}
@@ -68,6 +73,7 @@ public class GenericUtils extends BaseUtil {
 			driver.findElement(by_xpath).sendKeys(valueToPass);
 		} catch (Exception e) {
 			softAssert.fail("Failed to enter the text " + "\'" + valueToPass + "\'" + " in " + elementName);
+			take_screenshot();
 			e.printStackTrace();
 		}
 	}
@@ -79,6 +85,7 @@ public class GenericUtils extends BaseUtil {
 			return true;
 		} catch (Exception e) {
 			softAssert.fail("Failed to click on " + elementName);
+			take_screenshot();
 			e.printStackTrace();
 			return false;
 		}
@@ -92,6 +99,7 @@ public class GenericUtils extends BaseUtil {
 			myExecutor.executeScript("arguments[0].click();", element);
 		} catch (Exception e) {
 			softAssert.fail("Failed to click on " + elementName);
+			take_screenshot();
 			e.printStackTrace();
 		}
 	}
@@ -112,6 +120,7 @@ public class GenericUtils extends BaseUtil {
 			}
 		} catch (Exception e) {
 			softAssert.fail("Failed to click on " + ElementName);
+			take_screenshot();
 			e.printStackTrace();
 		}
 
@@ -124,6 +133,7 @@ public class GenericUtils extends BaseUtil {
 			pageTitle = driver.getTitle();
 		} catch (Exception e) {
 			softAssert.fail("Either the Page load is failed or this page does not have a valid Title");
+			take_screenshot();
 			e.printStackTrace();
 		}
 		return pageTitle;
@@ -145,6 +155,7 @@ public class GenericUtils extends BaseUtil {
 			}
 		} catch (Exception e) {
 			softAssert.fail("Failed to get the text value from " + ElementName);
+			take_screenshot();
 			e.printStackTrace();
 		}
 		return elementTextValue;
@@ -162,6 +173,7 @@ public class GenericUtils extends BaseUtil {
 			}
 		} catch (Exception e) {
 			softAssert.fail("Failed to get the list of text values from " + ElementName);
+			take_screenshot();
 			e.printStackTrace();
 		}
 		return list_of_element_texts;
@@ -176,6 +188,7 @@ public class GenericUtils extends BaseUtil {
 			return req_format;
 		} catch (Exception e) {
 			softAssert.fail("Failed to extract the current Date and Time");
+			take_screenshot();
 			e.printStackTrace();
 		}
 		return req_format;
@@ -195,8 +208,9 @@ public class GenericUtils extends BaseUtil {
 				je.executeScript("arguments[0].scrollIntoView(true);", element_name);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			softAssert.fail("Failed to double click on " + ElementName);
+			take_screenshot();
+			e.printStackTrace();
 		}
 	}
 
@@ -215,6 +229,7 @@ public class GenericUtils extends BaseUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 			softAssert.fail("Unable to switch to window");
+			take_screenshot();
 		}
 	}
 
@@ -226,6 +241,7 @@ public class GenericUtils extends BaseUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 			softAssert.fail("Unable to Switch to Frame");
+			take_screenshot();
 		}
 	}
 	
@@ -235,6 +251,7 @@ public class GenericUtils extends BaseUtil {
   	  }catch(Exception E){
   		  E.printStackTrace();
   		  softAssert.fail("Unable to clear the text in "+element_name);
+  		  take_screenshot();
   	  }	 
     }
 	
@@ -244,6 +261,11 @@ public class GenericUtils extends BaseUtil {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void take_screenshot() {
+		byte[] sourcePath = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+		scenario.attach(sourcePath, "image/png", "");
 	}
 
 }

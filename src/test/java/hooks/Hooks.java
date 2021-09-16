@@ -9,7 +9,6 @@ import org.testng.asserts.SoftAssert;
 import base.BaseUtil;
 import factory.DriverFactory;
 import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import utilities.Constants;
@@ -24,8 +23,9 @@ public class Hooks extends BaseUtil{
 	private ExcelUtility refExcelUtility = new ExcelUtility();
 	
 	@Before
-	public void get_config_details() {
+	public void get_config_details(Scenario scenario) {
 		try {
+			BaseUtil.scenario = scenario;
 			appName = refExcelUtility.readExcel(Constants.TEST_DATA_FILE_PATH, Constants.APP_CONFIG_SHEET_NAME);
 			driverFactory = new DriverFactory();
 			softAssert = new SoftAssert();
@@ -51,16 +51,16 @@ public class Hooks extends BaseUtil{
 		driver.quit();
 	}
 	
-	@AfterStep
-	public void tearDown(Scenario scenario) {
-//		if(scenario.isFailed()) {
+	@After(order=1)
+	public void tearDown() {
+		if(scenario.isFailed()) {
 //			String screenShotName = scenario.getName().replaceAll(" ", "_");
 			byte[] sourcePath = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 			scenario.attach(sourcePath, "image/png", "");
-//		}
+		}
 	}
 	
-	@After(order=1)
+	@After(order=2)
 	public void assert_all() {
 		softAssert.assertAll();
 	}

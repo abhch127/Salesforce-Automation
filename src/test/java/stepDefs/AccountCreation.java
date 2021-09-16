@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 import base.BaseUtil;
 import factory.DriverFactory;
@@ -63,6 +64,18 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.clickOnElement(objectRepository.get("ExistingAccountMatch.CreateNew"+record_type+"Button"), "Create New "+record_type+" Button");
 		refGenericUtils.waitForElement(objectRepository.get(record_type+".Header"), 10, "New Account "+record_type+" Header");
 		enter_account_information(dataTable);
+		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.CopyAddress.Checkbox"), "Copy Address Checkbox");
+		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.Save.Button"), "Save Button");
+		refGenericUtils.waitForElement(objectRepository.get("AccountCreated.Notification"), 10, "Account Created Notification");
+		String actual_account = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountCreated.Notification"), "Account Created Notification");
+		if(actual_account.equals(account_name_text)) {
+			BaseUtil.scenario.log("Hurray!!! "+actual_account+" created successfully");
+			refGenericUtils.take_screenshot();
+		}
+		else {
+			Assert.fail("Failed to create the New account");
+			refGenericUtils.take_screenshot();
+		}
 	}
 	
 	public void enter_account_information(DataTable dataTable) {
@@ -89,7 +102,6 @@ public class AccountCreation extends BaseUtil {
 				refGenericUtils.toEnterTextValue(objectRepository.get(label), value, label);
 			}
 			else if(label.endsWith("Dropdown")) {
-//				form_elements_xpath = By.xpath("//span[text()='"+label+"']/../..//a[@class='select']");
 				refGenericUtils.waitForElement(objectRepository.get(label), 5, label);
 				refGenericUtils.scrollToViewElement(objectRepository.get(label), label);
 				refGenericUtils.clickOnElement(objectRepository.get(label), label);

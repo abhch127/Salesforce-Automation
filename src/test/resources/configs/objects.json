@@ -25,13 +25,13 @@
   	"NewAccount.BillingCity.TextBox":"//span[text()='Billing City']/../..//input[@type='text']",
   	"NewAccount.BillingZip.TextBox":"//span[text()='Billing Zip/Postal Code']/../..//input[@type='text']",
   	"NewAccount.Type.Dropdown" : "//span[text()='Type']/../..//a[@class='select']",
+  	"NewAccount.BillingState.Dropdown" : "//span[text()='Billing State/Province']/../..//a[@class='select']",
+  	"NewAccount.CreditStatus.Dropdown" : "//span[text()='Credit Status']/../..//a[@class='select']",
+  	"NewAccount.BillingStreet.TextArea" : "//span[text()='Billing Street']/../..//textarea[@role='textbox']",
+  	"NewAccount.CopyAddress.Checkbox" :"(//input[@type='checkbox'])[2]",
+  	"NewAccount.Save.Button" : "//button[@title='Save']",
   	
-  	
-  	"Account Name textBox" : "//span[text()='Account Name']/../..//input[@type='text']",
-  	"New.Account.Advertiser.CopyAddress.Checkbox" :"(//input[@type='checkbox'])[2]",
-  	"New.Account.Advertiser.Save.Button" : "//button[@title='Save']",
-  	
-  	"Account.Created.Notification": "//span[@class='custom-truncate uiOutputText']",
+  	"AccountCreated.Notification": "//span[@class='custom-truncate uiOutputText']",
   	
   	"HomePage GearIcon" : "//a[contains(@class,'menuTriggerLink')]",
   	"Setup Option" : "//div[contains(@class,'popupTargetContainer menu')]/div/ul/li[@id='related_setup_app_home']//a",

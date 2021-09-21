@@ -26,31 +26,6 @@ public class AccountCreation extends BaseUtil {
 		loginPage.loginToApplication();
 	}
 	
-	@When("user clicks on {string}")
-	public void user_clicks_on(String element_name) {
-		switch(element_name) {
-			case "HomePage Accounts Tab":
-				refGenericUtils.waitUntilPageLoads();
-				refGenericUtils.click_using_javaScript(objectRepository.get(element_name), element_name);
-				break;
-			case "HomePage GearIcon":
-				refGenericUtils.stop_script_for(10000);
-				refGenericUtils.clickOnElement(objectRepository.get(element_name), element_name);
-				break;
-			case "Approve Bread Crumb":
-				refGenericUtils.stop_script_for(5000);
-				refGenericUtils.clickUsingActions(objectRepository.get(element_name), element_name);
-				break;
-			case "Mark as Current Account Approval Status Button":
-				refGenericUtils.stop_script_for(5000);
-				refGenericUtils.clickUsingActions(objectRepository.get(element_name), element_name);
-				break;
-			default:
-				refGenericUtils.clickOnElement(objectRepository.get(element_name), element_name);
-				break;
-		}
-	}
-	
 	@When("User creates new account for {string} Record type")
 	public void user_creates_new_account_for_record_type(String record_type, DataTable dataTable) {
 		refGenericUtils.waitUntilPageLoads();
@@ -74,6 +49,36 @@ public class AccountCreation extends BaseUtil {
 		}
 		else {
 			Assert.fail("Failed to create the New account");
+			refGenericUtils.take_screenshot();
+		}
+	}
+	
+	@When("{string} approves the account")
+	public void approves_the_account(String approver_name) {
+		refGenericUtils.stop_script_for(10000);
+		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon"), "Gear Icon");
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon.SetupOption"), "Setup Option");
+		refGenericUtils.waitForElement(objectRepository.get("SetupPage.GlobalSearch.TextBox"), 5, "Global Search TextBox");
+		global_search_textbox(approver_name, "SetupPage.GlobalSearch.TextBox");
+		switch_to_profile_frame(approver_name);
+		refGenericUtils.clickOnElement(objectRepository.get("SetupPage.Login.Button"), "Login Button");
+		refGenericUtils.waitUntilPageLoads();
+		global_search_textbox("New Account", "UserHomePage.GlobalSearch.TextBox");
+		refGenericUtils.stop_script_for(5000);
+		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.Approve.BreadCrumb"), "Approve Bread Crumb");
+		refGenericUtils.stop_script_for(5000);
+		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.MarkCurrentAccountApproval.Button"), "Mark as Current Account Approval Status Button");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.take_screenshot();
+		refGenericUtils.scrollToViewElement(objectRepository.get("AccountPage.AccountStatus"), "Account Status");
+		String actual_text_value = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountPage.AccountStatus"), "Account Status");
+		if(actual_text_value.equals("A")) {
+			BaseUtil.scenario.log("Account "+account_name_text+" has been approved successfully");
+			refGenericUtils.take_screenshot();
+		}
+		else {
+			Assert.fail("Failed to approve the New account");
 			refGenericUtils.take_screenshot();
 		}
 	}
@@ -110,5 +115,33 @@ public class AccountCreation extends BaseUtil {
 				refGenericUtils.clickOnElement(dropdown_list, value);
 			}
 		});
+	}
+	
+	public void global_search_textbox(String text_value, String textBox_element_name) {
+		refGenericUtils.waitUntilPageLoads();
+		switch(textBox_element_name) {
+			case "SetupPage.GlobalSearch.TextBox":
+				refGenericUtils.toEnterTextValue(objectRepository.get(textBox_element_name), text_value, textBox_element_name);
+				refGenericUtils.waitForElement(objectRepository.get("SetupPage.GlobalSearch.Option"), 10, text_value+" Option");
+				refGenericUtils.clickOnElement(objectRepository.get("SetupPage.GlobalSearch.Option"), text_value+" Option");
+				refGenericUtils.waitUntilPageLoads();
+				refGenericUtils.take_screenshot();
+				break;
+			case "UserHomePage.GlobalSearch.TextBox":
+				refGenericUtils.clickOnElement(objectRepository.get(textBox_element_name), text_value+" Option");
+				if(text_value.equalsIgnoreCase("New Account")) {
+					refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.TextBox"), account_name_text, textBox_element_name);
+					refGenericUtils.waitForElement(objectRepository.get("HomePage.GlobalSearch.AccountOption"), 10, account_name_text+" account");
+					refGenericUtils.clickOnElement(objectRepository.get("HomePage.GlobalSearch.AccountOption"), account_name_text+" account");
+					refGenericUtils.waitUntilPageLoads();
+					refGenericUtils.take_screenshot();
+				}
+				break;
+		}
+	}
+	
+	public void switch_to_profile_frame(String profile_name) {
+		By by_frame_name = By.xpath("//iframe[contains(@title,'"+profile_name+"')]");
+		refGenericUtils.switchingFrame(by_frame_name, profile_name);
 	}
 }

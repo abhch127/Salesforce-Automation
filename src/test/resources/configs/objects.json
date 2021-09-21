@@ -6,6 +6,8 @@
   	
   	"HomePage.AccountsTab":"//one-app-nav-bar-item-root//a[contains(@title, 'Accounts')]",
   	"HomePage.NewButton":"//ul[contains(@class,'branding-actions')]//a[@title='New']",
+  	"HomePage.GlobalSearch.TextBox":"//div[contains(@class, 'slds-combobox-group')]//input[@type='search']",
+  	"HomePage.GlobalSearch.AccountOption" : "//span[text()='Account']/ancestor::div[@role='option']",
   	
   	"NewAccount.Header" : "//header[@class='slds-modal__header']//h2",
   	"NewAccount.AdvertiserRadioButton" : "//span[contains(text(), 'Advertiser [')]/..//span[@class='slds-radio_faux']",
@@ -30,20 +32,19 @@
   	"NewAccount.BillingStreet.TextArea" : "//span[text()='Billing Street']/../..//textarea[@role='textbox']",
   	"NewAccount.CopyAddress.Checkbox" :"(//input[@type='checkbox'])[2]",
   	"NewAccount.Save.Button" : "//button[@title='Save']",
-  	
   	"AccountCreated.Notification": "//span[@class='custom-truncate uiOutputText']",
   	
-  	"HomePage GearIcon" : "//a[contains(@class,'menuTriggerLink')]",
-  	"Setup Option" : "//div[contains(@class,'popupTargetContainer menu')]/div/ul/li[@id='related_setup_app_home']//a",
-  	"Setup Page Global Search TextBox" : "//input[contains(@class,'uiInputTextForAutocomplete')]",
-  	"User HomePage Global Search TextBox":"//button[@aria-label='Search']",
-  	"HomePage Global Search TextBox":"//div[contains(@class, 'slds-combobox-group')]//input[@type='search']",
-  	"Global Search Option" : "//a[contains(@class,'SETUP_NODE')]",
-  	"Global Search Account Option" : "//span[text()='Account']/ancestor::div[@role='option']",
-  	"Login Button" : "//td[@id='topButtonRow']//input[@title='Login']",
-  	"Approve Bread Crumb" : "//a[@data-tab-name='Approved']",
-  	"Mark as Current Account Approval Status Button":"//span[contains(text(),'Current Account Approval')]",
-  	"Account Status":"//span[text()='Account Status']/ancestor::force-record-layout-item//lightning-formatted-text",
+  	"HomePage.GearIcon" : "//a[contains(@class,'menuTriggerLink')]",
+  	"HomePage.GearIcon.SetupOption" : "//div[contains(@class,'popupTargetContainer menu')]/div/ul/li[@id='related_setup_app_home']//a",
+  	"SetupPage.GlobalSearch.TextBox" : "//input[contains(@class,'uiInputTextForAutocomplete')]",
+  	"SetupPage.GlobalSearch.Option" : "//a[contains(@class,'SETUP_NODE')]",
+  	"SetupPage.Login.Button" : "//td[@id='topButtonRow']//input[@title='Login']",
+  	
+  	"UserHomePage.GlobalSearch.TextBox":"//button[@aria-label='Search']",
+  	
+  	"AccountPage.Approve.BreadCrumb" : "//a[@data-tab-name='Approved']",
+  	"AccountPage.MarkCurrentAccountApproval.Button":"//span[contains(text(),'Current Account Approval')]",
+  	"AccountPage.AccountStatus":"//span[text()='Account Status']/ancestor::force-record-layout-item//lightning-formatted-text",
   	
   	"Create New Pipeline Button" : "//button[text()='Create New Pipeline']",
   	"New Pipeline for the Account Popup" : "//h2[contains(text(), 'New Pipeline for')]",

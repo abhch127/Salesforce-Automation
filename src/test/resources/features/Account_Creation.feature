@@ -15,3 +15,13 @@ Feature: New Account Creation
       | NewAccount.BillingState.Dropdown  | North Carolina              |
       | NewAccount.CreditStatus.Dropdown  | Cash with Order             |
       | NewAccount.BillingStreet.TextArea | 786 Boone Station Drive     |
+
+  @Regression
+  Scenario: Advertiser Account Approval
+    When "Surfina Adams" approves the account
+
+  @Regression
+  Scenario: Adding a Pipeline to an account
+    When user creates a Pipeline
+      | Element Name             | Values |
+      | AccountPage.Year.TextBox |   2021 |

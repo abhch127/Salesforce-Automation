@@ -59,6 +59,8 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon"), "Gear Icon");
 		refGenericUtils.take_screenshot();
 		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon.SetupOption"), "Setup Option");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.switchingTabs(DriverFactory.getDriver().getWindowHandle(), DriverFactory.getDriver().getWindowHandles());
 		refGenericUtils.waitForElement(objectRepository.get("SetupPage.GlobalSearch.TextBox"), 5, "Global Search TextBox");
 		global_search_textbox(approver_name, "SetupPage.GlobalSearch.TextBox");
 		switch_to_profile_frame(approver_name);
@@ -70,6 +72,7 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.stop_script_for(5000);
 		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.MarkCurrentAccountApproval.Button"), "Mark as Current Account Approval Status Button");
 		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.stop_script_for(5000);
 		refGenericUtils.take_screenshot();
 		refGenericUtils.scrollToViewElement(objectRepository.get("AccountPage.AccountStatus"), "Account Status");
 		String actual_text_value = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountPage.AccountStatus"), "Account Status");

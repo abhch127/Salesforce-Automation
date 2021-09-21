@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -247,7 +248,7 @@ public class GenericUtils extends BaseUtil {
 	
 	public void ClearTextBox(By byxpath, String element_name){
   	  try{
-  		  driver.findElement(byxpath).clear();	 
+  		driver.findElement(byxpath).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE)); 
   	  }catch(Exception E){
   		  E.printStackTrace();
   		  softAssert.fail("Unable to clear the text in "+element_name);

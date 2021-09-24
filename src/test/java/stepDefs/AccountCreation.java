@@ -38,7 +38,7 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.waitForElement(objectRepository.get("ExistingAccountMatch.Header"), 10, "Search For An Active Existing Account Match Header");
 		refGenericUtils.clickOnElement(objectRepository.get("ExistingAccountMatch.CreateNew"+record_type+"Button"), "Create New "+record_type+" Button");
 		refGenericUtils.waitForElement(objectRepository.get(record_type+".Header"), 10, "New Account "+record_type+" Header");
-		enter_account_information(dataTable);
+		enter_values(dataTable);
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.CopyAddress.Checkbox"), "Copy Address Checkbox");
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.Save.Button"), "Save Button");
 		refGenericUtils.waitForElement(objectRepository.get("AccountCreated.Notification"), 10, "Account Created Notification");
@@ -86,7 +86,20 @@ public class AccountCreation extends BaseUtil {
 		}
 	}
 	
-	public void enter_account_information(DataTable dataTable) {
+	@When("user creates a Pipeline")
+	public void user_creates_a_pipeline(DataTable dataTable) {
+		global_search_textbox("New Account", "UserHomePage.GlobalSearch.TextBox");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.clickOnElement(objectRepository.get("AccountPage.CreateNewPipeline.Button"), "Create New Pipeline Button");
+		refGenericUtils.waitForElement(objectRepository.get("AccountPage.NewPipeline.Popup"), 10, "New Pipeline Popup");
+		refGenericUtils.stop_script_for(3000);
+		refGenericUtils.ClearTextBox(objectRepository.get("NewPipelinePopup.Year.TextBox"), "Year TextBox");
+		enter_values(dataTable);
+		refGenericUtils.clickOnElement(objectRepository.get("NewPipelinePopup.Save.Button"), "NewPipelinePopup.Save.Button");
+		refGenericUtils.waitUntilPageLoads();
+	}
+	
+	public void enter_values(DataTable dataTable) {
 		List<Map<String, String>> map_of_feature_file_info = dataTable.asMaps();
 		Map<String,String> map_of_account_info = new LinkedHashMap<String, String>();
 		Map<String,String> account_info = new LinkedHashMap<String, String>();

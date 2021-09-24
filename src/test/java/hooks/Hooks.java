@@ -35,11 +35,11 @@ public class Hooks extends BaseUtil{
 			browserName = appNames[1].toString();
 			usernumber = appNames[2].toString();
 			environment = appNames[3].toString();
-			
 			if(applicationName.equalsIgnoreCase("Salesforce")){
 				envDetails = jsonUtility.environmentSetUp(applicationName.toLowerCase(), environment, Constants.ENVIRONMENT_PATH);
+				String profile=envDetails.get("profilePath").toString();
 				objectRepository = jsonUtility.readObjectRepository(applicationName.toLowerCase(), Constants.OBJECT_PATH);
-				driver = driverFactory.init_driver(browserName);
+				driver = driverFactory.init_driver(browserName,profile);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

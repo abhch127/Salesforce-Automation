@@ -1,5 +1,6 @@
 package stepDefs;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class AccountCreation extends BaseUtil {
 	public LoginPage loginPage = new LoginPage(DriverFactory.getDriver(), envDetails, objectRepository, usernumber);
 	
 	@Given("Admin has already logged into the application")
-	public void admin_has_already_logged_into_the_application() {
+	public void admin_has_already_logged_into_the_application() throws IOException {
 		loginPage.loginToApplication();
 	}
 	

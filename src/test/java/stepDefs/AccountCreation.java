@@ -44,6 +44,7 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.Save.Button"), "Save Button");
 		refGenericUtils.waitForElement(objectRepository.get("AccountCreated.Notification"), 10, "Account Created Notification");
 		String actual_account = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountCreated.Notification"), "Account Created Notification");
+		System.out.println("Account created : "+ actual_account);
 		if(actual_account.equals(account_name_text)) {
 			BaseUtil.scenario.log("Hurray!!! "+actual_account+" created successfully");
 			refGenericUtils.take_screenshot();
@@ -111,12 +112,24 @@ public class AccountCreation extends BaseUtil {
 				refGenericUtils.toEnterTextValue(objectRepository.get(label), value, label);
 			}
 			else if(label.endsWith("Dropdown")) {
-				refGenericUtils.waitForElement(objectRepository.get(label), 5, label);
-				refGenericUtils.scrollToViewElement(objectRepository.get(label), label);
-				refGenericUtils.clickOnElement(objectRepository.get(label), label);
-				By dropdown_list = By.xpath("//div[contains(@class, 'select-options') and contains(@class, 'uiMenuList')]//li/a[@title='"+value+"']");
-				refGenericUtils.waitForElement(dropdown_list, 5, value);
-				refGenericUtils.clickOnElement(dropdown_list, value);
+				label=label.replace(".Dropdown","");
+				 By dropDownXpath = By.xpath("//label[text()='"+label+"']/..//input");
+				 By valueXpath = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-form-element']//option");
+				refGenericUtils.waitForElement(dropDownXpath, 5, label);
+				refGenericUtils.scrollToViewElement(dropDownXpath, label);
+				refGenericUtils.click_using_javaScript(dropDownXpath, label);
+				refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
+				refGenericUtils.toEnterTextValue(objectRepository.get(label), value, label);
+			}
+			else if(label.endsWith("Input")) {
+				 label=label.replace(".Input","");
+				 By dropDownXpath = By.xpath("//label[text()='"+label+"']/..//input");
+				 By valueXpath = By.xpath("//label[text()='"+label+"']/..//ul/li");
+				refGenericUtils.waitForElement(dropDownXpath, 5, label);
+				refGenericUtils.scrollToViewElement(dropDownXpath, label);
+				refGenericUtils.click_using_javaScript(dropDownXpath, label);
+				refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
+				refGenericUtils.toEnterTextValue(objectRepository.get(label), value, label);
 			}
 		});
 	}
@@ -142,6 +155,19 @@ public class AccountCreation extends BaseUtil {
 				}
 				break;
 		}
+	}
+	
+	public void globalSearch(String objectName,String searchText) throws InterruptedException {
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.clickOnElement(objectRepository.get("UserHomePage.GlobalSearch.TextBox"), "UserHomePage.GlobalSearch.TextBox");
+		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
+		refGenericUtils.ClearTextBox(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
+		refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.SearchType"), objectName, "HomePage.GlobalSearch.SearchType");
+		Thread.sleep(2000);
+		refGenericUtils.keyboard_action(objectRepository.get("HomePage.GlobalSearch.SearchType"), "Enter");
+		refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.TextBox"), searchText, "GlobalSearch");
+		Thread.sleep(2000);
+		refGenericUtils.clickOnElement(objectRepository.get("HomePage.firstSearchResult"), "HomePage.firstSearchResult");
 	}
 	
 	public void switch_to_profile_frame(String profile_name) {

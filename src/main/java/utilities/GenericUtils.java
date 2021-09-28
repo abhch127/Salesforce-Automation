@@ -162,7 +162,7 @@ public class GenericUtils extends BaseUtil {
 		return elementTextValue;
 	}
 
-	public List<String> fetching_list_of_Textvalues(By by_xpath, String ElementName) {
+	public List<String> click_Fromlist_of_Textvalues(By by_xpath, String value,String ElementName) {
 		waitUntilPageLoads();
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		List<String> list_of_element_texts = new ArrayList<String>();
@@ -170,7 +170,10 @@ public class GenericUtils extends BaseUtil {
 			List<WebElement> list_of_WebElements = driver.findElements(by_xpath);
 			wait.until(ExpectedConditions.visibilityOfAllElements(list_of_WebElements));
 			for (WebElement element : list_of_WebElements) {
-				list_of_element_texts.add(element.getText());
+				if(element.getText().trim().equalsIgnoreCase(value)) {
+					JavascriptExecutor myExecutor = ((JavascriptExecutor) driver);
+					myExecutor.executeScript("arguments[0].click();", element);
+				}
 			}
 		} catch (Exception e) {
 			softAssert.fail("Failed to get the list of text values from " + ElementName);
@@ -268,5 +271,25 @@ public class GenericUtils extends BaseUtil {
 		byte[] sourcePath = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 		scenario.attach(sourcePath, "image/png", "");
 	}
+	
+	public void keyboard_action(By byxpath, String key) {
+		try {
+			Actions action = new Actions(driver);
+			WebElement element = driver.findElement(byxpath);
+			switch(key) {
+				case "Enter":
+					action.sendKeys(element, Keys.ENTER).build().perform();
+					break;
+				default:
+					action.sendKeys(element, Keys.RETURN).build().perform();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			softAssert.fail("Failed to click on "+key);
+			take_screenshot();
+		}
+	}
+	
+
 
 }

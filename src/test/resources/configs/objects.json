@@ -8,7 +8,9 @@
   	"HomePage.NewButton":"//ul[contains(@class,'branding-actions')]//a[@title='New']",
   	"HomePage.GlobalSearch.TextBox":"//div[contains(@class, 'slds-combobox-group')]//input[@type='search']",
   	"HomePage.GlobalSearch.AccountOption" : "//span[text()='Account']/ancestor::div[@role='option']",
-  	
+  	"HomePage.GlobalSearch.SearchType":"//input[@class='slds-input slds-combobox__input']",
+  	"HomePage.SearchType.Opportunities":"//span[@title='Opportunities']",
+  	"HomePage.firstSearchResult":"(//span[@search_lightning-instantresultitem_instantresultitem])[1]",
   	"NewAccount.Header" : "//header[@class='slds-modal__header']//h2",
   	"NewAccount.AdvertiserRadioButton" : "//span[contains(text(), 'Advertiser [')]/..//span[@class='slds-radio_faux']",
   	"NewAccount.AgencyRadioButton" : "//span[contains(text(), 'Agency [')]/..//span[@class='slds-radio_faux']",
@@ -53,5 +55,25 @@
   	"Parent Advertiser Textbox" : "//div[contains(@class, 'c-container')]//input[@role='combobox']",
   	"Year TextBox":"//label[text()='Year']/..//input[@type='text']",
   	"Pipeline Popup Save Button" : "//button[text()='Save']"
+  	
+  	"Opportunity.NewPrintOpportunity.button":"//button[text()='Create New Print Opportunity']",
+  	"Opportunity.Advertiser.Input":"//label[text()='Select an Advertiser']/..//input",
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
   	}
 }

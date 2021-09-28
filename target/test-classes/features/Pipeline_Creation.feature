@@ -1,11 +1,11 @@
-@Regression
+@PipelineCreation
 Feature: New Pipeline Creation
 
   Background: 
     Given Admin has already logged into the application
 
-  @PipelineCreation
-  Scenario: Adding a Pipeline to a Account
+  @Regression
+  Scenario: Adding a Pipeline to an account
     When user creates a Pipeline
-      | Element Name             | Value |
-      | AccountPage.Year.TextBox |  2021 |
+      | Element Name                  | Values |
+      | NewPipelinePopup.Year.TextBox |   2021 |

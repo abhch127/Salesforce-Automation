@@ -17,6 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import base.BaseUtil;
@@ -256,6 +257,56 @@ public class GenericUtils extends BaseUtil {
   	  }	 
     }
 	
+	public void keyboard_action(By byxpath, String key) {
+		try {
+			Actions action = new Actions(driver);
+			WebElement element = driver.findElement(byxpath);
+			waitForElement(byxpath, 10, key);
+			switch(key) {
+				case "Enter":
+					action.sendKeys(element, Keys.ENTER).build().perform();
+					break;
+				default:
+					action.sendKeys(element, Keys.RETURN).build().perform();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			softAssert.fail("Failed to click on "+key);
+			take_screenshot();
+		}
+	}
+	
+	public void select_dropdown_value(By by_xpath, String value, String element_name) {
+		try {
+			WebElement element = driver.findElement(by_xpath);
+			waitForElement(by_xpath, 10, value);
+			Select select = new Select(element);
+			select.selectByValue(value);
+		} catch (Exception e) {
+			e.printStackTrace();
+			softAssert.fail("Failed to select "+value+" from the "+element_name);
+			take_screenshot();
+		}
+	}
+	
+	public String get_cloned_opportunity(String selected_issue) {
+		String[] issue_arr = selected_issue.split("[^\\w]"); 
+		String month = issue_arr[0].toLowerCase();
+		String opp_number = "";
+		String titleCase_month = month.substring(0, 1).toUpperCase() + month.substring(1);
+		By by_issues = By.xpath("//td[contains(text(),'"+titleCase_month+"')]/..//td[@data-label='Opp #']//a");
+		List<WebElement> elements = driver.findElements(by_issues);
+		for(WebElement ele : elements) {
+			String issue_name = ele.getAttribute("title");
+			if(selected_issue.equals(issue_name)) {
+				By by_req_issue = By.xpath("//a[@title='"+selected_issue+"']//p");
+				String[] opp_number_with_zero =fetchingTextvalueofElement(by_req_issue, selected_issue).split(" ");
+				opp_number = opp_number_with_zero[0];
+			}
+		}
+		return opp_number;
+	}
+	
 	public void stop_script_for(int sleep_time) {
 		try {
 			Thread.sleep(sleep_time);
@@ -267,6 +318,18 @@ public class GenericUtils extends BaseUtil {
 	public void take_screenshot() {
 		byte[] sourcePath = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 		scenario.attach(sourcePath, "image/png", "");
+	}
+	
+	public final boolean containsDigit(String s) {
+	    boolean containsDigit = false;
+	    if (s != null && !s.isEmpty()) {
+	        for (char c : s.toCharArray()) {
+	            if (containsDigit = Character.isDigit(c)) {
+	                break;
+	            }
+	        }
+	    }
+	    return containsDigit;
 	}
 
 }

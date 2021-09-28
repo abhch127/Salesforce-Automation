@@ -123,7 +123,7 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.take_screenshot();
 		String opp_number = refGenericUtils.get_cloned_opportunity(issue);
-		BaseUtil.scenario.log("Opportunity "+Opportunity+" has been cloned successfully");
+		BaseUtil.scenario.log("Opportunity "+"\'"+opp_number+"\'"+" has been cloned successfully");
 		refGenericUtils.take_screenshot();
 	}
 	

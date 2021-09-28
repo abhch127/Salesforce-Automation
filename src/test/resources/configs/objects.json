@@ -47,33 +47,29 @@
   	"AccountPage.Approve.BreadCrumb" : "//a[@data-tab-name='Approved']",
   	"AccountPage.MarkCurrentAccountApproval.Button":"//span[contains(text(),'Current Account Approval')]",
   	"AccountPage.AccountStatus":"//span[text()='Account Status']/ancestor::force-record-layout-item//lightning-formatted-text",
+  	"AccountPage.CreateNewPipeline.Button" : "//button[text()='Create New Pipeline']",
   	
-  	"Create New Pipeline Button" : "//button[text()='Create New Pipeline']",
-  	"New Pipeline for the Account Popup" : "//h2[contains(text(), 'New Pipeline for')]",
+  	"AccountPage.NewPipeline.Popup" : "//h2[contains(text(), 'New Pipeline for')]",
+  	"NewPipelinePopup.Year.TextBox":"//label[text()='Year']/..//input[@type='text']",
+  	"NewPipelinePopup.Save.Button" : "//button[text()='Save']",
+  	
   	"Parent Advertiser Clear button" : "//button[@title='Clear Selection']",
   	"Parent Advertiser Dropdown Element" : "//div[contains(@id, 'dropdown-element')]//ul//li",
   	"Parent Advertiser Textbox" : "//div[contains(@class, 'c-container')]//input[@role='combobox']",
-  	"Year TextBox":"//label[text()='Year']/..//input[@type='text']",
+	"Year TextBox":"//label[text()='Year']/..//input[@type='text']",
   	"Pipeline Popup Save Button" : "//button[text()='Save']"
   	
   	"Opportunity.NewPrintOpportunity.button":"//button[text()='Create New Print Opportunity']",
   	"Opportunity.Advertiser.Input":"//label[text()='Select an Advertiser']/..//input",
   	
+  	"PipelinePage.Clone.Button":"//button[text()='Clone']",
   	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
+  	"ClonePopup.Header" : "//h2//span[contains(text(), 'Clone')]",
+  	"ClonePopup.Stage.Select" : "//span[text()='Stage']/../..//select[@class='slds-select']",
+  	"ClonePopup.FoundryInvolved.Select" : "//span[text()='Foundry Involved?']/../..//select[@class='slds-select']",
+  	"ClonePopup.AvailableIssues.DuellistBox" : "//span[@title='DECEMBER/JANUARY 2022 ALLRECIPES']/ancestor::li",
+  	"ClonePopup.Save.Button" : "//button[text()='Save']",
+  	"MoveSelectionIssues.Button" : "//button[@title='Move selection to Selected Issues']",
+  	"MoveSelectionTitles.Button" : "//button[@title='Move selection to Selected Titles']"
   	}
 }

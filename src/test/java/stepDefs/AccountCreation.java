@@ -267,7 +267,7 @@ public class AccountCreation extends BaseUtil {
 			}
 			else if((label.endsWith("TextArea"))) {
 				label = label.replace(".TextArea","");
-				By by_textArea = By.xpath("//span[text()='Billing Street']/../..//textarea[@role='textbox']");
+				By by_textArea = By.xpath("//span[text()='"+label+"']/../..//textarea[@role='textbox']");
 				refGenericUtils.waitForElement(by_textArea, 5, label);
 				refGenericUtils.scrollToViewElement(by_textArea, label);
 				refGenericUtils.toEnterTextValue(by_textArea, value, label);

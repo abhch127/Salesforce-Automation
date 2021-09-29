@@ -177,9 +177,9 @@ public class GenericUtils extends BaseUtil {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			softAssert.fail("Failed to get the list of text values from " + ElementName);
 			take_screenshot();
-			e.printStackTrace();
 		}
 		return list_of_element_texts;
 	}

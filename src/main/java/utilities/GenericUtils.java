@@ -35,7 +35,7 @@ public class GenericUtils extends BaseUtil {
 			WebDriverWait wait = new WebDriverWait(driver, timeoutinSec);
 			wait.until(ExpectedConditions.elementToBeClickable(byXpath));
 		} catch (Exception e) {
-			softAssert.fail("Failed to find " + ElementName + " in "+timeoutinSec+" sec");
+			softAssert.fail("Failed to find " + ElementName + " in " + timeoutinSec + " sec");
 			take_screenshot();
 			e.printStackTrace();
 		}
@@ -47,7 +47,7 @@ public class GenericUtils extends BaseUtil {
 			WebDriverWait wait = new WebDriverWait(driver, timeoutinSec);
 			wait.until(ExpectedConditions.presenceOfElementLocated(byXpath));
 		} catch (Exception e) {
-			softAssert.fail("Unable to locate "+ElementName);
+			softAssert.fail("Unable to locate " + ElementName);
 			take_screenshot();
 			e.printStackTrace();
 		}
@@ -163,7 +163,7 @@ public class GenericUtils extends BaseUtil {
 		return elementTextValue;
 	}
 
-	public List<String> click_Fromlist_of_Textvalues(By by_xpath, String value,String ElementName) {
+	public List<String> click_Fromlist_of_Textvalues(By by_xpath, String value, String ElementName) {
 		waitUntilPageLoads();
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		List<String> list_of_element_texts = new ArrayList<String>();
@@ -171,7 +171,7 @@ public class GenericUtils extends BaseUtil {
 			List<WebElement> list_of_WebElements = driver.findElements(by_xpath);
 			wait.until(ExpectedConditions.visibilityOfAllElements(list_of_WebElements));
 			for (WebElement element : list_of_WebElements) {
-				if(element.getText().trim().equalsIgnoreCase(value)) {
+				if (element.getText().trim().equalsIgnoreCase(value)) {
 					JavascriptExecutor myExecutor = ((JavascriptExecutor) driver);
 					myExecutor.executeScript("arguments[0].click();", element);
 				}
@@ -249,18 +249,17 @@ public class GenericUtils extends BaseUtil {
 			take_screenshot();
 		}
 	}
-	
-	public void ClearTextBox(By byxpath, String element_name){
-  	  try{
-  		driver.findElement(byxpath).sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE)); 
-  	  }catch(Exception E){
-  		  E.printStackTrace();
-  		  softAssert.fail("Unable to clear the text in "+element_name);
-  		  take_screenshot();
-  	  }	 
-    }
-	
-	
+
+	public void ClearTextBox(By byxpath, String element_name) {
+		try {
+			driver.findElement(byxpath).sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+		} catch (Exception E) {
+			E.printStackTrace();
+			softAssert.fail("Unable to clear the text in " + element_name);
+			take_screenshot();
+		}
+	}
+
 	public void select_dropdown_value(By by_xpath, String value, String element_name) {
 		try {
 			WebElement element = driver.findElement(by_xpath);
@@ -269,29 +268,35 @@ public class GenericUtils extends BaseUtil {
 			select.selectByValue(value);
 		} catch (Exception e) {
 			e.printStackTrace();
-			softAssert.fail("Failed to select "+value+" from the "+element_name);
+			softAssert.fail("Failed to select " + value + " from the " + element_name);
 			take_screenshot();
 		}
 	}
-	
+
 	public String get_cloned_opportunity(String selected_issue) {
-		String[] issue_arr = selected_issue.split("[^\\w]"); 
+		String[] issue_arr = selected_issue.split("[^\\w]");
 		String month = issue_arr[0].toLowerCase();
 		String opp_number = "";
 		String titleCase_month = month.substring(0, 1).toUpperCase() + month.substring(1);
-		By by_issues = By.xpath("//td[contains(text(),'"+titleCase_month+"')]/..//td[@data-label='Opp #']//a");
-		List<WebElement> elements = driver.findElements(by_issues);
-		for(WebElement ele : elements) {
-			String issue_name = ele.getAttribute("title");
-			if(selected_issue.equals(issue_name)) {
-				By by_req_issue = By.xpath("//a[@title='"+selected_issue+"']//p");
-				String[] opp_number_with_zero =fetchingTextvalueofElement(by_req_issue, selected_issue).split(" ");
-				opp_number = opp_number_with_zero[0];
+		try {
+			By by_issues = By.xpath("//td[contains(text(),'" + titleCase_month + "')]/..//td[@data-label='Opp #']//a");
+			List<WebElement> elements = driver.findElements(by_issues);
+			for (WebElement ele : elements) {
+				String issue_name = ele.getAttribute("title");
+				if (selected_issue.equals(issue_name)) {
+					By by_req_issue = By.xpath("//a[@title='" + selected_issue + "']//p");
+					String[] opp_number_with_zero = fetchingTextvalueofElement(by_req_issue, selected_issue).split(" ");
+					opp_number = opp_number_with_zero[0];
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			softAssert.fail("Failed to generate the opportunity");
+			take_screenshot();
 		}
 		return opp_number;
 	}
-	
+
 	public void stop_script_for(int sleep_time) {
 		try {
 			Thread.sleep(sleep_time);
@@ -299,41 +304,65 @@ public class GenericUtils extends BaseUtil {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void take_screenshot() {
 		byte[] sourcePath = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 		scenario.attach(sourcePath, "image/png", "");
 	}
-	
-public void keyboard_action(By byxpath, String key) {
+
+	public void keyboard_action(By byxpath, String key) {
 		try {
 			Actions action = new Actions(driver);
 			WebElement element = driver.findElement(byxpath);
-			switch(key) {
-				case "Enter":
-					action.sendKeys(element, Keys.ENTER).build().perform();
-					break;
-				default:
-					action.sendKeys(element, Keys.RETURN).build().perform();
+			switch (key) {
+			case "Enter":
+				action.sendKeys(element, Keys.ENTER).build().perform();
+				break;
+			default:
+				action.sendKeys(element, Keys.RETURN).build().perform();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			softAssert.fail("Failed to click on "+key);
+			softAssert.fail("Failed to click on " + key);
 			take_screenshot();
 		}
 	}
-	
-	public final boolean containsDigit(String s) {
-	    boolean containsDigit = false;
-	    if (s != null && !s.isEmpty()) {
-	        for (char c : s.toCharArray()) {
-	            if (containsDigit = Character.isDigit(c)) {
-	                break;
-	            }
-	        }
-	    }
-	    return containsDigit;
+
+	public <Element> String fetch_attribute_value(Element xpath_or_webelement, String attribute_name,
+			String element_name) {
+		String element_class = xpath_or_webelement.getClass().getName();
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		String req_value = "";
+		try {
+			if (element_class.endsWith("ByXPath")) {
+				By by_xpath = (By) xpath_or_webelement;
+				wait.until(ExpectedConditions.presenceOfElementLocated(by_xpath));
+				req_value = driver.findElement(by_xpath).getAttribute(attribute_name);
+			} else if (element_class.endsWith("RemoteWebElement")) {
+				WebElement element = (WebElement) xpath_or_webelement;
+				wait.until(ExpectedConditions.visibilityOf(element));
+				req_value = element.getAttribute(attribute_name);
+			} else {
+				softAssert.fail("Incorrect Webelement passed");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			softAssert.fail("Failed to find " + element_name);
+			take_screenshot();
+		}
+		return req_value;
 	}
 
+	public final boolean containsDigit(String s) {
+		boolean containsDigit = false;
+		if (s != null && !s.isEmpty()) {
+			for (char c : s.toCharArray()) {
+				if (containsDigit = Character.isDigit(c)) {
+					break;
+				}
+			}
+		}
+		return containsDigit;
+	}
 
 }

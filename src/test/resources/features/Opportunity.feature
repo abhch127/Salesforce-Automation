@@ -7,8 +7,5 @@ Feature: Opportunity validation
   @Opportunity_Creation
   Scenario: Print Opportunity Creation
     When User creates new Opportunity for "Print" type
-      | Element Name                      | Values                      |
-      | Select an Advertiser.Input   	  | Test_Advertiser_Sep28_0838  |
-    
-      
-  
+      | Element Name               | Values                     |
+      | Select an Advertiser.Input | Test_Advertiser_Sep28_0838 |

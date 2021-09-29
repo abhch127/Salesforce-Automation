@@ -57,7 +57,7 @@
   	"Parent Advertiser Dropdown Element" : "//div[contains(@id, 'dropdown-element')]//ul//li",
   	"Parent Advertiser Textbox" : "//div[contains(@class, 'c-container')]//input[@role='combobox']",
 	"Year TextBox":"//label[text()='Year']/..//input[@type='text']",
-  	"Pipeline Popup Save Button" : "//button[text()='Save']"
+  	"Pipeline Popup Save Button" : "//button[text()='Save']",
   	
   	"Opportunity.NewPrintOpportunity.button":"//button[text()='Create New Print Opportunity']",
   	"Opportunity.Advertiser.Input":"//label[text()='Select an Advertiser']/..//input",
@@ -65,9 +65,7 @@
   	"PipelinePage.Clone.Button":"//button[text()='Clone']",
   	
   	"ClonePopup.Header" : "//h2//span[contains(text(), 'Clone')]",
-  	"ClonePopup.Stage.Select" : "//span[text()='Stage']/../..//select[@class='slds-select']",
-  	"ClonePopup.FoundryInvolved.Select" : "//span[text()='Foundry Involved?']/../..//select[@class='slds-select']",
-  	"ClonePopup.AvailableIssues.DuellistBox" : "//span[@title='DECEMBER/JANUARY 2022 ALLRECIPES']/ancestor::li",
+  	"ClonePopup.SelectedIssue.DuellistBox" : "//span[text()='Selected Issues']/..//span[@class='slds-truncate']",
   	"ClonePopup.Save.Button" : "//button[text()='Save']",
   	"MoveSelectionIssues.Button" : "//button[@title='Move selection to Selected Issues']",
   	"MoveSelectionTitles.Button" : "//button[@title='Move selection to Selected Titles']"

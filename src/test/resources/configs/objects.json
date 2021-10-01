@@ -11,6 +11,9 @@
   	"HomePage.GlobalSearch.SearchType":"//input[@class='slds-input slds-combobox__input']",
   	"HomePage.SearchType.Opportunities":"//span[@title='Opportunities']",
   	"HomePage.firstSearchResult":"(//span[@search_lightning-instantresultitem_instantresultitem])[1]",
+  	"HomePage.Waffle" : "//div[@class='slds-icon-waffle']",
+  	"HomePage.SearchAppsItems.TextBox" : "//input[@placeholder='Search apps and items...']",
+  	
   	"NewAccount.Header" : "//header[@class='slds-modal__header']//h2",
   	"NewAccount.AdvertiserRadioButton" : "//span[contains(text(), 'Advertiser [')]/..//span[@class='slds-radio_faux']",
   	"NewAccount.AgencyRadioButton" : "//span[contains(text(), 'Agency [')]/..//span[@class='slds-radio_faux']",
@@ -67,7 +70,15 @@
   	"ClonePopup.Header" : "//h2//span[contains(text(), 'Clone')]",
   	"ClonePopup.SelectedIssue.DuellistBox" : "//span[text()='Selected Issues']/..//span[@class='slds-truncate']",
   	"ClonePopup.Save.Button" : "//button[text()='Save']",
-  	"MoveSelectionIssues.Button" : "//button[@title='Move selection to Selected Issues']",
-  	"MoveSelectionTitles.Button" : "//button[@title='Move selection to Selected Titles']"
+  	
+  	"AccountAssignments.NewAccountAssignments.Button" : "//input[@value='New Account Assignments']",
+  	"AccountAssignments.RecordType.Select" : "//table[@class='detailList']//select",
+  	"AccountAssignments.Continue.Button" : "//input[@value='Continue']",
+  	"AccountAssignments.Advertiser.TextBox" : "//span[@class='lookupInput']//input",
+  	"AccountAssignments.RightArrow.Button" : "//img[@class='rightArrowIcon']/..",
+  	"AccountAssignments.Next.Button" : "//input[@value='Next']",
+  	"AccountAssignments.Save.Button":"//input[@value='Save']",
+  	"AccountAssignments.ColoumnNames" : "//table[@id='thePage:pageForm:initSalesTeamSplitTeamTable:pageBlockTable']/thead//th//div",
+  	"AccountAssignments.AlertText" : "//div[@class='messageText']"
   	}
 }

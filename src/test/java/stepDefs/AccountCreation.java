@@ -128,7 +128,55 @@ public class AccountCreation extends BaseUtil {
 			refGenericUtils.take_screenshot();
 		}
 		else {
+			BaseUtil.scenario.log("Failed to clone the opportunity "+Opportunity);
 			Assert.fail("Failed to clone the opportunity "+Opportunity);
+			refGenericUtils.take_screenshot();
+		}
+	}
+	
+	@When("user selects {string} as Record type")
+	public void user_selects_as_record_type(String record_type, DataTable dataTable) {
+		String advertiser_name = "TEST_ADVERTISER_SEP24_1726";
+		String title = "EATING WELL";
+		search_using_waffle("Account Assignments");
+		switch_to_frame(1);
+		refGenericUtils.waitForElement(objectRepository.get("AccountAssignments.NewAccountAssignments.Button"), 10, "New Account Assignments Button");
+		refGenericUtils.take_screenshot();
+		refGenericUtils.click_using_javaScript(objectRepository.get("AccountAssignments.NewAccountAssignments.Button"), "New Account Assignments Button");
+		refGenericUtils.switch_to_default_frame();
+		refGenericUtils.waitUntilPageLoads();
+		switch_to_frame(2);
+		refGenericUtils.select_dropdown_value(objectRepository.get("AccountAssignments.RecordType.Select"), record_type, "Record Type");
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("AccountAssignments.Continue.Button"), "Continue Button");
+		refGenericUtils.switch_to_default_frame();
+		refGenericUtils.waitUntilPageLoads();
+		switch_to_frame(2);
+		refGenericUtils.waitForElement(objectRepository.get("AccountAssignments.Advertiser.TextBox"), 10, "Advertiser TextBox");
+		refGenericUtils.toEnterTextValue(objectRepository.get("AccountAssignments.Advertiser.TextBox"), advertiser_name, "Advertiser TextBox");
+		By by_titles = By.xpath("//label[text()='Available Titles']/../..//select[@class='multilist']");
+		refGenericUtils.select_dropdown_value(by_titles, title, "Available Titles");
+		refGenericUtils.click_using_javaScript(objectRepository.get("AccountAssignments.RightArrow.Button"), "Right Arrow Button");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("AccountAssignments.Next.Button"), "Next Button");
+		refGenericUtils.switch_to_default_frame();
+		refGenericUtils.waitUntilPageLoads();
+		switch_to_frame(2);
+		Map<String, Integer> map_of_cols = refGenericUtils.get_col_location(objectRepository.get("AccountAssignments.ColoumnNames"), "Coloumn Names");
+		account_assignment_data(dataTable, map_of_cols);
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("AccountAssignments.Save.Button"), "Save Button");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.waitForElement(objectRepository.get("AccountAssignments.AlertText"), 10, "Alert Text Message");
+		String alert_message = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountAssignments.AlertText"), "Alert Text Message");
+		if(alert_message.contains("Saved successfully")) {
+			BaseUtil.scenario.log("Record has been Saved Successfully");
+			refGenericUtils.take_screenshot();
+		}
+		else {
+			BaseUtil.scenario.log("Failed to create the record");
+			Assert.fail("Failed to create the record");
 			refGenericUtils.take_screenshot();
 		}
 	}
@@ -240,17 +288,20 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.switchingFrame(by_frame_name, profile_name);
 	}
 	
+	public void search_using_waffle(String item_name) {
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.waitForElement(objectRepository.get("HomePage.Waffle"), 10, "App Launcher");
+		refGenericUtils.clickOnElement(objectRepository.get("HomePage.Waffle"), "App Launcher");
+		refGenericUtils.waitForElement(objectRepository.get("HomePage.SearchAppsItems.TextBox"), 10, "Search Apps & Items textBox");
+		refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.SearchAppsItems.TextBox"), item_name, "Search Apps Items TextBox");
+		refGenericUtils.stop_script_for(2000);
+		By by_item_name = By.xpath("//a[@data-label='"+item_name+"']");
+		refGenericUtils.clickUsingActions(by_item_name, item_name);
+		refGenericUtils.waitUntilPageLoads();
+	}
+	
 	public void enter_values_updated(DataTable dataTable) {
-		List<Map<String, String>> map_of_feature_file_info = dataTable.asMaps();
-		Map<String,String> map_of_account_info = new LinkedHashMap<String, String>();
-		Map<String,String> account_info = new LinkedHashMap<String, String>();
-		for(int i=0;i<map_of_feature_file_info.size();i++) {
-			map_of_account_info = map_of_feature_file_info.get(i);
-			String label = map_of_account_info.get("Element Name");
-			String value = map_of_account_info.get("Values");
-			account_info.put(label, value);
-		}
-		
+		Map<String,String> account_info = feature_file_data(dataTable);
 		account_info.forEach((label, value) -> {
 			if(label.endsWith("AccountName")) {
 				account_name_text = value.replace("{TimeStamp}", refGenericUtils.get_Date("MMMdd'_'HHmm"));
@@ -302,14 +353,66 @@ public class AccountCreation extends BaseUtil {
 				label = label.replace(".DuellistBox","");
 				By by_listBox_value = By.xpath("//span[text()='"+label+"']/..//span[@title='"+value+"']/ancestor::li");
 				refGenericUtils.clickOnElement(by_listBox_value, value);
-				if(label.contains("Titles")) {
-					refGenericUtils.clickOnElement(objectRepository.get("MoveSelectionTitles.Button"), "Move Selection Titles Button");
-				}
-				else if(label.contains("Issues")){
-					refGenericUtils.clickOnElement(objectRepository.get("MoveSelectionIssues.Button"), "Move Selection Issues Button");
-				}
+				refGenericUtils.waitUntilPageLoads();
+				label = label.replace("Available ","");
+				By valueXpath = By.xpath("//button[@title='Move selection to Selected "+label+"']");
+				refGenericUtils.clickOnElement(valueXpath, "Move Selection Right Button");
 				refGenericUtils.waitUntilPageLoads();
 			}
 		});
+	}
+	
+	public void account_assignment_data(DataTable dataTable, Map<String, Integer> map_of_cols) {
+		Map<String,String> data = feature_file_data(dataTable);
+		data.forEach((label, value) -> {
+			String[] arr_label = label.split("\\.");
+			String row = arr_label[0].trim(); String coloumn_name_feat = arr_label[1].trim();
+			int position=0;
+			if((label.endsWith("TextBox"))) {
+				position = map_of_cols.get(coloumn_name_feat);
+				By by_textBox = By.xpath("//table[@id='thePage:pageForm:initSalesTeamSplitTeamTable:pageBlockTable']/tbody/tr["+row+"]/td["+position+"]//input[@type='text']");
+				refGenericUtils.waitForElement(by_textBox, 5, coloumn_name_feat);
+				refGenericUtils.ClearTextBox(by_textBox, coloumn_name_feat);
+				refGenericUtils.toEnterTextValue(by_textBox, value, coloumn_name_feat);
+			}
+			else if((label.endsWith("SearchBox"))) {
+				position = map_of_cols.get(coloumn_name_feat);
+				By by_SearchBox = By.xpath("//table[@id='thePage:pageForm:initSalesTeamSplitTeamTable:pageBlockTable']/tbody/tr["+row+"]/td["+position+"]//span[@class='lookupInput']//input[@type='text']");
+				refGenericUtils.waitForElement(by_SearchBox, 5, coloumn_name_feat);
+				refGenericUtils.toEnterTextValue(by_SearchBox, value, coloumn_name_feat);
+			}
+			else if((label.endsWith("CheckBox"))) {
+				position = map_of_cols.get(coloumn_name_feat);
+				By by_checkBox= By.xpath("//table[@id='thePage:pageForm:initSalesTeamSplitTeamTable:pageBlockTable']/tbody/tr["+row+"]/td["+position+"]//input[@type='checkbox']");
+				refGenericUtils.waitForElement(by_checkBox, 5, coloumn_name_feat);
+				if(value.equals("Y"))
+					refGenericUtils.click_using_javaScript(by_checkBox, coloumn_name_feat);
+			}
+			else if(label.endsWith("Select")) {
+				position = map_of_cols.get(coloumn_name_feat);
+				By by_select= By.xpath("//table[@id='thePage:pageForm:initSalesTeamSplitTeamTable:pageBlockTable']/tbody/tr["+row+"]/td["+position+"]//select");
+				refGenericUtils.select_dropdown_value(by_select, value, coloumn_name_feat);
+				refGenericUtils.waitUntilPageLoads();
+			}
+		});
+	}
+	
+	public Map<String,String> feature_file_data(DataTable dataTable){
+		Map<String,String> map_of_feature_values = new LinkedHashMap<String, String>();
+		List<Map<String, String>> map_of_feature_file_info = dataTable.asMaps();
+		Map<String,String> map_of_account_info = new LinkedHashMap<String, String>();
+		for(int i=0;i<map_of_feature_file_info.size();i++) {
+			map_of_account_info = map_of_feature_file_info.get(i);
+			String label = map_of_account_info.get("Element Name");
+			String value = map_of_account_info.get("Values");
+			map_of_feature_values.put(label, value);
+		}
+		return map_of_feature_values;
+	}
+	
+	public void switch_to_frame(int frame_num) {
+		By by_xpath = By.xpath("(//iframe[@title='accessibility title'])["+frame_num+"]");
+		refGenericUtils.waitForElement(by_xpath, 10, "Account Assignments Frame");
+		refGenericUtils.switchingFrame(by_xpath, "Account Assignments Frame");
 	}
 }

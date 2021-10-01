@@ -4,7 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.openqa.selenium.By;
@@ -249,6 +251,15 @@ public class GenericUtils extends BaseUtil {
 			take_screenshot();
 		}
 	}
+	
+	public void switch_to_default_frame() {
+		try {
+			driver.switchTo().defaultContent();
+		} catch (Exception e) {
+			e.printStackTrace();
+			softAssert.fail("Unable to Switch to default frame");
+		}
+	}
 
 	public void ClearTextBox(By byxpath, String element_name) {
 		try {
@@ -265,7 +276,7 @@ public class GenericUtils extends BaseUtil {
 			WebElement element = driver.findElement(by_xpath);
 			waitForElement(by_xpath, 10, value);
 			Select select = new Select(element);
-			select.selectByValue(value);
+			select.selectByVisibleText(value);
 		} catch (Exception e) {
 			e.printStackTrace();
 			softAssert.fail("Failed to select " + value + " from the " + element_name);
@@ -351,6 +362,25 @@ public class GenericUtils extends BaseUtil {
 			take_screenshot();
 		}
 		return req_value;
+	}
+	
+	public Map<String, Integer> get_col_location(By by_xpath, String element_name){
+		Map<String, Integer> map_of_col = new LinkedHashMap<String, Integer>();
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		try {
+			List<WebElement> list_of_WebElements = driver.findElements(by_xpath);
+			wait.until(ExpectedConditions.visibilityOfAllElements(list_of_WebElements));
+			int i=1;
+			for(WebElement element:list_of_WebElements) {
+				map_of_col.put(element.getText(), i);
+				i++;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			softAssert.fail("Failed to find " + element_name);
+			take_screenshot();
+		}
+		return map_of_col;
 	}
 
 	public final boolean containsDigit(String s) {

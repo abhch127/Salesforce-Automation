@@ -2,7 +2,7 @@
 Feature: Clone a Print Opportunity
 
   Background: 
-#    Given Admin has already logged into the application
+    Given Admin has already logged into the application
 
   @Regression
   Scenario: Cloning a Print Opportunity

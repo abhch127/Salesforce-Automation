@@ -39,7 +39,7 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.waitForElement(objectRepository.get("ExistingAccountMatch.Header"), 10, "Search For An Active Existing Account Match Header");
 		refGenericUtils.clickOnElement(objectRepository.get("ExistingAccountMatch.CreateNew"+record_type+"Button"), "Create New "+record_type+" Button");
 		refGenericUtils.waitForElement(objectRepository.get(record_type+".Header"), 10, "New Account "+record_type+" Header");
-		enter_values(dataTable);
+		enter_values_updated(dataTable);
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.CopyAddress.Checkbox"), "Copy Address Checkbox");
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.Save.Button"), "Save Button");
 		refGenericUtils.waitForElement(objectRepository.get("AccountCreated.Notification"), 10, "Account Created Notification");
@@ -96,17 +96,16 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.waitForElement(objectRepository.get("AccountPage.NewPipeline.Popup"), 10, "New Pipeline Popup");
 		refGenericUtils.stop_script_for(3000);
 		refGenericUtils.ClearTextBox(objectRepository.get("NewPipelinePopup.Year.TextBox"), "Year TextBox");
-		enter_values(dataTable);
+		enter_values_updated(dataTable);
 		refGenericUtils.clickOnElement(objectRepository.get("NewPipelinePopup.Save.Button"), "NewPipelinePopup.Save.Button");
 		refGenericUtils.waitUntilPageLoads();
 	}
 	
-	@When("user clones a Print Opportunity")
-	public void user_clones_a_print_opportunity(DataTable dataTable) {
+	@When("user clones a {string} Opportunity")
+	public void user_clones_a_opportunity(String Opp_Type, DataTable dataTable) {
 		String Pipeline = "Test_Advertiser_Sep24_1726 2021";
-		String Opportunity = "OPP-0439178";
-		global_search_textbox("Test_Advertiser_Sep24_1726", "UserHomePage.GlobalSearch.TextBox");
-		search_page_actions("Pipeline", Pipeline);
+		String Opportunity = "OPP-0439186";
+		globalSearch("Pipeline", Pipeline);
 		refGenericUtils.take_screenshot();
 		By by_opp_number = By.xpath("//p[text()='"+Opportunity+"']/..");
 		refGenericUtils.stop_script_for(2000);
@@ -118,77 +117,71 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.scrollToViewElement(objectRepository.get("PipelinePage.Clone.Button"), "Clone Button");
 		refGenericUtils.click_using_javaScript(objectRepository.get("PipelinePage.Clone.Button"), "Clone Button");
 		refGenericUtils.waitForElement(objectRepository.get("ClonePopup.Header"), 10, "Clone Popup Header");
-		enter_values(dataTable);
-		String issue = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("ClonePopup.AvailableIssues.DuellistBox"), "Available Issues Duel listBox");
+		enter_values_updated(dataTable);
+		String issue = refGenericUtils.fetch_attribute_value(objectRepository.get("ClonePopup.SelectedIssue.DuellistBox"), "title", "Selected Issue Duel listBox");
 		refGenericUtils.click_using_javaScript(objectRepository.get("ClonePopup.Save.Button"), "Save Button");
 		refGenericUtils.waitUntilPageLoads();
-		refGenericUtils.take_screenshot();
+		refGenericUtils.stop_script_for(5000);
 		String opp_number = refGenericUtils.get_cloned_opportunity(issue);
-		BaseUtil.scenario.log("Opportunity "+Opportunity+" has been cloned successfully");
-		refGenericUtils.take_screenshot();
+		if(!opp_number.equals("")) {
+			BaseUtil.scenario.log("Opportunity "+"\'"+opp_number+"\'"+" has been created successfully which is a clone of "+"\'"+Opportunity+"\'");
+			refGenericUtils.take_screenshot();
+		}
+		else {
+			BaseUtil.scenario.log("Failed to clone the opportunity "+Opportunity);
+			Assert.fail("Failed to clone the opportunity "+Opportunity);
+			refGenericUtils.take_screenshot();
+		}
 	}
 	
-	public void enter_values(DataTable dataTable) {
-		List<Map<String, String>> map_of_feature_file_info = dataTable.asMaps();
-		Map<String,String> map_of_account_info = new LinkedHashMap<String, String>();
-		Map<String,String> account_info = new LinkedHashMap<String, String>();
-		for(int i=0;i<map_of_feature_file_info.size();i++) {
-			map_of_account_info = map_of_feature_file_info.get(i);
-			String label = map_of_account_info.get("Element Name");
-			String value = map_of_account_info.get("Values");
-			account_info.put(label, value);
+	@When("user selects {string} as Record type")
+	public void user_selects_as_record_type(String record_type, DataTable dataTable) {
+		String advertiser_name = "TEST_ADVERTISER_SEP24_1726";
+		String title = "EATING WELL";
+		search_using_waffle("Account Assignments");
+		switch_to_frame(1);
+		refGenericUtils.waitForElement(objectRepository.get("AccountAssignments.NewAccountAssignments.Button"), 10, "New Account Assignments Button");
+		refGenericUtils.take_screenshot();
+		refGenericUtils.click_using_javaScript(objectRepository.get("AccountAssignments.NewAccountAssignments.Button"), "New Account Assignments Button");
+		refGenericUtils.switch_to_default_frame();
+		refGenericUtils.waitUntilPageLoads();
+		switch_to_frame(2);
+		refGenericUtils.select_dropdown_value(objectRepository.get("AccountAssignments.RecordType.Select"), record_type, "Record Type");
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("AccountAssignments.Continue.Button"), "Continue Button");
+		refGenericUtils.switch_to_default_frame();
+		refGenericUtils.waitUntilPageLoads();
+		switch_to_frame(2);
+		refGenericUtils.waitForElement(objectRepository.get("AccountAssignments.Advertiser.TextBox"), 10, "Advertiser TextBox");
+		refGenericUtils.toEnterTextValue(objectRepository.get("AccountAssignments.Advertiser.TextBox"), advertiser_name, "Advertiser TextBox");
+		By by_titles = By.xpath("//label[text()='Available Titles']/../..//select[@class='multilist']");
+		refGenericUtils.select_dropdown_value(by_titles, title, "Available Titles");
+		refGenericUtils.click_using_javaScript(objectRepository.get("AccountAssignments.RightArrow.Button"), "Right Arrow Button");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("AccountAssignments.Next.Button"), "Next Button");
+		refGenericUtils.switch_to_default_frame();
+		refGenericUtils.waitUntilPageLoads();
+		switch_to_frame(2);
+		Map<String, Integer> map_of_cols = refGenericUtils.get_col_location(objectRepository.get("AccountAssignments.ColoumnNames"), "Coloumn Names");
+		account_assignment_data(dataTable, map_of_cols);
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("AccountAssignments.Save.Button"), "Save Button");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.waitForElement(objectRepository.get("AccountAssignments.AlertText"), 10, "Alert Text Message");
+		String alert_message = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountAssignments.AlertText"), "Alert Text Message");
+		if(alert_message.contains("Saved successfully")) {
+			BaseUtil.scenario.log("Record has been Saved Successfully");
+			refGenericUtils.take_screenshot();
 		}
-		
-		account_info.forEach((label, value) -> {
-			if(label.endsWith("AccountName")) {
-				account_name_text = value.replace("{TimeStamp}", refGenericUtils.get_Date("MMMdd'_'HHmm"));
-				refGenericUtils.waitForElement(objectRepository.get(label), 5, label);
-				refGenericUtils.scrollToViewElement(objectRepository.get(label), label);
-				refGenericUtils.toEnterTextValue(objectRepository.get(label), account_name_text, label);
-			}
-			else if((label.endsWith("TextBox"))||(label.endsWith("TextArea"))) {
-				refGenericUtils.waitForElement(objectRepository.get(label), 5, label);
-				refGenericUtils.scrollToViewElement(objectRepository.get(label), label);
-				refGenericUtils.toEnterTextValue(objectRepository.get(label), value, label);
-			}
-			else if(label.endsWith("Dropdown")) {
-				label=label.replace(".Dropdown","");
-				 By dropDownXpath = By.xpath("//label[text()='"+label+"']/..//input");
-				 By valueXpath = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-form-element']//option");
-				refGenericUtils.waitForElement(dropDownXpath, 5, label);
-				refGenericUtils.scrollToViewElement(dropDownXpath, label);
-				refGenericUtils.click_using_javaScript(dropDownXpath, label);
-				refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
-				refGenericUtils.toEnterTextValue(objectRepository.get(label), value, label);
-			}
-			else if(label.endsWith("Input")) {
-				 label=label.replace(".Input","");
-				 By dropDownXpath = By.xpath("//label[text()='"+label+"']/..//input");
-				 By valueXpath = By.xpath("//label[text()='"+label+"']/..//ul/li");
-				 refGenericUtils.waitForElement(dropDownXpath, 5, label);
-				refGenericUtils.scrollToViewElement(dropDownXpath, label);
-				refGenericUtils.click_using_javaScript(dropDownXpath, label);
-				refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
-				refGenericUtils.toEnterTextValue(objectRepository.get(label), value, label);
-			}
-			else if(label.endsWith("Select")) {
-				refGenericUtils.select_dropdown_value(objectRepository.get(label), value, label);
-				refGenericUtils.waitUntilPageLoads();
-			}
-			else if(label.endsWith("DuellistBox")) {
-				label=label.replace(".DuellistBox","");
-				refGenericUtils.clickOnElement(objectRepository.get(label), value);
-				 By RightArrow=By.xpath("(//div[text()='"+label+"']/..//button)[1]");
-				boolean digit_present = refGenericUtils.containsDigit(value);
-				if(digit_present) {
-					refGenericUtils.clickOnElement(objectRepository.get("MoveSelectionIssues.Button"), "Move Selection Issues Button");
-				}
-				else {
-					refGenericUtils.clickOnElement(objectRepository.get("MoveSelectionTitles.Button"), "Move Selection Titles Button");
-				}
-			}
-		});
+		else {
+			BaseUtil.scenario.log("Failed to create the record");
+			Assert.fail("Failed to create the record");
+			refGenericUtils.take_screenshot();
+		}
 	}
+	
+	
 	
 	public void global_search_textbox(String text_value, String textBox_element_name) {
 		refGenericUtils.waitUntilPageLoads();
@@ -219,47 +212,16 @@ public class AccountCreation extends BaseUtil {
 		}
 	}
 	
-	public void search_page_actions(String type, String value) {
-		By by_Opportunity = By.xpath("//a[text()='Opportunities']");
-		By by_Accounts = By.xpath("//a[text()='Accounts']");
-		By by_Cases = By.xpath("//a[text()='Cases']");
-		switch(type) {
-			case "Opportunities":
-				refGenericUtils.waitForElement(by_Opportunity, 10, type);
-				refGenericUtils.scrollToViewElement(by_Opportunity, type);
-				refGenericUtils.waitUntilPageLoads();
-				refGenericUtils.take_screenshot();
-				By by_Opp_link = By.xpath("//span[@title='"+value+"']/ancestor::tr//th//a");
-				refGenericUtils.waitForElement(by_Opp_link, 10, value);
-				refGenericUtils.clickOnElement(by_Opp_link, value);
-				refGenericUtils.waitUntilPageLoads();
-				break;
-			case "Pipeline":
-				refGenericUtils.waitForElement(by_Accounts, 10, type);
-				refGenericUtils.scrollToViewElement(by_Accounts, type);
-				refGenericUtils.waitUntilPageLoads();
-				refGenericUtils.waitForElement(by_Cases, 10, type);
-				refGenericUtils.scrollToViewElement(by_Cases, type);
-				refGenericUtils.waitUntilPageLoads();
-				refGenericUtils.take_screenshot();
-				By by_Pipeline_link = By.xpath("//a[@title='"+value+"']");
-				refGenericUtils.waitForElement(by_Pipeline_link, 10, value);
-				refGenericUtils.clickOnElement(by_Pipeline_link, value);
-				refGenericUtils.waitUntilPageLoads();
-				break;
-		}
-	}
-	
-	public void globalSearch(String objectName,String searchText) throws InterruptedException {
+	public void globalSearch(String objectName,String searchText) {
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.clickOnElement(objectRepository.get("UserHomePage.GlobalSearch.TextBox"), "UserHomePage.GlobalSearch.TextBox");
 		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
 		refGenericUtils.ClearTextBox(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
 		refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.SearchType"), objectName, "HomePage.GlobalSearch.SearchType");
-		Thread.sleep(2000);
+		refGenericUtils.stop_script_for(2000);
 		refGenericUtils.keyboard_action(objectRepository.get("HomePage.GlobalSearch.SearchType"), "Enter");
 		refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.TextBox"), searchText, "GlobalSearch");
-		Thread.sleep(2000);
+		refGenericUtils.stop_script_for(2000);
 		refGenericUtils.clickOnElement(objectRepository.get("HomePage.firstSearchResult"), "HomePage.firstSearchResult");
 	}
 	
@@ -268,7 +230,7 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.switchingFrame(by_frame_name, profile_name);
 	}
 	
-	public void enter_values_2(DataTable dataTable) {
+public void enter_values_2(DataTable dataTable) {
 		List<Map<String, String>> map_of_feature_file_info = dataTable.asMaps();
 		Map<String,String> map_of_account_info = new LinkedHashMap<String, String>();
 		Map<String,String> account_info = new LinkedHashMap<String, String>();
@@ -278,7 +240,21 @@ public class AccountCreation extends BaseUtil {
 			String value = map_of_account_info.get("Values");
 			account_info.put(label, value);
 		}
-		
+}
+	public void search_using_waffle(String item_name) {
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.waitForElement(objectRepository.get("HomePage.Waffle"), 10, "App Launcher");
+		refGenericUtils.clickOnElement(objectRepository.get("HomePage.Waffle"), "App Launcher");
+		refGenericUtils.waitForElement(objectRepository.get("HomePage.SearchAppsItems.TextBox"), 10, "Search Apps & Items textBox");
+		refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.SearchAppsItems.TextBox"), item_name, "Search Apps Items TextBox");
+		refGenericUtils.stop_script_for(2000);
+		By by_item_name = By.xpath("//a[@data-label='"+item_name+"']");
+		refGenericUtils.clickUsingActions(by_item_name, item_name);
+		refGenericUtils.waitUntilPageLoads();
+	}
+	
+	public void enter_values_updated(DataTable dataTable) {
+		Map<String,String> account_info = feature_file_data(dataTable);
 		account_info.forEach((label, value) -> {
 			if(label.endsWith("AccountName")) {
 				account_name_text = value.replace("{TimeStamp}", refGenericUtils.get_Date("MMMdd'_'HHmm"));
@@ -334,6 +310,7 @@ public class AccountCreation extends BaseUtil {
 			}
 			else if(label.endsWith("Select")) {
 				refGenericUtils.select_dropdown_value(objectRepository.get(label), value, label);
+
 				refGenericUtils.waitUntilPageLoads();
 			}
 			else if(label.endsWith("DuellistBox")) {
@@ -353,17 +330,58 @@ public class AccountCreation extends BaseUtil {
 			}
 		});
 	}
+
+	public void account_assignment_data(DataTable dataTable, Map<String, Integer> map_of_cols) {
+		Map<String,String> data = feature_file_data(dataTable);
+		data.forEach((label, value) -> {
+			String[] arr_label = label.split("\\.");
+			String row = arr_label[0].trim(); String coloumn_name_feat = arr_label[1].trim();
+			int position=0;
+			if((label.endsWith("TextBox"))) {
+				position = map_of_cols.get(coloumn_name_feat);
+				By by_textBox = By.xpath("//table[@id='thePage:pageForm:initSalesTeamSplitTeamTable:pageBlockTable']/tbody/tr["+row+"]/td["+position+"]//input[@type='text']");
+				refGenericUtils.waitForElement(by_textBox, 5, coloumn_name_feat);
+				refGenericUtils.ClearTextBox(by_textBox, coloumn_name_feat);
+				refGenericUtils.toEnterTextValue(by_textBox, value, coloumn_name_feat);
+			}
+			else if((label.endsWith("SearchBox"))) {
+				position = map_of_cols.get(coloumn_name_feat);
+				By by_SearchBox = By.xpath("//table[@id='thePage:pageForm:initSalesTeamSplitTeamTable:pageBlockTable']/tbody/tr["+row+"]/td["+position+"]//span[@class='lookupInput']//input[@type='text']");
+				refGenericUtils.waitForElement(by_SearchBox, 5, coloumn_name_feat);
+				refGenericUtils.toEnterTextValue(by_SearchBox, value, coloumn_name_feat);
+			}
+			else if((label.endsWith("CheckBox"))) {
+				position = map_of_cols.get(coloumn_name_feat);
+				By by_checkBox= By.xpath("//table[@id='thePage:pageForm:initSalesTeamSplitTeamTable:pageBlockTable']/tbody/tr["+row+"]/td["+position+"]//input[@type='checkbox']");
+				refGenericUtils.waitForElement(by_checkBox, 5, coloumn_name_feat);
+				if(value.equals("Y"))
+					refGenericUtils.click_using_javaScript(by_checkBox, coloumn_name_feat);
+			}
+			else if(label.endsWith("Select")) {
+				position = map_of_cols.get(coloumn_name_feat);
+				By by_select= By.xpath("//table[@id='thePage:pageForm:initSalesTeamSplitTeamTable:pageBlockTable']/tbody/tr["+row+"]/td["+position+"]//select");
+				refGenericUtils.select_dropdown_value(by_select, value, coloumn_name_feat);
+				refGenericUtils.waitUntilPageLoads();
+			}
+		});
+	}
 	
-	public Map<String, String> Datatable(DataTable dataTable) {
+	public Map<String,String> feature_file_data(DataTable dataTable){
+		Map<String,String> map_of_feature_values = new LinkedHashMap<String, String>();
 		List<Map<String, String>> map_of_feature_file_info = dataTable.asMaps();
 		Map<String,String> map_of_account_info = new LinkedHashMap<String, String>();
-		Map<String,String> account_info = new LinkedHashMap<String, String>();
 		for(int i=0;i<map_of_feature_file_info.size();i++) {
 			map_of_account_info = map_of_feature_file_info.get(i);
 			String label = map_of_account_info.get("Element Name");
 			String value = map_of_account_info.get("Values");
-			account_info.put(label, value);
+			map_of_feature_values.put(label, value);
 		}
-		return account_info;
+		return map_of_feature_values;
+	}
+	
+	public void switch_to_frame(int frame_num) {
+		By by_xpath = By.xpath("(//iframe[@title='accessibility title'])["+frame_num+"]");
+		refGenericUtils.waitForElement(by_xpath, 10, "Account Assignments Frame");
+		refGenericUtils.switchingFrame(by_xpath, "Account Assignments Frame");
 	}
 }

@@ -21,7 +21,7 @@ public class ContractIO extends BaseUtil {
 	
 	@When("User creates new ContractIO for {string} account")
 	public void user_creates_Contract_IO(String contractIO_type, DataTable dataTable) throws InterruptedException {
-		Map<String, String> map_info = refAccountCreation.Datatable(dataTable);
+		Map<String, String> map_info = refAccountCreation.feature_file_data(dataTable);
 		refAccountCreation.globalSearch("Pipeline", "Test_Advertiser_Sep28_0838");
 		refGenericUtils.click_using_javaScript(objectRepository.get("NewContractIO.Button"), "NewContractIO.Button");
 		refGenericUtils.click_using_javaScript(objectRepository.get("NextButton"), "NextButton");

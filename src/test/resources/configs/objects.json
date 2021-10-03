@@ -11,6 +11,9 @@
   	"HomePage.GlobalSearch.SearchType":"//input[@class='slds-input slds-combobox__input']",
   	"HomePage.SearchType.Opportunities":"//span[@title='Opportunities']",
   	"HomePage.firstSearchResult":"(//span[@search_lightning-instantresultitem_instantresultitem])[1]",
+  	"HomePage.Waffle" : "//div[@class='slds-icon-waffle']",
+  	"HomePage.SearchAppsItems.TextBox" : "//input[@placeholder='Search apps and items...']",
+  	
   	"NewAccount.Header" : "//header[@class='slds-modal__header']//h2",
   	"NewAccount.AdvertiserRadioButton" : "//span[contains(text(), 'Advertiser [')]/..//span[@class='slds-radio_faux']",
   	"NewAccount.AgencyRadioButton" : "//span[contains(text(), 'Agency [')]/..//span[@class='slds-radio_faux']",
@@ -57,7 +60,7 @@
   	"Parent Advertiser Dropdown Element" : "//div[contains(@id, 'dropdown-element')]//ul//li",
   	"Parent Advertiser Textbox" : "//div[contains(@class, 'c-container')]//input[@role='combobox']",
 	"Year TextBox":"//label[text()='Year']/..//input[@type='text']",
-  	"Pipeline Popup Save Button" : "//button[text()='Save']"
+  	"Pipeline Popup Save Button" : "//button[text()='Save']",
   	
   	"Opportunity.NewPrintOpportunity.button":"//button[text()='Create New Print Opportunity']",
   	"Opportunity.Advertiser.Input":"//label[text()='Select an Advertiser']/..//input",
@@ -65,9 +68,7 @@
   	"PipelinePage.Clone.Button":"//button[text()='Clone']",
   	
   	"ClonePopup.Header" : "//h2//span[contains(text(), 'Clone')]",
-  	"ClonePopup.Stage.Select" : "//span[text()='Stage']/../..//select[@class='slds-select']",
-  	"ClonePopup.FoundryInvolved.Select" : "//span[text()='Foundry Involved?']/../..//select[@class='slds-select']",
-  	"ClonePopup.AvailableIssues.DuellistBox" : "//span[@title='DECEMBER/JANUARY 2022 ALLRECIPES']/ancestor::li",
+  	"ClonePopup.SelectedIssue.DuellistBox" : "//span[text()='Selected Issues']/..//span[@class='slds-truncate']",
   	"ClonePopup.Save.Button" : "//button[text()='Save']",
   	"MoveSelectionIssues.Button" : "//button[@title='Move selection to Selected Issues']",
   	"MoveSelectionTitles.Button" : "//button[@title='Move selection to Selected Titles']",
@@ -85,5 +86,15 @@
   	"ContractIO.Agency.Search":"//lightning-icon[@class='slds-icon-utility-search slds-input__icon slds-input__icon_right slds-icon_container']",
   	"ContractIO.TestAgencyAccount":"//a[@title='Test agency account']",
   	"ContractIO.BillToAddress":"//*[text()='Bill To Address']/ancestor::div[@class='slds-m-bottom_x-small']//select",
+  	
+  	"AccountAssignments.NewAccountAssignments.Button" : "//input[@value='New Account Assignments']",
+  	"AccountAssignments.RecordType.Select" : "//table[@class='detailList']//select",
+  	"AccountAssignments.Continue.Button" : "//input[@value='Continue']",
+  	"AccountAssignments.Advertiser.TextBox" : "//span[@class='lookupInput']//input",
+  	"AccountAssignments.RightArrow.Button" : "//img[@class='rightArrowIcon']/..",
+  	"AccountAssignments.Next.Button" : "//input[@value='Next']",
+  	"AccountAssignments.Save.Button":"//input[@value='Save']",
+  	"AccountAssignments.ColoumnNames" : "//table[@id='thePage:pageForm:initSalesTeamSplitTeamTable:pageBlockTable']/thead//th//div",
+  	"AccountAssignments.AlertText" : "//div[@class='messageText']"
   	}
 }

@@ -165,7 +165,7 @@ public class AccountCreation extends BaseUtil {
 				 label=label.replace(".Input","");
 				 By dropDownXpath = By.xpath("//label[text()='"+label+"']/..//input");
 				 By valueXpath = By.xpath("//label[text()='"+label+"']/..//ul/li");
-				refGenericUtils.waitForElement(dropDownXpath, 5, label);
+				 refGenericUtils.waitForElement(dropDownXpath, 5, label);
 				refGenericUtils.scrollToViewElement(dropDownXpath, label);
 				refGenericUtils.click_using_javaScript(dropDownXpath, label);
 				refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
@@ -176,7 +176,9 @@ public class AccountCreation extends BaseUtil {
 				refGenericUtils.waitUntilPageLoads();
 			}
 			else if(label.endsWith("DuellistBox")) {
+				label=label.replace(".DuellistBox","");
 				refGenericUtils.clickOnElement(objectRepository.get(label), value);
+				 By RightArrow=By.xpath("(//div[text()='"+label+"']/..//button)[1]");
 				boolean digit_present = refGenericUtils.containsDigit(value);
 				if(digit_present) {
 					refGenericUtils.clickOnElement(objectRepository.get("MoveSelectionIssues.Button"), "Move Selection Issues Button");
@@ -264,5 +266,104 @@ public class AccountCreation extends BaseUtil {
 	public void switch_to_profile_frame(String profile_name) {
 		By by_frame_name = By.xpath("//iframe[contains(@title,'"+profile_name+"')]");
 		refGenericUtils.switchingFrame(by_frame_name, profile_name);
+	}
+	
+	public void enter_values_2(DataTable dataTable) {
+		List<Map<String, String>> map_of_feature_file_info = dataTable.asMaps();
+		Map<String,String> map_of_account_info = new LinkedHashMap<String, String>();
+		Map<String,String> account_info = new LinkedHashMap<String, String>();
+		for(int i=0;i<map_of_feature_file_info.size();i++) {
+			map_of_account_info = map_of_feature_file_info.get(i);
+			String label = map_of_account_info.get("Element Name");
+			String value = map_of_account_info.get("Values");
+			account_info.put(label, value);
+		}
+		
+		account_info.forEach((label, value) -> {
+			if(label.endsWith("AccountName")) {
+				account_name_text = value.replace("{TimeStamp}", refGenericUtils.get_Date("MMMdd'_'HHmm"));
+				refGenericUtils.waitForElement(objectRepository.get(label), 5, label);
+				refGenericUtils.scrollToViewElement(objectRepository.get(label), label);
+				refGenericUtils.toEnterTextValue(objectRepository.get(label), account_name_text, label);
+			}
+			else if(label.endsWith("TextBox")) {
+				label=label.replace(".TextBox", "");
+				By textBox=null;
+				By textBox1=By.xpath("//label[text()='"+label+"']/ancestor::lightning-input//input");
+				By textBox2=By.xpath("//*[text()='Customer IO Number']/ancestor::div[@class='slds-m-bottom_x-small']//input");
+				 if(refGenericUtils.findElementsCount(textBox1,label)==1) {
+					 textBox=textBox1;
+				 }else if(refGenericUtils.findElementsCount(textBox2,label)==1) {
+					 textBox=textBox2;
+				 }
+				refGenericUtils.waitForElement(textBox, 5, label);
+				refGenericUtils.scrollToViewElement(textBox, label);
+				refGenericUtils.ClearTextBox(textBox, label);
+				refGenericUtils.toEnterTextValue(textBox, value, label);
+			}
+			else if(label.endsWith("SelectDropdown")) {
+				label=label.replace(".SelectDropdown","");
+				 By dropDownXpath = null;
+				 By dropDownXpath1 = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-form-element']//Select");
+				 By dropDownXpath2 = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-m-bottom_x-small']//select");
+				 if(refGenericUtils.findElementsCount(dropDownXpath1,label)==1) {
+					 dropDownXpath=dropDownXpath1;
+					 refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.select_dropdown_value(dropDownXpath, value, label);
+					refGenericUtils.waitUntilPageLoads();
+				 }else if(refGenericUtils.findElementsCount(dropDownXpath2,label)==1) {
+					 dropDownXpath=dropDownXpath2;
+					 refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.click_using_javaScript(dropDownXpath, label);
+					refGenericUtils.toEnterTextValue(dropDownXpath, value, label);
+					refGenericUtils.waitUntilPageLoads();
+				 }
+			}
+			else if(label.endsWith("SingleInputDropdown")) {
+				 label=label.replace(".SingleInputDropdown","");
+				 By dropDownXpath = By.xpath("//label[text()='"+label+"']/..//input");
+				 By valueXpath = By.xpath("//label[text()='"+label+"']/..//ul/li");
+				 refGenericUtils.waitForElement(dropDownXpath, 5, label);
+				refGenericUtils.scrollToViewElement(dropDownXpath, label);
+				refGenericUtils.click_using_javaScript(dropDownXpath, label);
+				refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
+				//refGenericUtils.toEnterTextValue(objectRepository.get(label), value, label);
+				refGenericUtils.waitUntilPageLoads();
+			}
+			else if(label.endsWith("Select")) {
+				refGenericUtils.select_dropdown_value(objectRepository.get(label), value, label);
+				refGenericUtils.waitUntilPageLoads();
+			}
+			else if(label.endsWith("DuellistBox")) {
+				label = label.replace(".DuellistBox","");
+				By by_listBox_value = By.xpath("//span[text()='"+label+"']/..//span[@title='"+value+"']/ancestor::li");
+				refGenericUtils.clickOnElement(by_listBox_value, value);
+				refGenericUtils.waitUntilPageLoads();
+				label = label.replace("Available ","");
+				By valueXpath = By.xpath("//button[@title='Move selection to Selected "+label+"']");
+				refGenericUtils.clickOnElement(valueXpath, "Move Selection Right Button");
+				refGenericUtils.waitUntilPageLoads();
+			}else if(label.endsWith("Date")) {
+				label = label.replace(".Date","");
+				By dateXpath = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-m-bottom_x-small']//input");
+				refGenericUtils.click_using_javaScript(dateXpath, label);
+				refGenericUtils.toEnterTextValue(dateXpath, value, label);
+			}
+		});
+	}
+	
+	public Map<String, String> Datatable(DataTable dataTable) {
+		List<Map<String, String>> map_of_feature_file_info = dataTable.asMaps();
+		Map<String,String> map_of_account_info = new LinkedHashMap<String, String>();
+		Map<String,String> account_info = new LinkedHashMap<String, String>();
+		for(int i=0;i<map_of_feature_file_info.size();i++) {
+			map_of_account_info = map_of_feature_file_info.get(i);
+			String label = map_of_account_info.get("Element Name");
+			String value = map_of_account_info.get("Values");
+			account_info.put(label, value);
+		}
+		return account_info;
 	}
 }

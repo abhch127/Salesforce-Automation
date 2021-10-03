@@ -335,5 +335,44 @@ public void keyboard_action(By byxpath, String key) {
 	    return containsDigit;
 	}
 
+	public int findElementsCount(By byxpath, String element_name){
+		List<WebElement> elements = null;
+  	  try{
+  		elements = driver.findElements(byxpath);
+  		
+  	  }catch(Exception E){
+  		  E.printStackTrace();
+  		  softAssert.fail("Unable to find the Count of Element "+element_name);
+  		  take_screenshot();
+  	  }
+  	
+	return elements.size();	 
+    }
+	public void select_dropdown_index(By by_xpath, int index, String element_name) {
+		try {
+			WebElement element = driver.findElement(by_xpath);
+			waitForElement(by_xpath, 20, element_name);
+			Select select = new Select(element);
+			select.selectByIndex(index);
+		} catch (Exception e) {
+			e.printStackTrace();
+			softAssert.fail("Failed to select "+index+" from the "+element_name);
+			take_screenshot();
+		}
+	}
+	public void sendKeysJS(By byxpath, String value) {
+
+		try {
+			JavascriptExecutor jse = ((JavascriptExecutor)driver);        	
+			WebElement element = driver.findElement(byxpath);
+			jse.executeScript("arguments[0].value='"+value+"';", element);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			softAssert.fail("Failed to sendKeys for Xpath the "+byxpath);
+			take_screenshot();
+
+		}
+	}
 
 }

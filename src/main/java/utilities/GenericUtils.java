@@ -167,11 +167,11 @@ public class GenericUtils extends BaseUtil {
 
 	public List<String> click_Fromlist_of_Textvalues(By by_xpath, String value, String ElementName) {
 		waitUntilPageLoads();
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+//		WebDriverWait wait = new WebDriverWait(driver, 10);
 		List<String> list_of_element_texts = new ArrayList<String>();
 		try {
 			List<WebElement> list_of_WebElements = driver.findElements(by_xpath);
-			wait.until(ExpectedConditions.visibilityOfAllElements(list_of_WebElements));
+//			wait.until(ExpectedConditions.visibilityOfAllElements(list_of_WebElements));
 			for (WebElement element : list_of_WebElements) {
 				if (element.getText().trim().equalsIgnoreCase(value)) {
 					JavascriptExecutor myExecutor = ((JavascriptExecutor) driver);

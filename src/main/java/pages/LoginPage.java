@@ -33,10 +33,10 @@ public class LoginPage {
 		//String profile=envDetails.get("profilePath").toString();
 		DriverFactory.getDriver().get(url);
 		refGenericUtils.waitUntilPageLoads();
-		//refGenericUtils.ClearTextBox(objectRepository.get("LoginPage.UserName"),"Username");
-		//refGenericUtils.ClearTextBox(objectRepository.get("LoginPage.Password"),"Password");
-		//refGenericUtils.toEnterTextValue(objectRepository.get("LoginPage.UserName"), username, "Username");
-		//refGenericUtils.toEnterTextValue(objectRepository.get("LoginPage.Password"), password, "Password");
+		refGenericUtils.ClearTextBox(objectRepository.get("LoginPage.UserName"),"Username");
+		refGenericUtils.ClearTextBox(objectRepository.get("LoginPage.Password"),"Password");
+		refGenericUtils.toEnterTextValue(objectRepository.get("LoginPage.UserName"), username, "Username");
+		refGenericUtils.toEnterTextValue(objectRepository.get("LoginPage.Password"), password, "Password");
 		refGenericUtils.clickOnElement(objectRepository.get("LoginPage.SubmitButton"), "Submit Button");
 		refGenericUtils.waitUntilPageLoads();
 	}

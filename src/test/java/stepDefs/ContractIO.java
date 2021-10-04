@@ -28,7 +28,7 @@ public class ContractIO extends BaseUtil {
 		refGenericUtils.click_using_javaScript(objectRepository.get("ContractIO.Print.RadioButton"), "ContractIO.Print.RadioButton");
 		refGenericUtils.click_using_javaScript(objectRepository.get("NextButton"), "NextButton");
 		refGenericUtils.waitUntilPageLoads();
-		refAccountCreation.enter_values_2(dataTable);
+		refAccountCreation.enter_values_updated(dataTable);
 		refGenericUtils.click_using_javaScript(objectRepository.get("NextButton"), "NextButton");
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.select_dropdown_index(objectRepository.get("ContractIO.Opportunity"), Integer.parseInt(map_info.get("ContractIO.Opportunity")), "ContractIO.Opportunity");

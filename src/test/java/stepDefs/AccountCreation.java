@@ -32,21 +32,25 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.AccountsTab"), "Accounts Tab");
 		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.take_screenshot();
 		refGenericUtils.clickOnElement(objectRepository.get("HomePage.NewButton"), "New Button");
 		refGenericUtils.waitForElement(objectRepository.get("NewAccount.Header"), 10, "New Account Header");
 		refGenericUtils.click_using_javaScript(objectRepository.get("NewAccount."+record_type+"RadioButton"), record_type+" Radio Button");
+		refGenericUtils.take_screenshot();
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.NextButton"), "Next Button");
 		refGenericUtils.waitForElement(objectRepository.get("ExistingAccountMatch.Header"), 10, "Search For An Active Existing Account Match Header");
+		refGenericUtils.take_screenshot();
 		refGenericUtils.clickOnElement(objectRepository.get("ExistingAccountMatch.CreateNew"+record_type+"Button"), "Create New "+record_type+" Button");
 		refGenericUtils.waitForElement(objectRepository.get(record_type+".Header"), 10, "New Account "+record_type+" Header");
 		enter_values_updated(dataTable);
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.CopyAddress.Checkbox"), "Copy Address Checkbox");
+		refGenericUtils.take_screenshot();
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.Save.Button"), "Save Button");
 		refGenericUtils.waitForElement(objectRepository.get("AccountCreated.Notification"), 10, "Account Created Notification");
 		String actual_account = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountCreated.Notification"), "Account Created Notification");
 		System.out.println("Account created : "+ actual_account);
 		if(actual_account.equals(account_name_text)) {
-			BaseUtil.scenario.log("Hurray!!! "+actual_account+" created successfully");
+			BaseUtil.scenario.log("\'"+actual_account+"\'"+" has been created successfully");
 			refGenericUtils.take_screenshot();
 		}
 		else {
@@ -66,6 +70,7 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.waitForElement(objectRepository.get("SetupPage.GlobalSearch.TextBox"), 5, "Global Search TextBox");
 		global_search_textbox(approver_name, "SetupPage.GlobalSearch.TextBox");
 		switch_to_profile_frame(approver_name);
+		refGenericUtils.take_screenshot();
 		refGenericUtils.clickOnElement(objectRepository.get("SetupPage.Login.Button"), "Login Button");
 		refGenericUtils.waitUntilPageLoads();
 		global_search_textbox("New Account", "UserHomePage.GlobalSearch.TextBox");
@@ -90,7 +95,8 @@ public class AccountCreation extends BaseUtil {
 	
 	@When("user creates a Pipeline")
 	public void user_creates_a_pipeline(DataTable dataTable) {
-		global_search_textbox("New Account", "UserHomePage.GlobalSearch.TextBox");
+		String account_name = "Test_Advertiser_Oct04_1349";
+		globalSearch("Accounts", account_name);
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.clickOnElement(objectRepository.get("AccountPage.CreateNewPipeline.Button"), "Create New Pipeline Button");
 		refGenericUtils.waitForElement(objectRepository.get("AccountPage.NewPipeline.Popup"), 10, "New Pipeline Popup");
@@ -181,8 +187,6 @@ public class AccountCreation extends BaseUtil {
 		}
 	}
 	
-	
-	
 	public void global_search_textbox(String text_value, String textBox_element_name) {
 		refGenericUtils.waitUntilPageLoads();
 		switch(textBox_element_name) {
@@ -230,7 +234,7 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.switchingFrame(by_frame_name, profile_name);
 	}
 	
-public void enter_values_2(DataTable dataTable) {
+	public void enter_values_2(DataTable dataTable) {
 		List<Map<String, String>> map_of_feature_file_info = dataTable.asMaps();
 		Map<String,String> map_of_account_info = new LinkedHashMap<String, String>();
 		Map<String,String> account_info = new LinkedHashMap<String, String>();
@@ -240,7 +244,7 @@ public void enter_values_2(DataTable dataTable) {
 			String value = map_of_account_info.get("Values");
 			account_info.put(label, value);
 		}
-}
+	}
 	public void search_using_waffle(String item_name) {
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.waitForElement(objectRepository.get("HomePage.Waffle"), 10, "App Launcher");
@@ -266,12 +270,17 @@ public void enter_values_2(DataTable dataTable) {
 				label=label.replace(".TextBox", "");
 				By textBox=null;
 				By textBox1=By.xpath("//label[text()='"+label+"']/ancestor::lightning-input//input");
-				By textBox2=By.xpath("//*[text()='Customer IO Number']/ancestor::div[@class='slds-m-bottom_x-small']//input");
-				 if(refGenericUtils.findElementsCount(textBox1,label)==1) {
-					 textBox=textBox1;
-				 }else if(refGenericUtils.findElementsCount(textBox2,label)==1) {
-					 textBox=textBox2;
-				 }
+				By textBox2=By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-m-bottom_x-small']//input");
+				By textBox3=By.xpath("//span[text()='"+label+"']/../..//input[@type='text']");
+				By textBox4=By.xpath("//span[text()='"+label+"']/../..//textarea[@role='textbox']");
+				if(refGenericUtils.findElementsCount(textBox1,label)==1)
+					textBox=textBox1;
+				else if(refGenericUtils.findElementsCount(textBox2,label)==1)
+					textBox=textBox2;
+				else if(refGenericUtils.findElementsCount(textBox3,label)==1)
+					textBox=textBox3;
+				else if(refGenericUtils.findElementsCount(textBox4,label)==1)
+					textBox=textBox4;
 				refGenericUtils.waitForElement(textBox, 5, label);
 				refGenericUtils.scrollToViewElement(textBox, label);
 				refGenericUtils.ClearTextBox(textBox, label);
@@ -285,23 +294,34 @@ public void enter_values_2(DataTable dataTable) {
 				 if(refGenericUtils.findElementsCount(dropDownXpath1,label)==1) {
 					 dropDownXpath=dropDownXpath1;
 					 refGenericUtils.waitForElement(dropDownXpath, 5, label);
-					refGenericUtils.scrollToViewElement(dropDownXpath, label);
-					refGenericUtils.select_dropdown_value(dropDownXpath, value, label);
-					refGenericUtils.waitUntilPageLoads();
+					 refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					 refGenericUtils.select_dropdown_value(dropDownXpath, value, label);
+					 refGenericUtils.waitUntilPageLoads();
 				 }else if(refGenericUtils.findElementsCount(dropDownXpath2,label)==1) {
 					 dropDownXpath=dropDownXpath2;
 					 refGenericUtils.waitForElement(dropDownXpath, 5, label);
-					refGenericUtils.scrollToViewElement(dropDownXpath, label);
-					refGenericUtils.click_using_javaScript(dropDownXpath, label);
-					refGenericUtils.toEnterTextValue(dropDownXpath, value, label);
-					refGenericUtils.waitUntilPageLoads();
+					 refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					 refGenericUtils.click_using_javaScript(dropDownXpath, label);
+					 refGenericUtils.toEnterTextValue(dropDownXpath, value, label);
+					 refGenericUtils.waitUntilPageLoads();
 				 }
 			}
 			else if(label.endsWith("SingleInputDropdown")) {
-				 label=label.replace(".SingleInputDropdown","");
-				 By dropDownXpath = By.xpath("//label[text()='"+label+"']/..//input");
-				 By valueXpath = By.xpath("//label[text()='"+label+"']/..//ul/li");
-				 refGenericUtils.waitForElement(dropDownXpath, 5, label);
+				label=label.replace(".SingleInputDropdown","");
+				By dropDownXpath=null; By valueXpath=null;
+				By dropDownXpath1=By.xpath("//label[text()='"+label+"']/..//input");
+				By valueXpath1=By.xpath("//label[text()='"+label+"']/..//ul/li");
+				By dropDownXpath2=By.xpath("//span[text()='"+label+"']/../..//a[@class='select']");
+				By valueXpath2=By.xpath("//div[@class='select-options']//li//a");
+				if((refGenericUtils.findElementsCount(dropDownXpath1,label)==1)||(refGenericUtils.findElementsCount(valueXpath1,value)==1)) {
+					dropDownXpath=dropDownXpath1;
+					valueXpath=valueXpath1;
+				}
+				else if((refGenericUtils.findElementsCount(dropDownXpath2,label)==1)||(refGenericUtils.findElementsCount(valueXpath2,value)==1)) {
+					dropDownXpath=dropDownXpath2;
+					valueXpath=valueXpath2;
+				}
+				refGenericUtils.waitForElement(dropDownXpath, 5, label);
 				refGenericUtils.scrollToViewElement(dropDownXpath, label);
 				refGenericUtils.click_using_javaScript(dropDownXpath, label);
 				refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
@@ -310,7 +330,6 @@ public void enter_values_2(DataTable dataTable) {
 			}
 			else if(label.endsWith("Select")) {
 				refGenericUtils.select_dropdown_value(objectRepository.get(label), value, label);
-
 				refGenericUtils.waitUntilPageLoads();
 			}
 			else if(label.endsWith("DuellistBox")) {

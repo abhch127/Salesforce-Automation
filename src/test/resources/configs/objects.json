@@ -29,12 +29,6 @@
   	
   	"Advertiser.Header" : "//h2[text()='New Account: Advertiser']",
   	"NewAccount.AccountName" : "//span[text()='Account Name']/../..//input[@type='text']",
-  	"NewAccount.BillingCity.TextBox":"//span[text()='Billing City']/../..//input[@type='text']",
-  	"NewAccount.BillingZip.TextBox":"//span[text()='Billing Zip/Postal Code']/../..//input[@type='text']",
-  	"NewAccount.Type.Dropdown" : "//span[text()='Type']/../..//a[@class='select']",
-  	"NewAccount.BillingState.Dropdown" : "//span[text()='Billing State/Province']/../..//a[@class='select']",
-  	"NewAccount.CreditStatus.Dropdown" : "//span[text()='Credit Status']/../..//a[@class='select']",
-  	"NewAccount.BillingStreet.TextArea" : "//span[text()='Billing Street']/../..//textarea[@role='textbox']",
   	"NewAccount.CopyAddress.Checkbox" :"(//input[@type='checkbox'])[2]",
   	"NewAccount.Save.Button" : "//button[@title='Save']",
   	"AccountCreated.Notification": "//span[@class='custom-truncate uiOutputText']",
@@ -79,7 +73,7 @@
   	"NewContractIO.Button":"//span[text()='Create Contract IO'][@class='slds-text-not-selected']",
   	"NextButton" : "//button[@title='Next']",
   	"ContractIO.Print.RadioButton":"//span[text()='Print']",
-  	"ContractIO.Opportunity":"//*[text()='Available Opportunities']/ancestor::div[@class='slds-m-bottom_x-small']//select"
+  	"ContractIO.Opportunity":"//*[text()='Available Opportunities']/ancestor::div[@class='slds-m-bottom_x-small']//select",
   	"ContractIO.BillTo.Dropdown":"//*[text()='Bill To']/ancestor::div[@class='slds-m-bottom_x-small']//select",
   	"ContractIO.Agency":"//*[text()='Agency']/ancestor::div[@class='slds-m-bottom_x-small']//input",
   	"ContractIO.AgencyValue":"//*[text()='Agency']/ancestor::div[@class='slds-m-bottom_x-small']//*[text()='Test agency account']",

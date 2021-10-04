@@ -7,5 +7,5 @@ Feature: New Pipeline Creation
   @Regression
   Scenario: Adding a Pipeline to an account
     When user creates a Pipeline
-      | Element Name                  | Values |
-      | NewPipelinePopup.Year.TextBox |   2021 |
+      | Element Name | Values |
+      | Year.TextBox |   2021 |

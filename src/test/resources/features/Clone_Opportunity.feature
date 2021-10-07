@@ -7,7 +7,7 @@ Feature: Clone a Print Opportunity
   @Regression
   Scenario: Cloning a Print Opportunity
     When user clones a "Print" Opportunity
-      | Element Name                 | Values                    |
-      | Stage.Select                 | 10% - Proposal Submitted  |
-      | Foundry Involved?.Select     | Yes                       |
-      | Available Issues.DuellistBox | NOVEMBER 2021 FOOD & WINE |
+      | Element Name                     | Values                           |
+      | Stage.SelectDropdown             | 10% - Proposal Submitted         |
+      | Foundry Involved?.SelectDropdown | Yes                              |
+      | Available Issues.DuellistBox     | OCTOBER/NOVEMBER 2021 ALLRECIPES |

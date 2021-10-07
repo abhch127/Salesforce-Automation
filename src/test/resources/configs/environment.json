@@ -4,7 +4,7 @@
     "qa": {
       "url": "https://test.salesforce.com/",
       "username1": "reynold.clinton@meredith.com.qa",
-      "password1": "Time@2222",
+      "password1": "Time@2021",
       "profilePath":"C:/Users/balur/AppData/Local/Google/Chrome/User Data"
     },
     "uat": {

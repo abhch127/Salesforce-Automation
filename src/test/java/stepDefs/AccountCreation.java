@@ -12,6 +12,7 @@ import base.BaseUtil;
 import factory.DriverFactory;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.LoginPage;
 import utilities.GenericUtils;
@@ -19,6 +20,9 @@ import utilities.GenericUtils;
 public class AccountCreation extends BaseUtil {
 	
 	public static String account_name_text;
+	public static String case_number;
+	public static String actual_assignment_type;
+	
 	public GenericUtils refGenericUtils = new GenericUtils(DriverFactory.getDriver());
 	public LoginPage loginPage = new LoginPage(DriverFactory.getDriver(), envDetails, objectRepository, usernumber);
 	
@@ -114,12 +118,12 @@ public class AccountCreation extends BaseUtil {
 	
 	@When("user clones a {string} Opportunity")
 	public void user_clones_a_opportunity(String Opp_Type, DataTable dataTable) {
-		String Pipeline = "Test_Advertiser_Sep24_1726 2021";
-		String Opportunity = "OPP-0439186";
+		String Pipeline = "TEST_ADVERTISER_OCT05_1131 2021";
+		String Opportunity = "OPP-0439214";
 		globalSearch("Pipeline", Pipeline);
 		refGenericUtils.take_screenshot();
 		By by_opp_number = By.xpath("//p[text()='"+Opportunity+"']/..");
-		refGenericUtils.stop_script_for(2000);
+		refGenericUtils.stop_script_for(4000);
 		refGenericUtils.waitForElement(by_opp_number, 10, Opportunity);
 		refGenericUtils.click_using_javaScript(by_opp_number, Opportunity);
 		refGenericUtils.waitUntilPageLoads();
@@ -127,11 +131,14 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.waitForElement(objectRepository.get("PipelinePage.Clone.Button"), 10, "Clone Button");
 		refGenericUtils.scrollToViewElement(objectRepository.get("PipelinePage.Clone.Button"), "Clone Button");
 		refGenericUtils.click_using_javaScript(objectRepository.get("PipelinePage.Clone.Button"), "Clone Button");
+		refGenericUtils.stop_script_for(2000);
 		refGenericUtils.waitForElement(objectRepository.get("ClonePopup.Header"), 10, "Clone Popup Header");
 		enter_values_updated(dataTable);
 		String issue = refGenericUtils.fetch_attribute_value(objectRepository.get("ClonePopup.SelectedIssue.DuellistBox"), "title", "Selected Issue Duel listBox");
+		refGenericUtils.take_screenshot();
 		refGenericUtils.click_using_javaScript(objectRepository.get("ClonePopup.Save.Button"), "Save Button");
 		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.take_screenshot();
 		refGenericUtils.stop_script_for(5000);
 		String opp_number = refGenericUtils.get_cloned_opportunity(issue);
 		if(!opp_number.equals("")) {
@@ -193,6 +200,95 @@ public class AccountCreation extends BaseUtil {
 		}
 	}
 	
+	@When("user creates a new Account Assignment Request")
+	public void user_creates_a_new_Account_Assignment_Request(DataTable dataTable) {
+		search_using_waffle("Cases");
+		refGenericUtils.take_screenshot();
+		refGenericUtils.waitForElement(objectRepository.get("HomePage.NewButton"), 10, "New Button");
+		refGenericUtils.clickOnElement(objectRepository.get("HomePage.NewButton"), "New Button");
+		refGenericUtils.waitForElement(objectRepository.get("NewCasePopup.NewCase.Header"), 10, "New Case Popup Header");
+		refGenericUtils.clickOnElement(objectRepository.get("NewCasePopup.AccountAssignment.RadioButton"), "Account Assignment RadioButton");
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("NewCasePopup.Next.Button"), "Next Button");
+		refGenericUtils.waitForElement(objectRepository.get("NewcasePopup.NewCase.AccountAssignment.Header"), 10, "Account Assignment Header");
+		refGenericUtils.stop_script_for(2000);
+		enter_values_updated(dataTable);
+		refGenericUtils.scrollToViewElement(objectRepository.get("NewCasePopup.Status.Label"), "Status Label");
+		actual_assignment_type = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("NewCasePopup.AssignmentType"), "Assignment Type");
+	}
+	
+	@Then("verify the non-mandatory field {string}")
+	public void verify_the_non_mandatory_field(String filed_name) {
+		By by_mandotory = By.xpath("//span[text()='"+filed_name+"']/..//span[@title='required']");
+		int count = refGenericUtils.findElementsCount(by_mandotory, filed_name);
+		if(actual_assignment_type.equals("F360")) {
+			BaseUtil.scenario.log("User is able to select the Assignment Type as "+"\'"+actual_assignment_type+"\'");
+			refGenericUtils.take_screenshot();
+			//------------Validate for Title & Start Issue----------------//
+			if((count==0)) {
+				BaseUtil.scenario.log("\'"+filed_name+"\'"+" is not mandatory when user selects "+"\'"+actual_assignment_type+"\'");
+				refGenericUtils.take_screenshot();
+			}
+			else {
+				BaseUtil.scenario.log("\'"+filed_name+"\'"+" is still mandatory for "+"\'"+actual_assignment_type+"\'"+" which is not expected");
+				softAssert.fail("Title and Start Issue Name is still mandatory for "+"\'"+actual_assignment_type+"\'"+" which is not expected");
+				refGenericUtils.take_screenshot();
+			}
+		}
+	}
+	
+	@When("Clicked on {string} button")
+	public void clicked_on_button(String button_name) {
+		By by_button = By.xpath("//button[@title='"+button_name+"']");
+		refGenericUtils.clickOnElement(by_button, button_name+" Button");
+ 		refGenericUtils.waitUntilPageLoads();
+	}
+	
+	@Then("Case should be created successfully")
+	public void case_should_be_created_successfully() {
+		refGenericUtils.waitForElement(objectRepository.get("CaseDetailPage.CaseNumber"), 10, "Case Number");
+		case_number = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("CaseDetailPage.CaseNumber"), "Case Number");
+ 		int case_number_count = refGenericUtils.findElementsCount(objectRepository.get("CaseDetailPage.CaseNumber"), "Case Number");
+ 		if(case_number_count==1) {
+ 			BaseUtil.scenario.log("Case "+"\'"+case_number+"\'"+" created successfully");
+			refGenericUtils.take_screenshot();
+ 		}
+ 		else {
+ 			BaseUtil.scenario.log("Failed to create the new Case");
+ 			Assert.fail("Failed to create the new Case");
+			refGenericUtils.take_screenshot();
+ 		}
+	}
+
+	@Then("an error message should be displayed")
+	public void an_error_message_should_be_displayed() {
+		validate_error_message("The Sum of Splits is not 100%");
+	}
+	
+	@Then("User should be able to approve the Case")
+	public void user_should_be_able_to_approve_the_Case(DataTable dataTable) {
+		refGenericUtils.waitForElement(objectRepository.get("CaseDetailPage.MarkStatus.Button"), 10, "Mark Status Button");
+		refGenericUtils.click_using_javaScript(objectRepository.get("CaseDetailPage.MarkStatus.Button"), "Mark Status Button");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.stop_script_for(5000);
+		refGenericUtils.click_using_javaScript(objectRepository.get("CaseDetailPage.MarkStatus.Button"), "Mark Status Button");
+		refGenericUtils.waitForElement(objectRepository.get("CloseCasePopup.Header"), 10, "Close Case Popup Header");
+		enter_values_updated(dataTable);
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("NewcasePopup.Save.Button"), "Save Button");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.waitForElement(objectRepository.get("CaseDetailPage.Status"), 10, "Status");
+		String actual_status = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("CaseDetailPage.Status"), "Status");
+		if(actual_status.contains("Approved")) {
+			BaseUtil.scenario.log("Case "+"\'"+case_number+"\'"+" has been approved successfully");
+			refGenericUtils.take_screenshot();
+		}else {
+			BaseUtil.scenario.log("Failed to approve the Case");
+ 			Assert.fail("Failed to approve the Case "+"\'"+case_number+"\'");
+			refGenericUtils.take_screenshot();
+		}
+	}
+	
 	public void global_search_textbox(String text_value, String textBox_element_name) {
 		refGenericUtils.waitUntilPageLoads();
 		switch(textBox_element_name) {
@@ -211,12 +307,6 @@ public class AccountCreation extends BaseUtil {
 					refGenericUtils.clickOnElement(objectRepository.get("HomePage.GlobalSearch.AccountOption"), AccountName+" account");
 					refGenericUtils.waitUntilPageLoads();
 					refGenericUtils.take_screenshot();
-				}
-				else {
-					refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.TextBox"), text_value, textBox_element_name);
-					refGenericUtils.waitUntilPageLoads();
-					refGenericUtils.keyboard_action(objectRepository.get("HomePage.GlobalSearch.TextBox"), "Enter");
-					refGenericUtils.waitUntilPageLoads();
 				}
 				break;
 		}
@@ -251,6 +341,7 @@ public class AccountCreation extends BaseUtil {
 			account_info.put(label, value);
 		}
 	}
+	
 	public void search_using_waffle(String item_name) {
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.waitForElement(objectRepository.get("HomePage.Waffle"), 10, "App Launcher");
@@ -298,15 +389,24 @@ public class AccountCreation extends BaseUtil {
 			else if(label.endsWith("SelectDropdown")) {
 				label=label.replace(".SelectDropdown","");
 				 By dropDownXpath = null;
-				 By dropDownXpath1 = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-form-element']//Select");
+				 By dropDownXpath1 = By.xpath("//*[text()='"+label+"']/ancestor::div[contains(@class, 'slds-form-element')]//Select");
 				 By dropDownXpath2 = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-m-bottom_x-small']//select");
+				 By dropDownXpath3 = By.xpath("//*[text()='"+label+"']/ancestor::div[contains(@class, 'select')]//Select");
 				 if(refGenericUtils.findElementsCount(dropDownXpath1,label)==1) {
 					 dropDownXpath=dropDownXpath1;
 					 refGenericUtils.waitForElement(dropDownXpath, 5, label);
 					 refGenericUtils.scrollToViewElement(dropDownXpath, label);
 					 refGenericUtils.select_dropdown_value(dropDownXpath, value, label);
 					 refGenericUtils.waitUntilPageLoads();
-				 }else if(refGenericUtils.findElementsCount(dropDownXpath2,label)==1) {
+				 }
+				 else if(refGenericUtils.findElementsCount(dropDownXpath3,label)==1) {
+					 dropDownXpath=dropDownXpath3;
+					 refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					 refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					 refGenericUtils.select_dropdown_value(dropDownXpath, value, label);
+					 refGenericUtils.waitUntilPageLoads();
+				 }
+				 else if(refGenericUtils.findElementsCount(dropDownXpath2,label)==1) {
 					 dropDownXpath=dropDownXpath2;
 					 refGenericUtils.waitForElement(dropDownXpath, 5, label);
 					 refGenericUtils.scrollToViewElement(dropDownXpath, label);
@@ -337,10 +437,6 @@ public class AccountCreation extends BaseUtil {
 				//refGenericUtils.toEnterTextValue(objectRepository.get(label), value, label);
 				refGenericUtils.waitUntilPageLoads();
 			}
-			else if(label.endsWith("Select")) {
-				refGenericUtils.select_dropdown_value(objectRepository.get(label), value, label);
-				refGenericUtils.waitUntilPageLoads();
-			}
 			else if(label.endsWith("DuellistBox")) {
 				label = label.replace(".DuellistBox","");
 				By by_listBox_value = By.xpath("//span[text()='"+label+"']/..//span[@title='"+value+"']/ancestor::li");
@@ -352,9 +448,27 @@ public class AccountCreation extends BaseUtil {
 				refGenericUtils.waitUntilPageLoads();
 			}else if(label.endsWith("Date")) {
 				label = label.replace(".Date","");
-				By dateXpath = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-m-bottom_x-small']//input");
+				By dateXpath=null;
+				By dateXpath1 = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-m-bottom_x-small']//input");
+				By dateXpath2 = By.xpath("//*[text()='"+label+"']/../..//div[@class='form-element']//input");
+				if(refGenericUtils.findElementsCount(dateXpath1,label)==1)
+					dateXpath=dateXpath1;
+				else if(refGenericUtils.findElementsCount(dateXpath2,label)==1)
+					dateXpath=dateXpath2;
 				refGenericUtils.click_using_javaScript(dateXpath, label);
 				refGenericUtils.toEnterTextValue(dateXpath, value, label);
+			}else if(label.endsWith("SearchBox")) {
+				label=label.replace(".SearchBox", "");
+				By textBox=null; By valueXpath=null;
+				By textBox1=By.xpath("//span[text()='"+label+"']/../..//input[@type='text']");
+				By valueXpath1=By.xpath("//span[text()='"+label+"']/../..//ul/li//mark");
+				if((refGenericUtils.findElementsCount(textBox1,label)==1)||(refGenericUtils.findElementsCount(valueXpath1,value)==1)) {
+					textBox=textBox1;
+					valueXpath=valueXpath1;
+				}
+				refGenericUtils.waitForElement(textBox, 5, label);
+				refGenericUtils.toEnterTextValue(textBox, value, label);
+				refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
 			}
 		});
 	}
@@ -411,5 +525,21 @@ public class AccountCreation extends BaseUtil {
 		By by_xpath = By.xpath("(//iframe[@title='accessibility title'])["+frame_num+"]");
 		refGenericUtils.waitForElement(by_xpath, 10, "Account Assignments Frame");
 		refGenericUtils.switchingFrame(by_xpath, "Account Assignments Frame");
+	}
+	
+	public void validate_error_message(String error_message) {
+		By by_error1 = By.xpath("//div[@class='pageLevelErrors']//li[contains(text(), '"+error_message+"')]");
+		By by_error=null;
+		if(refGenericUtils.findElementsCount(by_error1, "error_message")==1) {
+			by_error=by_error1;
+		}
+		if(refGenericUtils.fetchingTextvalueofElement(by_error, error_message).contains(error_message)) {
+			BaseUtil.scenario.log("\'"+error_message+"\'"+" error is displayed as expected");
+			refGenericUtils.take_screenshot();
+		}else {
+			BaseUtil.scenario.log("Failed to display the error "+"\'"+error_message+"\'");
+ 			Assert.fail("Failed to display the error "+"\'"+error_message+"\'");
+			refGenericUtils.take_screenshot();
+		}
 	}
 }

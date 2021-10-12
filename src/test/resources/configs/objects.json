@@ -90,6 +90,19 @@
   	"AccountAssignments.Next.Button" : "//input[@value='Next']",
   	"AccountAssignments.Save.Button":"//input[@value='Save']",
   	"AccountAssignments.ColoumnNames" : "//table[@id='thePage:pageForm:initSalesTeamSplitTeamTable:pageBlockTable']/thead//th//div",
-  	"AccountAssignments.AlertText" : "//div[@class='messageText']"
+  	"AccountAssignments.AlertText" : "//div[@class='messageText']",
+  	
+  	"NewCasePopup.NewCase.Header" : "//h2[text()='New Case']",
+  	"NewCasePopup.AccountAssignment.RadioButton" : "//span[contains(text(), 'Account Assignment Request')]/ancestor::label//span[@class='slds-radio--faux']",
+  	"NewCasePopup.Next.Button" : "//span[text()='Next']/parent::button",
+  	"NewCasePopup.Status.Label" : "//label[text()='Status']",
+  	"NewCasePopup.AssignmentType" : "//span[text()='Type of Assignment']/../..//a",
+  	"NewcasePopup.NewCase.AccountAssignment.Header" : "//h2[text()='New Case: Account Assignment Request']",
+  	"NewcasePopup.Save.Button" : "//button[@title='Save']",
+  	
+  	"CaseDetailPage.CaseNumber" : "//p[text()='Case Number']/..//lightning-formatted-text",
+  	"CaseDetailPage.MarkStatus.Button" : "//button[contains(@class, 'mark-complete ')]",
+  	"CaseDetailPage.Status" : "//slot//span[text()='Status']/../..//lightning-formatted-text",
+  	"CloseCasePopup.Header" : "//h2[text()='Close This Case']"
   	}
 }

@@ -4,9 +4,19 @@ Feature: Creation of Account Assignments
   Background: 
     Given Admin has already logged into the application
 
-  @Regression
+  @Regression-AccountAssignment
   Scenario: Account assignment for different Record Types
-    When user selects "Title" as Record type
+  Given User creates new account for "Advertiser" Record type
+      | Element Name                               | Values                      |
+      | NewAccount.AccountName                     | Test_Advertiser_{TimeStamp} |
+      | Billing City.TextBox                       | Burlington                  |
+      | Billing Zip/Postal Code.TextBox            |                       27215 |
+      | Type.SingleInputDropdown                   | Advertiser                  |
+      | Billing State/Province.SingleInputDropdown | North Carolina              |
+      | Credit Status.SingleInputDropdown          | Cash with Order             |
+      | Billing Street.TextBox                     | 786 Boone Station Drive     |
+    And "Surfina Adams" approves the account
+    When user creates Account assignment for "Title" as Record type
       | Element Name                  | Values                   |
       | 1.Select.CheckBox             | Y                        |
       | 1.Lead.CheckBox               | Y                        |

@@ -17,5 +17,5 @@ public class BaseUtil {
 	public static SoftAssert softAssert;
 	public static Reporter report;
 	public static Scenario scenario;
-
+	public static String AccountName;
 }

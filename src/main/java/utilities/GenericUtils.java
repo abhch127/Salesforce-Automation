@@ -1,5 +1,10 @@
 package utilities;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +28,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import base.BaseUtil;
+import factory.DriverFactory;
 
 public class GenericUtils extends BaseUtil {
 
@@ -433,5 +439,54 @@ public int findElementsCount(By byxpath, String element_name){
 		}
 		return containsDigit;
 	}
+
+	public void closeCurrentTab() throws InterruptedException {
+		driver.close();
+		Thread.sleep(2000);
+		Set<String> x = DriverFactory.getDriver().getWindowHandles();
+		Iterator<String> itr = x.iterator();
+		while (itr.hasNext()) {
+			String windowhandle = itr.next().toString();
+			driver.switchTo().window(windowhandle);
+		}
+			
+		
+	}
+
+	public void closeBrowser() {
+		driver.close();
+		
+	}
+	public void UploadFile(String path)
+    {
+  	 
+  	  StringSelection sel = new StringSelection(path);
+		
+		 Toolkit.getDefaultToolkit().getSystemClipboard().setContents(sel,null);
+		 System.out.println("selection" +sel);
+		
+		 Robot robot;
+		 try {
+			
+			robot = new Robot();
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+			robot.delay(1500);	
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_V);
+		
+		
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.keyRelease(KeyEvent.VK_V);
+			robot.delay(1500);
+		       
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+    }
+		 catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
 
 }

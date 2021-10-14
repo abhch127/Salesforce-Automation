@@ -57,15 +57,17 @@ public class AccountCreation extends BaseUtil {
 		if(actual_account.equals(account_name_text)) {
 			BaseUtil.scenario.log("\'"+actual_account+"\'"+" has been created successfully");
 			refGenericUtils.take_screenshot();
+			AccountName=actual_account;
 		}
 		else {
 			Assert.fail("Failed to create the New account");
 			refGenericUtils.take_screenshot();
+			AccountName="Not Created";
 		}
 	}
 	
 	@When("{string} approves the account")
-	public void approves_the_account(String approver_name) {
+	public void approves_the_account(String approver_name) throws InterruptedException, IOException {
 		refGenericUtils.stop_script_for(10000);
 		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon"), "Gear Icon");
 		refGenericUtils.take_screenshot();
@@ -96,19 +98,22 @@ public class AccountCreation extends BaseUtil {
 			Assert.fail("Failed to approve the New account");
 			refGenericUtils.take_screenshot();
 		}
+		refGenericUtils.closeCurrentTab();////a[contains(text(),'Log out as')]
+		loginPage.loginToApplication();
 	}
 	
 	@When("user creates a Pipeline")
 	public void user_creates_a_pipeline(DataTable dataTable) {
-		String account_name = "Test_Advertiser_Oct04_1349";
+		String account_name = AccountName;
 		globalSearch("Accounts", account_name);
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.clickOnElement(objectRepository.get("AccountPage.CreateNewPipeline.Button"), "Create New Pipeline Button");
 		refGenericUtils.waitForElement(objectRepository.get("AccountPage.NewPipeline.Popup"), 10, "New Pipeline Popup");
 		refGenericUtils.stop_script_for(3000);
+		refGenericUtils.waitForElement(objectRepository.get("NewPipelinePopup.Year.TextBox"), 10, "New Pipeline Popup");
 		refGenericUtils.ClearTextBox(objectRepository.get("NewPipelinePopup.Year.TextBox"), "Year TextBox");
 		enter_values_updated(dataTable);
-		refGenericUtils.clickOnElement(objectRepository.get("NewPipelinePopup.Save.Button"), "NewPipelinePopup.Save.Button");
+		refGenericUtils.click_using_javaScript(objectRepository.get("NewPipelinePopup.Save.Button"), "NewPipelinePopup.Save.Button");
 		refGenericUtils.waitUntilPageLoads();
 	}
 	
@@ -148,9 +153,9 @@ public class AccountCreation extends BaseUtil {
 		}
 	}
 	
-	@When("user selects {string} as Record type")
-	public void user_selects_as_record_type(String record_type, DataTable dataTable) {
-		String advertiser_name = "TEST_ADVERTISER_SEP24_1726";
+	@When("user creates Account assignment for {string} as Record type")
+	public void user_selects_as_record_type(String record_type, DataTable dataTable) throws InterruptedException {
+		String advertiser_name = AccountName;
 		String title = "EATING WELL";
 		search_using_waffle("Account Assignments");
 		switch_to_frame(1);
@@ -176,6 +181,7 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.clickOnElement(objectRepository.get("AccountAssignments.Next.Button"), "Next Button");
 		refGenericUtils.switch_to_default_frame();
 		refGenericUtils.waitUntilPageLoads();
+		Thread.sleep(5000);
 		switch_to_frame(2);
 		Map<String, Integer> map_of_cols = refGenericUtils.get_col_location(objectRepository.get("AccountAssignments.ColoumnNames"), "Coloumn Names");
 		account_assignment_data(dataTable, map_of_cols);
@@ -321,9 +327,9 @@ public class AccountCreation extends BaseUtil {
 			case "UserHomePage.GlobalSearch.TextBox":
 				refGenericUtils.clickOnElement(objectRepository.get(textBox_element_name), "Global Search TextBox");
 				if(text_value.equalsIgnoreCase("New Account")) {
-					refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.TextBox"), account_name_text, textBox_element_name);
-					refGenericUtils.waitForElement(objectRepository.get("HomePage.GlobalSearch.AccountOption"), 10, account_name_text+" account");
-					refGenericUtils.clickOnElement(objectRepository.get("HomePage.GlobalSearch.AccountOption"), account_name_text+" account");
+					refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.TextBox"), AccountName, textBox_element_name);
+					refGenericUtils.waitForElement(objectRepository.get("HomePage.GlobalSearch.AccountOption"), 10, AccountName+" account");
+					refGenericUtils.clickOnElement(objectRepository.get("HomePage.GlobalSearch.AccountOption"), AccountName+" account");
 					refGenericUtils.waitUntilPageLoads();
 					refGenericUtils.take_screenshot();
 				}
@@ -376,6 +382,9 @@ public class AccountCreation extends BaseUtil {
 	public void enter_values_updated(DataTable dataTable) {
 		Map<String,String> account_info = feature_file_data(dataTable);
 		account_info.forEach((label, value) -> {
+			if(value.equalsIgnoreCase("{AccountName}")) { 
+				value=AccountName;
+			}
 			if(label.endsWith("AccountName")) {
 				account_name_text = value.replace("{TimeStamp}", refGenericUtils.get_Date("MMMdd'_'HHmm"));
 				refGenericUtils.waitForElement(objectRepository.get(label), 5, label);

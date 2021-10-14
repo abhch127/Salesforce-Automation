@@ -18,9 +18,9 @@ public class Opportunity extends BaseUtil {
 	
 	@When("User creates new Opportunity for {string} type")
 	public void user_creates_new_Opportunity(String opportunity_type, DataTable dataTable) throws InterruptedException {
-		refAccountCreation.globalSearch("Pipeline", "Test_Advertiser_Sep28_0838");
+		refAccountCreation.globalSearch("Pipeline", AccountName);
 		refGenericUtils.click_using_javaScript(objectRepository.get("Opportunity.NewPrintOpportunity.button"), "Opportunity.NewPrintOpportunity.button");
-		refAccountCreation.enter_values_2(dataTable);
+		refAccountCreation.enter_values_updated(dataTable);
 		refGenericUtils.click_using_javaScript(objectRepository.get("Save.Button"), "Save.Button");
 		refGenericUtils.waitForElement(objectRepository.get("PrintOpportunity.IdLink"), 20, "PrintOpportunity.IdLink");
 		refGenericUtils.click_using_javaScript(objectRepository.get("PrintOpportunity.IdLink"), "PrintOpportunity.IdLink");

@@ -103,12 +103,15 @@
   	
   	"CaseDetailPage.CaseNumber" : "//p[text()='Case Number']/..//lightning-formatted-text",
   	"CaseDetailPage.MarkStatus.Button" : "//button[contains(@class, 'mark-complete ')]",
+  	"CaseDetailPage.Tabs" : "//ul[@role='tablist']//li//a",
   	"CaseDetailPage.Status" : "//slot//span[text()='Status']/../..//lightning-formatted-text",
   	"CloseCasePopup.Header" : "//h2[text()='Close This Case']",
   	"AccountPage.RejectedReason":"//button[@title='Edit Rejected Reason']",
   	"AccountPage.RejectedReasonDropdown":"//label[text()='Rejected Reason']/..//input",
   	"AccountPage.DisableReason":"//label[text()='Disable Reason']/../..//textarea",
   	"Accountpage.DropdownValues":"//div[@class='select-options']//li//a",
-  	"Accountpage.Reject":"//*[text()='Duplicate Account']"
+  	"Accountpage.Reject":"//*[text()='Duplicate Account']",
+  	"CaseDetailPage.Next.Button" : "(//button[@title='Next'])[1]",
+  	"CloseCasePopup.Header" : "//h2[text()='Close This Case']",
   	}
 }

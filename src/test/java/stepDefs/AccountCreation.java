@@ -11,6 +11,7 @@ import org.testng.Assert;
 import base.BaseUtil;
 import factory.DriverFactory;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -285,8 +286,17 @@ public class AccountCreation extends BaseUtil {
 	
 	@When("Clicked on {string} button")
 	public void clicked_on_button(String button_name) {
-		By by_button = By.xpath("//button[@title='"+button_name+"']");
-		refGenericUtils.clickOnElement(by_button, button_name+" Button");
+		refGenericUtils.waitUntilPageLoads();
+		By by_button1=By.xpath("//button[@title='"+button_name+"']");
+		By by_button2=By.xpath("//button[contains(@class, '"+button_name+"')]");
+		By by_button=null;
+		if(refGenericUtils.findElementsCount(by_button1, button_name)==1) {
+			by_button=by_button1;
+		}else if(refGenericUtils.findElementsCount(by_button2, button_name)==1) {
+			by_button=by_button2;
+		}
+		refGenericUtils.take_screenshot();
+		refGenericUtils.click_using_javaScript(by_button, button_name+" Button");
  		refGenericUtils.waitUntilPageLoads();
 	}
 	
@@ -305,10 +315,25 @@ public class AccountCreation extends BaseUtil {
 			refGenericUtils.take_screenshot();
  		}
 	}
+	
+	@And("User navigates to {string} tab")
+	public void user_navigates_to_tab(String tab_name) {
+		refGenericUtils.click_Fromlist_of_Textvalues(objectRepository.get("CaseDetailPage.Tabs"), tab_name, tab_name+" Tab");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.take_screenshot();
+	}
+	
+	@Then("User adds a New Request Members")
+	public void user_adds_a_New_Request_Members(DataTable dataTable) {
+		enter_values_updated(dataTable);
+		refGenericUtils.stop_script_for(2000);
+		refGenericUtils.click_using_javaScript(objectRepository.get("CaseDetailPage.Next.Button"), "Next Button");
+		refGenericUtils.waitUntilPageLoads();
+	}
 
-	@Then("an error message should be displayed")
-	public void an_error_message_should_be_displayed() {
-		validate_error_message("The Sum of Splits is not 100%");
+	@Then("an error message {string} should be displayed")
+	public void an_error_message_should_be_displayed(String error_message) {
+		validate_error_message(error_message);
 	}
 	
 	@Then("User should be able to approve the Case")
@@ -425,12 +450,12 @@ public class AccountCreation extends BaseUtil {
 					textBox=textBox2;
 				else if(refGenericUtils.findElementsCount(textBox3,label)==1)
 					textBox=textBox3;
-				else if(refGenericUtils.findElementsCount(textBox4,label)==1 )
-					textBox=textBox4; 
-					refGenericUtils.waitForElement(textBox, 5, label);
-					refGenericUtils.scrollToViewElement(textBox, label);
-					refGenericUtils.ClearTextBox(textBox, label);
-					refGenericUtils.toEnterTextValue(textBox, value, label);
+				else if(refGenericUtils.findElementsCount(textBox4,label)==1)
+					textBox=textBox4;
+				refGenericUtils.waitForElement(textBox, 10, label);
+				refGenericUtils.scrollToViewElement(textBox, label);
+				refGenericUtils.ClearTextBox(textBox, label);
+				refGenericUtils.toEnterTextValue(textBox, value, label);
 			}
 			else if(label.endsWith("SelectDropdown")) {
 				label=label.replace(".SelectDropdown","");
@@ -507,10 +532,15 @@ public class AccountCreation extends BaseUtil {
 				label=label.replace(".SearchBox", "");
 				By textBox=null; By valueXpath=null;
 				By textBox1=By.xpath("//span[text()='"+label+"']/../..//input[@type='text']");
-				By valueXpath1=By.xpath("//span[text()='"+label+"']/../..//ul/li//mark");
+				By textBox2=By.xpath("//label[text()='"+label+"']/../..//input[@type='text']");
+				By valueXpath1=By.xpath("//span[text()='"+label+"']/../..//div[contains(@title, '"+value+"')]//mark");
+				By valueXpath2=By.xpath("//div[@class='slds-lookup__menu']//div[text()='"+value+"']");
 				if((refGenericUtils.findElementsCount(textBox1,label)==1)||(refGenericUtils.findElementsCount(valueXpath1,value)==1)) {
 					textBox=textBox1;
 					valueXpath=valueXpath1;
+				}else if((refGenericUtils.findElementsCount(textBox2,label)==1)||(refGenericUtils.findElementsCount(valueXpath2,value)==1)) {
+					textBox=textBox2;
+					valueXpath=valueXpath2;
 				}
 				refGenericUtils.waitForElement(textBox, 5, label);
 				refGenericUtils.toEnterTextValue(textBox, value, label);
@@ -575,9 +605,15 @@ public class AccountCreation extends BaseUtil {
 	
 	public void validate_error_message(String error_message) {
 		By by_error1 = By.xpath("//div[@class='pageLevelErrors']//li[contains(text(), '"+error_message+"')]");
+		By by_error2 = By.xpath("//div[@class='slds-m-bottom_x-small']//span[contains(text(), '"+error_message+"')]");
+		By by_error3 = By.xpath("//div[@data-key='error']//span[contains(@class, 'toastMessage')]");
 		By by_error=null;
-		if(refGenericUtils.findElementsCount(by_error1, "error_message")==1) {
+		if(refGenericUtils.findElementsCount(by_error1, "Error Message")==1) {
 			by_error=by_error1;
+		}else if(refGenericUtils.findElementsCount(by_error2, "Error Message")==1) {
+			by_error=by_error2;
+		}else if(refGenericUtils.findElementsCount(by_error3, "Error Message")==1) {
+			by_error=by_error3;
 		}
 		if(refGenericUtils.fetchingTextvalueofElement(by_error, error_message).contains(error_message)) {
 			BaseUtil.scenario.log("\'"+error_message+"\'"+" error is displayed as expected");

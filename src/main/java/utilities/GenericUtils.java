@@ -335,6 +335,11 @@ public class GenericUtils extends BaseUtil {
 			case "Enter":
 				action.sendKeys(element, Keys.ENTER).build().perform();
 				break;
+			case "Double-Down-Enter":
+				action.sendKeys(element, Keys.ARROW_DOWN).build().perform();
+				action.sendKeys(element, Keys.ARROW_DOWN).build().perform();
+				action.sendKeys(element, Keys.ENTER).build().perform();
+				break;
 			default:
 				action.sendKeys(element, Keys.RETURN).build().perform();
 			}

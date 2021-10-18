@@ -27,7 +27,7 @@
   	"ExistingAccountMatch.CreateNewAgencyButton" : "//button[@title='Create New Agency']",
   	"ExistingAccountMatch.CreateNewBrandButton" : "//button[@title='Create New Brand']",
   	
-  	"Advertiser.Header" : "//h2[text()='New Account: Advertiser']",
+  	"NewAccountCreation.Header" : "//h2[contains(text(),'New Account: ')]",
   	"NewAccount.AccountName" : "//span[text()='Account Name']/../..//input[@type='text']",
   	"NewAccount.CopyAddress.Checkbox" :"(//input[@type='checkbox'])[2]",
   	"NewAccount.Save.Button" : "//button[@title='Save']",
@@ -42,6 +42,7 @@
   	"UserHomePage.GlobalSearch.TextBox":"//button[@aria-label='Search']",
   	
   	"AccountPage.Approve.BreadCrumb" : "//a[@data-tab-name='Approved']",
+  	"AccountPage.Rejected.BreadCrumb":"//a[@data-tab-name='Rejected']",
   	"AccountPage.MarkCurrentAccountApproval.Button":"//span[contains(text(),'Current Account Approval')]",
   	"AccountPage.AccountStatus":"//span[text()='Account Status']/ancestor::force-record-layout-item//lightning-formatted-text",
   	"AccountPage.CreateNewPipeline.Button" : "//button[text()='Create New Pipeline']",
@@ -103,6 +104,11 @@
   	"CaseDetailPage.CaseNumber" : "//p[text()='Case Number']/..//lightning-formatted-text",
   	"CaseDetailPage.MarkStatus.Button" : "//button[contains(@class, 'mark-complete ')]",
   	"CaseDetailPage.Status" : "//slot//span[text()='Status']/../..//lightning-formatted-text",
-  	"CloseCasePopup.Header" : "//h2[text()='Close This Case']"
+  	"CloseCasePopup.Header" : "//h2[text()='Close This Case']",
+  	"AccountPage.RejectedReason":"//button[@title='Edit Rejected Reason']",
+  	"AccountPage.RejectedReasonDropdown":"//label[text()='Rejected Reason']/..//input",
+  	"AccountPage.DisableReason":"//label[text()='Disable Reason']/../..//textarea",
+  	"Accountpage.DropdownValues":"//div[@class='select-options']//li//a",
+  	"Accountpage.Reject":"//*[text()='Duplicate Account']"
   	}
 }

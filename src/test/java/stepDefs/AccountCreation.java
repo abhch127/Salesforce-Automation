@@ -45,7 +45,7 @@ public class AccountCreation extends BaseUtil {
 		refGenericUtils.waitForElement(objectRepository.get("ExistingAccountMatch.Header"), 10, "Search For An Active Existing Account Match Header");
 		refGenericUtils.take_screenshot();
 		refGenericUtils.clickOnElement(objectRepository.get("ExistingAccountMatch.CreateNew"+record_type+"Button"), "Create New "+record_type+" Button");
-		refGenericUtils.waitForElement(objectRepository.get(record_type+".Header"), 10, "New Account "+record_type+" Header");
+		refGenericUtils.waitForElement(objectRepository.get("NewAccountCreation.Header"), 10, "New Account "+record_type+" Header");
 		enter_values_updated(dataTable);
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.CopyAddress.Checkbox"), "Copy Address Checkbox");
 		refGenericUtils.take_screenshot();
@@ -91,6 +91,52 @@ public class AccountCreation extends BaseUtil {
 		String actual_text_value = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountPage.AccountStatus"), "Account Status");
 		if(actual_text_value.equals("A")) {
 			BaseUtil.scenario.log("Account "+account_name_text+" has been approved successfully");
+			refGenericUtils.take_screenshot();
+		}
+		else {
+			Assert.fail("Failed to approve the New account");
+			refGenericUtils.take_screenshot();
+		}
+		refGenericUtils.closeCurrentTab();////a[contains(text(),'Log out as')]
+		loginPage.loginToApplication();
+	}
+	
+	@When("{string} rejects the account")
+	public void rejects_the_account(String approver_name) throws InterruptedException, IOException {
+		refGenericUtils.stop_script_for(10000);
+		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon"), "Gear Icon");
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon.SetupOption"), "Setup Option");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.switchingTabs(DriverFactory.getDriver().getWindowHandle(), DriverFactory.getDriver().getWindowHandles());
+		refGenericUtils.waitForElement(objectRepository.get("SetupPage.GlobalSearch.TextBox"), 5, "Global Search TextBox");
+		global_search_textbox(approver_name, "SetupPage.GlobalSearch.TextBox");
+		switch_to_profile_frame(approver_name);
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("SetupPage.Login.Button"), "Login Button");
+		refGenericUtils.waitUntilPageLoads();
+		global_search_textbox("New Account", "UserHomePage.GlobalSearch.TextBox");
+		refGenericUtils.stop_script_for(5000);
+		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.Rejected.BreadCrumb"), "Rejected Bread Crumb");
+		refGenericUtils.stop_script_for(3000);
+		refGenericUtils.waitForElement(objectRepository.get("AccountPage.RejectedReason"), 10, "AccountPage.RejectedReason");
+		refGenericUtils.scrollToViewElement(objectRepository.get("AccountPage.RejectedReason"), "AccountPage.RejectedReason");
+		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.RejectedReason"), "AccountPage.RejectedReason");
+		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.RejectedReasonDropdown"), "AccountPage.RejectedReasonDropdown");
+		refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.RejectedReasonDropdown"), "RejectedReasonDropdown");
+		//refGenericUtils.keyboard_action(objectRepository.get("AccountPage.RejectedReasonDropdown"), "Double-Down-Enter");
+		refGenericUtils.click_using_javaScript(objectRepository.get("Accountpage.Reject"), "Accountpage.Reject");
+		refGenericUtils.toEnterTextValue(objectRepository.get("AccountPage.DisableReason"), "testing", "AccountPage.DisableReason");
+		refGenericUtils.click_using_javaScript(objectRepository.get("NewPipelinePopup.Save.Button"), "NewPipelinePopup.Save.Button");
+		refGenericUtils.stop_script_for(5000);
+		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.MarkCurrentAccountApproval.Button"), "Mark as Current Account Approval Status Button");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.stop_script_for(5000);
+		refGenericUtils.take_screenshot();
+		refGenericUtils.scrollToViewElement(objectRepository.get("AccountPage.AccountStatus"), "Account Status");
+		String actual_text_value = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountPage.AccountStatus"), "Account Status");
+		if(actual_text_value.equals("I")) {
+			BaseUtil.scenario.log("Account "+account_name_text+" has been Rejected successfully");
 			refGenericUtils.take_screenshot();
 		}
 		else {
@@ -379,12 +425,12 @@ public class AccountCreation extends BaseUtil {
 					textBox=textBox2;
 				else if(refGenericUtils.findElementsCount(textBox3,label)==1)
 					textBox=textBox3;
-				else if(refGenericUtils.findElementsCount(textBox4,label)==1)
+				else if(refGenericUtils.findElementsCount(textBox4,label)==1 )
 					textBox=textBox4; 
-				refGenericUtils.waitForElement(textBox, 5, label);
-				refGenericUtils.scrollToViewElement(textBox, label);
-				refGenericUtils.ClearTextBox(textBox, label);
-				refGenericUtils.toEnterTextValue(textBox, value, label);
+					refGenericUtils.waitForElement(textBox, 5, label);
+					refGenericUtils.scrollToViewElement(textBox, label);
+					refGenericUtils.ClearTextBox(textBox, label);
+					refGenericUtils.toEnterTextValue(textBox, value, label);
 			}
 			else if(label.endsWith("SelectDropdown")) {
 				label=label.replace(".SelectDropdown","");

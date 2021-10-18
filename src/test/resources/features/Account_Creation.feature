@@ -19,3 +19,27 @@ Feature: New Account Creation
   @Regression
   Scenario: Advertiser Account Approval
     When "Surfina Adams" approves the account
+    
+  @AC.TC.2
+  Scenario: Agency Account Creation
+    When User creates new account for "Agency" Record type
+      | Element Name                              		| Values                      |
+      | NewAccount.AccountName                     		| Test_Advertiser_{TimeStamp} |
+      | Account Record Sub Type.SingleInputDropdown     | Agency                      |
+      | Billing City.TextBox                      		| Burlington                  |
+      | Billing Zip/Postal Code.TextBox            		|                       27215 |
+      | Billing State/Province.SingleInputDropdown 		| North Carolina              |
+      | Credit Status.SingleInputDropdown          		| Cash with Order             |
+      | Billing Street.TextBox                     		| 786 Boone Station Drive     |
+      | Oracle Credit Hold.SingleInputDropdown    		| Y                           |
+      | Account Approval Status.SingleInputDropdown	    | Prospect                    | 
+      
+  @AC.TC.3
+  Scenario: Brand Account Creation
+    When User creates new account for "Brand" Record type
+      | Element Name                              		| Values                      |
+      | NewAccount.AccountName                     		| Test_Advertiser_{TimeStamp} |
+      | Account Record Sub Type.SingleInputDropdown     | Brand                       |
+      | Account Approval Status.SingleInputDropdown	    | Prospect                    | 
+    
+    

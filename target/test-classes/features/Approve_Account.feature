@@ -13,4 +13,4 @@ Feature: New Account Approval
       | Account Approval Status.SingleInputDropdown	    | Prospect                    | 
   	When "Surfina Adams" rejects the account
       
-  	 
+  

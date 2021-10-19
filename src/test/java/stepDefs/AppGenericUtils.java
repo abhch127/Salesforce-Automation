@@ -18,7 +18,7 @@ import io.cucumber.java.en.When;
 import pages.LoginPage;
 import utilities.GenericUtils;
 
-public class AccountCreation extends BaseUtil {
+public class AppGenericUtils extends BaseUtil {
 	
 	public static String account_name_text;
 	public static String case_number;
@@ -493,24 +493,34 @@ public class AccountCreation extends BaseUtil {
 				By valueXpath1=By.xpath("//label[text()='"+label+"']/..//ul/li");
 				By dropDownXpath2=By.xpath("//span[text()='"+label+"']/../..//a[@class='select']");
 				By valueXpath2=By.xpath("//div[@class='select-options']//li//a");
-				if((refGenericUtils.findElementsCount(dropDownXpath1,label)==1)||(refGenericUtils.findElementsCount(valueXpath1,value)==1)) {
+				if((refGenericUtils.findElementsCount(dropDownXpath1,label)==1) && (refGenericUtils.findElementsCount(valueXpath1,value)>0)) {
 					dropDownXpath=dropDownXpath1;
 					valueXpath=valueXpath1;
+					refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.click_using_javaScript(dropDownXpath, label);
+					refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
 				}
-				else if((refGenericUtils.findElementsCount(dropDownXpath2,label)==1)||(refGenericUtils.findElementsCount(valueXpath2,value)==1)) {
+				else if(refGenericUtils.findElementsCount(dropDownXpath2,label)==1) {
 					dropDownXpath=dropDownXpath2;
 					valueXpath=valueXpath2;
+					refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.click_using_javaScript(dropDownXpath, label);
+					refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
+				}else if(refGenericUtils.findElementsCount(dropDownXpath1,label)==1) {
+					dropDownXpath=dropDownXpath1;
+					valueXpath=By.xpath("//*[text()='"+value+"']");
+					refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.click_using_javaScript(dropDownXpath, label);
+					refGenericUtils.click_using_javaScript(valueXpath, value);
 				}
-				refGenericUtils.waitForElement(dropDownXpath, 5, label);
-				refGenericUtils.scrollToViewElement(dropDownXpath, label);
-				refGenericUtils.click_using_javaScript(dropDownXpath, label);
-				refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
-				//refGenericUtils.toEnterTextValue(objectRepository.get(label), value, label);
 				refGenericUtils.waitUntilPageLoads();
 			}
 			else if(label.endsWith("DuellistBox")) {
 				label = label.replace(".DuellistBox","");
-				By by_listBox_value = By.xpath("//span[text()='"+label+"']/..//span[@title='"+value+"']/ancestor::li");
+				By by_listBox_value = By.xpath("//*[text()='"+label+"']/..//span[@title='"+value+"']/ancestor::li");
 				refGenericUtils.clickOnElement(by_listBox_value, value);
 				refGenericUtils.waitUntilPageLoads();
 				label = label.replace("Available ","");
@@ -522,10 +532,13 @@ public class AccountCreation extends BaseUtil {
 				By dateXpath=null;
 				By dateXpath1 = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-m-bottom_x-small']//input");
 				By dateXpath2 = By.xpath("//*[text()='"+label+"']/../..//div[@class='form-element']//input");
+				By dateXpath3= By.xpath("//*[text()='"+label+"']/..//input");
 				if(refGenericUtils.findElementsCount(dateXpath1,label)==1)
 					dateXpath=dateXpath1;
 				else if(refGenericUtils.findElementsCount(dateXpath2,label)==1)
 					dateXpath=dateXpath2;
+				else if(refGenericUtils.findElementsCount(dateXpath3,label)==1)
+					dateXpath=dateXpath3;
 				refGenericUtils.click_using_javaScript(dateXpath, label);
 				refGenericUtils.toEnterTextValue(dateXpath, value, label);
 			}else if(label.endsWith("SearchBox")) {

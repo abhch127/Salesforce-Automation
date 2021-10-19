@@ -11,7 +11,7 @@ Feature: Opportunity validation
       | NewAccount.AccountName                     | Test_Advertiser_{TimeStamp} |
       | Billing City.TextBox                       | Burlington                  |
       | Billing Zip/Postal Code.TextBox            |                       27215 |
-      | Type.SingleInputDropdown                   | Advertiser                  |
+      | Account Record Sub Type.SingleInputDropdown                   | Advertiser                  |
       | Billing State/Province.SingleInputDropdown | North Carolina              |
       | Credit Status.SingleInputDropdown          | Cash with Order             |
       | Billing Street.TextBox                     | 786 Boone Station Drive     |

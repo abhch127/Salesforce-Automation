@@ -15,7 +15,7 @@ public class ContractIO extends BaseUtil {
 	
 	public static String account_name_text;
 	public GenericUtils refGenericUtils = new GenericUtils(DriverFactory.getDriver());
-	public AccountCreation refAccountCreation = new AccountCreation();
+	public AppGenericUtils refAccountCreation = new AppGenericUtils();
 	public LoginPage loginPage = new LoginPage(DriverFactory.getDriver(), envDetails, objectRepository, usernumber);
 	
 	

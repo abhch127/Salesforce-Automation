@@ -111,7 +111,6 @@
   	"AccountPage.DisableReason":"//label[text()='Disable Reason']/../..//textarea",
   	"Accountpage.DropdownValues":"//div[@class='select-options']//li//a",
   	"Accountpage.Reject":"//*[text()='Duplicate Account']",
-  	"CaseDetailPage.Next.Button" : "(//button[@title='Next'])[1]",
-  	"CloseCasePopup.Header" : "//h2[text()='Close This Case']",
+  	"CaseDetailPage.Next.Button" : "(//button[@title='Next'])[1]"
   	}
 }

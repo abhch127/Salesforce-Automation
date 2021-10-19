@@ -48,7 +48,7 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.clickOnElement(objectRepository.get("ExistingAccountMatch.CreateNew"+record_type+"Button"), "Create New "+record_type+" Button");
 		refGenericUtils.waitForElement(objectRepository.get("NewAccountCreation.Header"), 10, "New Account "+record_type+" Header");
 		enter_values_updated(dataTable);
-		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.CopyAddress.Checkbox"), "Copy Address Checkbox");
+//		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.CopyAddress.Checkbox"), "Copy Address Checkbox");
 		refGenericUtils.take_screenshot();
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.Save.Button"), "Save Button");
 		refGenericUtils.waitForElement(objectRepository.get("AccountCreated.Notification"), 10, "Account Created Notification");
@@ -334,6 +334,24 @@ public class AppGenericUtils extends BaseUtil {
 	@Then("an error message {string} should be displayed")
 	public void an_error_message_should_be_displayed(String error_message) {
 		validate_error_message(error_message);
+	}
+	
+	@Then("{string} checkbox must be {string}")
+	public void checkbox_must_be(String checkbox_label, String enabled_or_disabled) {
+		refGenericUtils.stop_script_for(4000);
+		By by_checkbox = By.xpath("//span[text()='"+AccountName+"']/ancestor::div[@class='record-page-decorator']//span[text()='"+checkbox_label+"']/ancestor::lightning-input//span[@class='slds-checkbox_faux']");
+		refGenericUtils.scrollToViewElement(by_checkbox, checkbox_label+" checkbox");
+		boolean if_enabled = refGenericUtils.checkbox_if_selected(by_checkbox, checkbox_label+" checkbox");
+		if(enabled_or_disabled.equalsIgnoreCase("enabled") && if_enabled==true) {
+			BaseUtil.scenario.log(checkbox_label+" checkbox is enabled as expected");
+			refGenericUtils.take_screenshot();
+		}else if(enabled_or_disabled.equalsIgnoreCase("disabled") && if_enabled==false) {
+			BaseUtil.scenario.log(checkbox_label+" checkbox is disabled as expected");
+			refGenericUtils.take_screenshot();
+		}else {
+			Assert.fail("Failed to approve the New account");
+			refGenericUtils.take_screenshot();
+		}
 	}
 	
 	@Then("User should be able to approve the Case")

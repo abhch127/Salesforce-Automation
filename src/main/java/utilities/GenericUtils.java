@@ -113,6 +113,19 @@ public class GenericUtils extends BaseUtil {
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean checkbox_if_selected(By byXpath, String elementName) {
+		boolean if_selected = false;
+		try {
+			waitForElement(byXpath, 20, elementName);
+			if_selected = driver.findElement(byXpath).isSelected();
+		} catch (Exception e) {
+			softAssert.fail("Unable to locate " + elementName);
+			take_screenshot();
+			e.printStackTrace();
+		}
+		return if_selected;
+	}
 
 	public <Element> void clickUsingActions(Element element, String ElementName) {
 		String element_class = element.getClass().getName();

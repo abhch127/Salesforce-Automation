@@ -48,7 +48,7 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.clickOnElement(objectRepository.get("ExistingAccountMatch.CreateNew"+record_type+"Button"), "Create New "+record_type+" Button");
 		refGenericUtils.waitForElement(objectRepository.get("NewAccountCreation.Header"), 10, "New Account "+record_type+" Header");
 		enter_values_updated(dataTable);
-		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.CopyAddress.Checkbox"), "Copy Address Checkbox");
+//		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.CopyAddress.Checkbox"), "Copy Address Checkbox");
 		refGenericUtils.take_screenshot();
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.Save.Button"), "Save Button");
 		refGenericUtils.waitForElement(objectRepository.get("AccountCreated.Notification"), 10, "Account Created Notification");
@@ -67,19 +67,8 @@ public class AppGenericUtils extends BaseUtil {
 	}
 	
 	@When("{string} approves the account")
-	public void approves_the_account(String approver_name) throws InterruptedException, IOException {
-		refGenericUtils.stop_script_for(10000);
-		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon"), "Gear Icon");
-		refGenericUtils.take_screenshot();
-		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon.SetupOption"), "Setup Option");
-		refGenericUtils.waitUntilPageLoads();
-		refGenericUtils.switchingTabs(DriverFactory.getDriver().getWindowHandle(), DriverFactory.getDriver().getWindowHandles());
-		refGenericUtils.waitForElement(objectRepository.get("SetupPage.GlobalSearch.TextBox"), 5, "Global Search TextBox");
-		global_search_textbox(approver_name, "SetupPage.GlobalSearch.TextBox");
-		switch_to_profile_frame(approver_name);
-		refGenericUtils.take_screenshot();
-		refGenericUtils.clickOnElement(objectRepository.get("SetupPage.Login.Button"), "Login Button");
-		refGenericUtils.waitUntilPageLoads();
+	public void approves_the_account(String approver_name) {
+		navigate_to_profile(approver_name);
 		global_search_textbox("New Account", "UserHomePage.GlobalSearch.TextBox");
 		refGenericUtils.stop_script_for(5000);
 		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.Approve.BreadCrumb"), "Approve Bread Crumb");
@@ -102,20 +91,36 @@ public class AppGenericUtils extends BaseUtil {
 		loginPage.loginToApplication();
 	}
 	
+	@When("{string} tries to {string} an account")
+	public void tries_to_an_account(String approver_name, String decision) {
+		navigate_to_profile(approver_name);
+		global_search_textbox("New Account", "UserHomePage.GlobalSearch.TextBox");
+		refGenericUtils.stop_script_for(5000);
+		if(decision.equalsIgnoreCase("approve")) 
+			refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.Approve.BreadCrumb"), "Approve Bread Crumb");
+		else if(decision.equalsIgnoreCase("reject")) 
+			refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.Rejected.BreadCrumb"), "Rejected Bread Crumb");
+		refGenericUtils.stop_script_for(5000);
+		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.MarkCurrentAccountApproval.Button"), "Mark as Current Account Approval Status Button");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.stop_script_for(5000);
+		refGenericUtils.take_screenshot();
+		refGenericUtils.scrollToViewElement(objectRepository.get("AccountPage.AccountStatus"), "Account Status");
+		String actual_text_value = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountPage.AccountStatus"), "Account Status");
+		if(actual_text_value.equals("")) {
+			BaseUtil.scenario.log("\'"+approver_name+"\'"+" is not authorized to "+decision+" an account");
+			refGenericUtils.take_screenshot();
+		}
+		else {
+			Assert.fail(decision+" was successful, which is not expected");
+			refGenericUtils.take_screenshot();
+		}
+		refGenericUtils.closeCurrentTab();
+	}
+	
 	@When("{string} rejects the account")
 	public void rejects_the_account(String approver_name) throws InterruptedException, IOException {
-		refGenericUtils.stop_script_for(10000);
-		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon"), "Gear Icon");
-		refGenericUtils.take_screenshot();
-		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon.SetupOption"), "Setup Option");
-		refGenericUtils.waitUntilPageLoads();
-		refGenericUtils.switchingTabs(DriverFactory.getDriver().getWindowHandle(), DriverFactory.getDriver().getWindowHandles());
-		refGenericUtils.waitForElement(objectRepository.get("SetupPage.GlobalSearch.TextBox"), 5, "Global Search TextBox");
-		global_search_textbox(approver_name, "SetupPage.GlobalSearch.TextBox");
-		switch_to_profile_frame(approver_name);
-		refGenericUtils.take_screenshot();
-		refGenericUtils.clickOnElement(objectRepository.get("SetupPage.Login.Button"), "Login Button");
-		refGenericUtils.waitUntilPageLoads();
+		navigate_to_profile(approver_name);
 		global_search_textbox("New Account", "UserHomePage.GlobalSearch.TextBox");
 		refGenericUtils.stop_script_for(5000);
 		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.Rejected.BreadCrumb"), "Rejected Bread Crumb");
@@ -138,6 +143,9 @@ public class AppGenericUtils extends BaseUtil {
 		String actual_text_value = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountPage.AccountStatus"), "Account Status");
 		if(actual_text_value.equals("I")) {
 			BaseUtil.scenario.log("Account "+account_name_text+" has been Rejected successfully");
+			refGenericUtils.take_screenshot();
+		}else if(actual_text_value.equals("")) {
+			BaseUtil.scenario.log("\'"+approver_name+"\'"+" is not authorized to approve/reject an account");
 			refGenericUtils.take_screenshot();
 		}
 		else {
@@ -336,6 +344,25 @@ public class AppGenericUtils extends BaseUtil {
 		validate_error_message(error_message);
 	}
 	
+	@Then("{string} checkbox must be {string}")
+	public void checkbox_must_be(String checkbox_label, String enabled_or_disabled) {
+		refGenericUtils.stop_script_for(4000);
+		By by_checkbox = By.xpath("//span[text()='"+AccountName+"']/ancestor::div[@class='record-page-decorator']//span[text()='"+checkbox_label+"']/ancestor::lightning-input//input[@type='checkbox']");
+		By by_details_tab = By.xpath("//span[text()='"+AccountName+"']/ancestor::div[@class='record-page-decorator']//a[@data-tab-value='detailTab']");
+		refGenericUtils.scrollToViewElement(by_details_tab, "Details Tab");
+		boolean if_enabled = refGenericUtils.checkbox_if_selected(by_checkbox, checkbox_label+" checkbox");
+		if(enabled_or_disabled.equalsIgnoreCase("enabled") && if_enabled==true) {
+			BaseUtil.scenario.log(checkbox_label+" checkbox is enabled as expected");
+			refGenericUtils.take_screenshot();
+		}else if(enabled_or_disabled.equalsIgnoreCase("disabled") && if_enabled==false) {
+			BaseUtil.scenario.log(checkbox_label+" checkbox is disabled as expected");
+			refGenericUtils.take_screenshot();
+		}else {
+			Assert.fail("Failed to approve the New account");
+			refGenericUtils.take_screenshot();
+		}
+	}
+	
 	@Then("User should be able to approve the Case")
 	public void user_should_be_able_to_approve_the_Case(DataTable dataTable) throws InterruptedException {
 		refGenericUtils.waitForElement(objectRepository.get("CaseDetailPage.MarkStatus.Button"), 10, "Mark Status Button");
@@ -422,6 +449,21 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.stop_script_for(2000);
 		By by_item_name = By.xpath("//a[@data-label='"+item_name+"']");
 		refGenericUtils.clickUsingActions(by_item_name, item_name);
+		refGenericUtils.waitUntilPageLoads();
+	}
+	
+	public void navigate_to_profile(String approver_name) {
+		refGenericUtils.stop_script_for(10000);
+		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon"), "Gear Icon");
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon.SetupOption"), "Setup Option");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.switchingTabs(DriverFactory.getDriver().getWindowHandle(), DriverFactory.getDriver().getWindowHandles());
+		refGenericUtils.waitForElement(objectRepository.get("SetupPage.GlobalSearch.TextBox"), 5, "Global Search TextBox");
+		global_search_textbox(approver_name, "SetupPage.GlobalSearch.TextBox");
+		switch_to_profile_frame(approver_name);
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("SetupPage.Login.Button"), "Login Button");
 		refGenericUtils.waitUntilPageLoads();
 	}
 	
@@ -566,6 +608,14 @@ public class AppGenericUtils extends BaseUtil {
 				refGenericUtils.waitForElement(textBox, 5, label);
 				refGenericUtils.toEnterTextValue(textBox, value, label);
 				refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
+			}else if(label.endsWith("Checkbox")) {
+				label=label.replace(".Checkbox", "");
+				By checkbox=null;
+				By checkbox1=By.xpath("//span[text()='"+label+"']/../..//input[@type='checkbox']");
+				if((refGenericUtils.findElementsCount(checkbox1,label)==1) && value.equalsIgnoreCase("Y")){
+					checkbox=checkbox1;
+					refGenericUtils.clickOnElement(checkbox, label+" Checkbox");
+				}
 			}
 		});
 	}

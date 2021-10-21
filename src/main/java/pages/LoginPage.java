@@ -1,6 +1,5 @@
 package pages;
 
-import java.io.IOException;
 import java.util.LinkedHashMap;
 
 import org.openqa.selenium.By;
@@ -25,7 +24,7 @@ public class LoginPage {
 		refGenericUtils = new GenericUtils(driver);
 	}
 	
-	public void loginToApplication() throws IOException {
+	public void loginToApplication() {
 		
 		String	url = envDetails.get("url").toString();
 		String	username = envDetails.get("username"+Integer.parseInt(usernumber.split("\\.")[0])).toString();

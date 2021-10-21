@@ -41,7 +41,7 @@ public class GenericUtils extends BaseUtil {
 	public void waitForElement(By byXpath, int timeoutinSec, String ElementName) {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, timeoutinSec);
-			wait.until(ExpectedConditions.elementToBeClickable(byXpath));
+			wait.until(ExpectedConditions.presenceOfElementLocated(byXpath));
 		} catch (Exception e) {
 			softAssert.fail("Failed to find " + ElementName + " in " + timeoutinSec + " sec");
 			take_screenshot();
@@ -112,6 +112,18 @@ public class GenericUtils extends BaseUtil {
 			take_screenshot();
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean checkbox_if_selected(By byXpath, String elementName) {
+		boolean if_selected = false;
+		try {
+			if_selected = driver.findElement(byXpath).isSelected();
+		} catch (Exception e) {
+			softAssert.fail("Unable to locate " + elementName);
+			take_screenshot();
+			e.printStackTrace();
+		}
+		return if_selected;
 	}
 
 	public <Element> void clickUsingActions(Element element, String ElementName) {
@@ -445,9 +457,9 @@ public int findElementsCount(By byxpath, String element_name){
 		return containsDigit;
 	}
 
-	public void closeCurrentTab() throws InterruptedException {
+	public void closeCurrentTab() {
 		driver.close();
-		Thread.sleep(2000);
+		stop_script_for(2000);
 		Set<String> x = DriverFactory.getDriver().getWindowHandles();
 		Iterator<String> itr = x.iterator();
 		while (itr.hasNext()) {

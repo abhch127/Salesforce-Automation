@@ -69,7 +69,7 @@
   	"MoveSelectionTitles.Button" : "//button[@title='Move selection to Selected Titles']",
   	"Save.Button" : "//button[text()='Save']",
   	
-  	"PrintOpportunity.IdLink":"//table[contains(@class,'PrintOpportunityList')]//a",
+  	"PrintOpportunity.IdLink":"//table//a",
   	"Opprtunity.CloneButton":"//button[text()='Clone']",
   	"NewContractIO.Button":"//span[text()='Create Contract IO'][@class='slds-text-not-selected']",
   	"NextButton" : "//button[@title='Next']",

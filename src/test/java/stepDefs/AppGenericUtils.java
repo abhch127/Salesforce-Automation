@@ -33,7 +33,7 @@ public class AppGenericUtils extends BaseUtil {
 	}
 	
 	@When("User creates new account for {string} Record type")
-	public void user_creates_new_account_for_record_type(String record_type, DataTable dataTable) {
+	public void user_creates_new_account_for_record_type(String record_type, DataTable dataTable) throws InterruptedException {
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.AccountsTab"), "Accounts Tab");
 		refGenericUtils.waitUntilPageLoads();
@@ -149,7 +149,7 @@ public class AppGenericUtils extends BaseUtil {
 	}
 	
 	@When("user creates a Pipeline")
-	public void user_creates_a_pipeline(DataTable dataTable) {
+	public void user_creates_a_pipeline(DataTable dataTable) throws InterruptedException {
 		String account_name = AccountName;
 		globalSearch("Accounts", account_name);
 		refGenericUtils.waitUntilPageLoads();
@@ -164,7 +164,7 @@ public class AppGenericUtils extends BaseUtil {
 	}
 	
 	@When("user clones a {string} Opportunity")
-	public void user_clones_a_opportunity(String Opp_Type, DataTable dataTable) {
+	public void user_clones_a_opportunity(String Opp_Type, DataTable dataTable) throws InterruptedException {
 		String Pipeline = "TEST_ADVERTISER_OCT05_1131 2021";
 		String Opportunity = "OPP-0439214";
 		globalSearch("Pipeline", Pipeline);
@@ -248,7 +248,7 @@ public class AppGenericUtils extends BaseUtil {
 	}
 	
 	@When("user creates a new Account Assignment Request")
-	public void user_creates_a_new_Account_Assignment_Request(DataTable dataTable) {
+	public void user_creates_a_new_Account_Assignment_Request(DataTable dataTable) throws InterruptedException {
 		search_using_waffle("Cases");
 		refGenericUtils.take_screenshot();
 		refGenericUtils.waitForElement(objectRepository.get("HomePage.NewButton"), 10, "New Button");
@@ -324,7 +324,7 @@ public class AppGenericUtils extends BaseUtil {
 	}
 	
 	@Then("User adds a New Request Members")
-	public void user_adds_a_New_Request_Members(DataTable dataTable) {
+	public void user_adds_a_New_Request_Members(DataTable dataTable) throws InterruptedException {
 		enter_values_updated(dataTable);
 		refGenericUtils.stop_script_for(2000);
 		refGenericUtils.click_using_javaScript(objectRepository.get("CaseDetailPage.Next.Button"), "Next Button");
@@ -337,7 +337,7 @@ public class AppGenericUtils extends BaseUtil {
 	}
 	
 	@Then("User should be able to approve the Case")
-	public void user_should_be_able_to_approve_the_Case(DataTable dataTable) {
+	public void user_should_be_able_to_approve_the_Case(DataTable dataTable) throws InterruptedException {
 		refGenericUtils.waitForElement(objectRepository.get("CaseDetailPage.MarkStatus.Button"), 10, "Mark Status Button");
 		refGenericUtils.click_using_javaScript(objectRepository.get("CaseDetailPage.MarkStatus.Button"), "Mark Status Button");
 		refGenericUtils.waitUntilPageLoads();
@@ -425,7 +425,8 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.waitUntilPageLoads();
 	}
 	
-	public void enter_values_updated(DataTable dataTable) {
+	public void enter_values_updated(DataTable dataTable) throws InterruptedException {
+		Thread.sleep(5000);
 		Map<String,String> account_info = feature_file_data(dataTable);
 		account_info.forEach((label, value) -> {
 			if(value.equalsIgnoreCase("{AccountName}")) { 
@@ -452,7 +453,7 @@ public class AppGenericUtils extends BaseUtil {
 					textBox=textBox3;
 				else if(refGenericUtils.findElementsCount(textBox4,label)==1)
 					textBox=textBox4;
-				refGenericUtils.waitForElement(textBox, 10, label);
+				refGenericUtils.waitForElement(textBox, 20, label);
 				refGenericUtils.scrollToViewElement(textBox, label);
 				refGenericUtils.ClearTextBox(textBox, label);
 				refGenericUtils.toEnterTextValue(textBox, value, label);
@@ -514,6 +515,7 @@ public class AppGenericUtils extends BaseUtil {
 					refGenericUtils.waitForElement(dropDownXpath, 5, label);
 					refGenericUtils.scrollToViewElement(dropDownXpath, label);
 					refGenericUtils.click_using_javaScript(dropDownXpath, label);
+					refGenericUtils.waitForElement(valueXpath, 10, label);
 					refGenericUtils.click_using_javaScript(valueXpath, value);
 				}
 				refGenericUtils.waitUntilPageLoads();
@@ -524,7 +526,12 @@ public class AppGenericUtils extends BaseUtil {
 				refGenericUtils.clickOnElement(by_listBox_value, value);
 				refGenericUtils.waitUntilPageLoads();
 				label = label.replace("Available ","");
-				By valueXpath = By.xpath("//button[@title='Move selection to Selected "+label+"']");
+				By valueXpath=null;
+				if(label.equals("Contextual")) {
+					valueXpath = By.xpath("//button[@title='Move selection to Chosen']");
+				}else {
+					valueXpath = By.xpath("//button[@title='Move selection to Selected "+label+"']");
+				}
 				refGenericUtils.clickOnElement(valueXpath, "Move Selection Right Button");
 				refGenericUtils.waitUntilPageLoads();
 			}else if(label.endsWith("Date")) {
@@ -541,6 +548,7 @@ public class AppGenericUtils extends BaseUtil {
 					dateXpath=dateXpath3;
 				refGenericUtils.click_using_javaScript(dateXpath, label);
 				refGenericUtils.toEnterTextValue(dateXpath, value, label);
+				refGenericUtils.keyboard_action(dateXpath, "Enter");
 			}else if(label.endsWith("SearchBox")) {
 				label=label.replace(".SearchBox", "");
 				By textBox=null; By valueXpath=null;

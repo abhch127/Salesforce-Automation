@@ -68,8 +68,9 @@ public class AppGenericUtils extends BaseUtil {
 	
 	@When("{string} approves the account")
 	public void approves_the_account(String approver_name) {
+		String account_name = AccountName;
 		navigate_to_profile(approver_name);
-		global_search_textbox("New Account", "UserHomePage.GlobalSearch.TextBox");
+		globalSearch("Accounts", account_name);
 		refGenericUtils.stop_script_for(5000);
 		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.Approve.BreadCrumb"), "Approve Bread Crumb");
 		refGenericUtils.stop_script_for(5000);
@@ -93,8 +94,9 @@ public class AppGenericUtils extends BaseUtil {
 	
 	@When("{string} tries to {string} an account")
 	public void tries_to_an_account(String approver_name, String decision) {
+		String account_name = AccountName;
 		navigate_to_profile(approver_name);
-		global_search_textbox("New Account", "UserHomePage.GlobalSearch.TextBox");
+		globalSearch("Accounts", account_name);
 		refGenericUtils.stop_script_for(5000);
 		if(decision.equalsIgnoreCase("approve")) 
 			refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.Approve.BreadCrumb"), "Approve Bread Crumb");
@@ -120,8 +122,9 @@ public class AppGenericUtils extends BaseUtil {
 	
 	@When("{string} rejects the account")
 	public void rejects_the_account(String approver_name) throws InterruptedException, IOException {
+		String account_name = AccountName;
 		navigate_to_profile(approver_name);
-		global_search_textbox("New Account", "UserHomePage.GlobalSearch.TextBox");
+		globalSearch("Accounts", account_name);
 		refGenericUtils.stop_script_for(5000);
 		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.Rejected.BreadCrumb"), "Rejected Bread Crumb");
 		refGenericUtils.stop_script_for(3000);
@@ -387,27 +390,13 @@ public class AppGenericUtils extends BaseUtil {
 		}
 	}
 	
-	public void global_search_textbox(String text_value, String textBox_element_name) {
+	public void setup_page_search_textbox(String text_value, String textBox_element_name) {
 		refGenericUtils.waitUntilPageLoads();
-		switch(textBox_element_name) {
-			case "SetupPage.GlobalSearch.TextBox":
-				refGenericUtils.toEnterTextValue(objectRepository.get(textBox_element_name), text_value, textBox_element_name);
-				refGenericUtils.waitForElement(objectRepository.get("SetupPage.GlobalSearch.Option"), 10, text_value+" Option");
-				refGenericUtils.clickOnElement(objectRepository.get("SetupPage.GlobalSearch.Option"), text_value+" Option");
-				refGenericUtils.waitUntilPageLoads();
-				refGenericUtils.take_screenshot();
-				break;
-			case "UserHomePage.GlobalSearch.TextBox":
-				refGenericUtils.clickOnElement(objectRepository.get(textBox_element_name), "Global Search TextBox");
-				if(text_value.equalsIgnoreCase("New Account")) {
-					refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.TextBox"), AccountName, textBox_element_name);
-					refGenericUtils.waitForElement(objectRepository.get("HomePage.GlobalSearch.AccountOption"), 10, AccountName+" account");
-					refGenericUtils.clickOnElement(objectRepository.get("HomePage.GlobalSearch.AccountOption"), AccountName+" account");
-					refGenericUtils.waitUntilPageLoads();
-					refGenericUtils.take_screenshot();
-				}
-				break;
-		}
+		refGenericUtils.toEnterTextValue(objectRepository.get(textBox_element_name), text_value, textBox_element_name);
+		refGenericUtils.waitForElement(objectRepository.get("SetupPage.GlobalSearch.Option"), 10, text_value+" Option");
+		refGenericUtils.clickOnElement(objectRepository.get("SetupPage.GlobalSearch.Option"), text_value+" Option");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.take_screenshot();		
 	}
 	
 	public void globalSearch(String objectName,String searchText) {
@@ -460,7 +449,7 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.switchingTabs(DriverFactory.getDriver().getWindowHandle(), DriverFactory.getDriver().getWindowHandles());
 		refGenericUtils.waitForElement(objectRepository.get("SetupPage.GlobalSearch.TextBox"), 5, "Global Search TextBox");
-		global_search_textbox(approver_name, "SetupPage.GlobalSearch.TextBox");
+		setup_page_search_textbox(approver_name, "SetupPage.GlobalSearch.TextBox");
 		switch_to_profile_frame(approver_name);
 		refGenericUtils.take_screenshot();
 		refGenericUtils.clickOnElement(objectRepository.get("SetupPage.Login.Button"), "Login Button");

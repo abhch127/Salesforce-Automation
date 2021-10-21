@@ -81,7 +81,7 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.scrollToViewElement(objectRepository.get("AccountPage.AccountStatus"), "Account Status");
 		String actual_text_value = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountPage.AccountStatus"), "Account Status");
 		if(actual_text_value.equals("A")) {
-			BaseUtil.scenario.log("Account "+account_name_text+" has been approved successfully");
+			BaseUtil.scenario.log("Account "+"\'"+account_name_text+"\'"+" has been approved successfully");
 			refGenericUtils.take_screenshot();
 		}
 		else {
@@ -131,7 +131,9 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.waitForElement(objectRepository.get("AccountPage.RejectedReason"), 10, "AccountPage.RejectedReason");
 		refGenericUtils.scrollToViewElement(objectRepository.get("AccountPage.RejectedReason"), "AccountPage.RejectedReason");
 		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.RejectedReason"), "AccountPage.RejectedReason");
+		refGenericUtils.stop_script_for(1000);
 		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.RejectedReasonDropdown"), "AccountPage.RejectedReasonDropdown");
+		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.RejectedReasonDropdown"), "RejectedReasonDropdown");
 		//refGenericUtils.keyboard_action(objectRepository.get("AccountPage.RejectedReasonDropdown"), "Double-Down-Enter");
 		refGenericUtils.click_using_javaScript(objectRepository.get("Accountpage.Reject"), "Accountpage.Reject");
@@ -162,6 +164,7 @@ public class AppGenericUtils extends BaseUtil {
 	@When("user creates a Pipeline")
 	public void user_creates_a_pipeline(DataTable dataTable) throws InterruptedException {
 		String account_name = AccountName;
+		refGenericUtils.waitUntilPageLoads();
 		globalSearch("Accounts", account_name);
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.clickOnElement(objectRepository.get("AccountPage.CreateNewPipeline.Button"), "Create New Pipeline Button");
@@ -170,8 +173,10 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.waitForElement(objectRepository.get("NewPipelinePopup.Year.TextBox"), 10, "New Pipeline Popup");
 		refGenericUtils.ClearTextBox(objectRepository.get("NewPipelinePopup.Year.TextBox"), "Year TextBox");
 		enter_values_updated(dataTable);
+		refGenericUtils.take_screenshot();
 		refGenericUtils.click_using_javaScript(objectRepository.get("NewPipelinePopup.Save.Button"), "NewPipelinePopup.Save.Button");
 		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.take_screenshot();
 	}
 	
 	@When("user clones a {string} Opportunity")
@@ -390,6 +395,33 @@ public class AppGenericUtils extends BaseUtil {
 		}
 	}
 	
+	@And("navigate to profile {string}")
+	public void navigate_to_profile(String approver_name) {
+		refGenericUtils.stop_script_for(10000);
+		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon"), "Gear Icon");
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon.SetupOption"), "Setup Option");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.switchingTabs(DriverFactory.getDriver().getWindowHandle(), DriverFactory.getDriver().getWindowHandles());
+		refGenericUtils.waitForElement(objectRepository.get("SetupPage.GlobalSearch.TextBox"), 5, "Global Search TextBox");
+		setup_page_search_textbox(approver_name, "SetupPage.GlobalSearch.TextBox");
+		switch_to_profile_frame(approver_name);
+		refGenericUtils.take_screenshot();
+		refGenericUtils.clickOnElement(objectRepository.get("SetupPage.Login.Button"), "Login Button");
+		refGenericUtils.waitUntilPageLoads();
+	}
+	
+	@And("{string} tries to create a Pipeline")
+	public void tries_to_create_a_Pipeline(String profile_name) {
+		String account_name = AccountName;
+		refGenericUtils.waitUntilPageLoads();
+		globalSearch("Accounts", account_name);
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.clickOnElement(objectRepository.get("AccountPage.CreateNewPipeline.Button"), "Create New Pipeline Button");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.take_screenshot();
+	}
+	
 	public void setup_page_search_textbox(String text_value, String textBox_element_name) {
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.toEnterTextValue(objectRepository.get(textBox_element_name), text_value, textBox_element_name);
@@ -438,21 +470,6 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.stop_script_for(2000);
 		By by_item_name = By.xpath("//a[@data-label='"+item_name+"']");
 		refGenericUtils.clickUsingActions(by_item_name, item_name);
-		refGenericUtils.waitUntilPageLoads();
-	}
-	
-	public void navigate_to_profile(String approver_name) {
-		refGenericUtils.stop_script_for(10000);
-		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon"), "Gear Icon");
-		refGenericUtils.take_screenshot();
-		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GearIcon.SetupOption"), "Setup Option");
-		refGenericUtils.waitUntilPageLoads();
-		refGenericUtils.switchingTabs(DriverFactory.getDriver().getWindowHandle(), DriverFactory.getDriver().getWindowHandles());
-		refGenericUtils.waitForElement(objectRepository.get("SetupPage.GlobalSearch.TextBox"), 5, "Global Search TextBox");
-		setup_page_search_textbox(approver_name, "SetupPage.GlobalSearch.TextBox");
-		switch_to_profile_frame(approver_name);
-		refGenericUtils.take_screenshot();
-		refGenericUtils.clickOnElement(objectRepository.get("SetupPage.Login.Button"), "Login Button");
 		refGenericUtils.waitUntilPageLoads();
 	}
 	
@@ -667,6 +684,7 @@ public class AppGenericUtils extends BaseUtil {
 		By by_error1 = By.xpath("//div[@class='pageLevelErrors']//li[contains(text(), '"+error_message+"')]");
 		By by_error2 = By.xpath("//div[@class='slds-m-bottom_x-small']//span[contains(text(), '"+error_message+"')]");
 		By by_error3 = By.xpath("//div[@data-key='error']//span[contains(@class, 'toastMessage')]");
+		By by_error4 = By.xpath("//*[contains(text(), '"+error_message+"')]");
 		By by_error=null;
 		if(refGenericUtils.findElementsCount(by_error1, "Error Message")==1) {
 			by_error=by_error1;
@@ -674,6 +692,8 @@ public class AppGenericUtils extends BaseUtil {
 			by_error=by_error2;
 		}else if(refGenericUtils.findElementsCount(by_error3, "Error Message")==1) {
 			by_error=by_error3;
+		}else if(refGenericUtils.findElementsCount(by_error4, "Error Message")==1) {
+			by_error=by_error4;
 		}
 		if(refGenericUtils.fetchingTextvalueofElement(by_error, error_message).contains(error_message)) {
 			BaseUtil.scenario.log("\'"+error_message+"\'"+" error is displayed as expected");

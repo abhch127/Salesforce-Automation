@@ -14,8 +14,8 @@ Feature: New Account Creation
       | Billing Zip/Postal Code.TextBox                   |                       27215 |
       | Billing State/Province.SingleInputDropdown        | North Carolina              |
       | Billing Street.TextBox                            | 786 Boone Station Drive     |
-      | Credit Status.SingleInputDropdown                 | Cash with Order             |
       | Copy Billing Address to Shipping Address.Checkbox | Y                           |
+      | Credit Status.SingleInputDropdown                 | Cash with Order             |
 
   @Regression
   Scenario: Advertiser Account Approval
@@ -31,8 +31,8 @@ Feature: New Account Creation
       | Billing Zip/Postal Code.TextBox                   |                       27215 |
       | Billing State/Province.SingleInputDropdown        | North Carolina              |
       | Billing Street.TextBox                            | 786 Boone Station Drive     |
-      | Credit Status.SingleInputDropdown                 | Cash with Order             |
       | Copy Billing Address to Shipping Address.Checkbox | Y                           |
+      | Credit Status.SingleInputDropdown                 | Cash with Order             |
       | Oracle Credit Hold.SingleInputDropdown            | Y                           |
       | Account Approval Status.SingleInputDropdown       | Prospect                    |
     When "Surfina Adams" approves the account

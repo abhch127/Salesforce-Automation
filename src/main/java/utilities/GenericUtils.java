@@ -506,4 +506,10 @@ public int findElementsCount(By byxpath, String element_name){
 		}
 }
 
+	public void refreshBrowser() {
+		// TODO Auto-generated method stub
+		driver.navigate().refresh();
+		
+	}
+
 }

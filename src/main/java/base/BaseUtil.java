@@ -18,4 +18,5 @@ public class BaseUtil {
 	public static Reporter report;
 	public static Scenario scenario;
 	public static String AccountName;
+	public static String OppId;
 }

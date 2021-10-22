@@ -28,7 +28,7 @@ public class Opportunity extends BaseUtil {
 		if(opportunity_type.equalsIgnoreCase("Print")) {
 			 tabName=By.xpath("//a[@data-tab-value='Print']");
 			 buttonName=By.xpath("//button[text()='Create New Print Opportunity']");
-		}else if(opportunity_type.equalsIgnoreCase("Digital")) {
+		} else if(opportunity_type.equalsIgnoreCase("Digital")) {
 			 tabName=By.xpath("//a[@data-tab-value='Digital']");
 			 buttonName=By.xpath("//button[text()='Create New DigitalOpportunity']");
 		}else if(opportunity_type.equalsIgnoreCase("F360")) {
@@ -45,6 +45,7 @@ public class Opportunity extends BaseUtil {
 		refGenericUtils.click_using_javaScript(objectRepository.get("Save.Button"), "Save.Button");
 		refGenericUtils.waitForElement(objectRepository.get("NewContractIO.Button"), 20, "NewContractIO.Button");
 		refGenericUtils.click_using_javaScript(objectRepository.get("PrintOpportunity.IdLink"), "PrintOpportunity.IdLink");
+		OppId=refGenericUtils.fetchingTextvalueofElement(objectRepository.get("PrintOpportunity.IdLink"), "Opp-Id");
 		refGenericUtils.waitForElement(objectRepository.get("PrintOpportunity.IdLink"), 20, "PrintOpportunity.IdLink");
 		Thread.sleep(2000); 
 		int count = refGenericUtils.findElementsCount(objectRepository.get("Opprtunity.CloneButton"), "Opprtunity.CloneButton");

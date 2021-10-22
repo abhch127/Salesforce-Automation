@@ -67,7 +67,7 @@ public class AppGenericUtils extends BaseUtil {
 	}
 	
 	@When("{string} approves the account")
-	public void approves_the_account(String approver_name) {
+	public void approves_the_account(String approver_name) throws InterruptedException {
 		String account_name = AccountName;
 		navigate_to_profile(approver_name);
 		globalSearch("Accounts", account_name);
@@ -93,7 +93,7 @@ public class AppGenericUtils extends BaseUtil {
 	}
 	
 	@When("{string} tries to {string} an account")
-	public void tries_to_an_account(String approver_name, String decision) {
+	public void tries_to_an_account(String approver_name, String decision) throws InterruptedException {
 		String account_name = AccountName;
 		navigate_to_profile(approver_name);
 		globalSearch("Accounts", account_name);
@@ -180,12 +180,23 @@ public class AppGenericUtils extends BaseUtil {
 	}
 	
 	@When("user clones a {string} Opportunity")
-	public void user_clones_a_opportunity(String Opp_Type, DataTable dataTable) throws InterruptedException {
-		String Pipeline = "TEST_ADVERTISER_OCT05_1131 2021";
-		String Opportunity = "OPP-0439214";
+	public void user_clones_a_opportunity(String opportunity_type, DataTable dataTable) throws InterruptedException {
+		String Pipeline = AccountName;
+		String Opportunity = OppId;
 		globalSearch("Pipeline", Pipeline);
 		refGenericUtils.take_screenshot();
-		By by_opp_number = By.xpath("//p[text()='"+Opportunity+"']/..");
+		By tabName = null;
+		if(opportunity_type.equalsIgnoreCase("Print")) {
+			 tabName=By.xpath("//a[@data-tab-value='Print']");
+		} else if(opportunity_type.equalsIgnoreCase("Digital")) {
+			 tabName=By.xpath("//a[@data-tab-value='Digital']");
+		}else if(opportunity_type.equalsIgnoreCase("F360")) {
+			 tabName=By.xpath("//a[@data-tab-value='F360']");
+		}
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.waitForElement(tabName, 50, "tabName selection");
+		refGenericUtils.click_using_javaScript(tabName, "Opportunity.Tab name");
+		By by_opp_number = By.xpath("//table//a[text()='"+OppId+"']");
 		refGenericUtils.stop_script_for(4000);
 		refGenericUtils.waitForElement(by_opp_number, 10, Opportunity);
 		refGenericUtils.click_using_javaScript(by_opp_number, Opportunity);
@@ -412,7 +423,7 @@ public class AppGenericUtils extends BaseUtil {
 	}
 	
 	@And("{string} tries to create a Pipeline")
-	public void tries_to_create_a_Pipeline(String profile_name) {
+	public void tries_to_create_a_Pipeline(String profile_name) throws InterruptedException {
 		String account_name = AccountName;
 		refGenericUtils.waitUntilPageLoads();
 		globalSearch("Accounts", account_name);
@@ -431,17 +442,28 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.take_screenshot();		
 	}
 	
-	public void globalSearch(String objectName,String searchText) {
+	public void globalSearch(String objectName,String searchText) throws InterruptedException {
+		refGenericUtils.refreshBrowser();
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.clickOnElement(objectRepository.get("UserHomePage.GlobalSearch.TextBox"), "UserHomePage.GlobalSearch.TextBox");
+		Thread.sleep(2000);
 		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
-		refGenericUtils.ClearTextBox(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
-		refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.SearchType"), objectName, "HomePage.GlobalSearch.SearchType");
-		refGenericUtils.stop_script_for(2000);
-		refGenericUtils.keyboard_action(objectRepository.get("HomePage.GlobalSearch.SearchType"), "Enter");
-		refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.TextBox"), searchText, "GlobalSearch");
-		refGenericUtils.stop_script_for(2000);
+		//refGenericUtils.ClearTextBox(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
+		//refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.GlobalSearch.SearchType"), "GlobalSearch.SearchType");
+		By searchType=By.xpath("(//div[@class='slds-grid slds-p-top--x-small slds-p-horizontal--x-small slds-size--1-of-1 slds-combobox-group']//*[text()='"+objectName+"'])[1]");
+		refGenericUtils.click_using_javaScript(searchType, "GlobalSearch.SearchType");
+		Thread.sleep(2000);
+		refGenericUtils.sendKeysJS(objectRepository.get("HomePage.GlobalSearch.SearchType"), objectName);
+		//refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.SearchType"), objectName, "HomePage.GlobalSearch.SearchType");
+		//refGenericUtils.keyboard_action(objectRepository.get("HomePage.GlobalSearch.SearchType"), "Enter");
+		refGenericUtils.click_using_javaScript(searchType, "searchType");
+		refGenericUtils.sendKeysJS(objectRepository.get("HomePage.GlobalSearch.TextBox"), searchText);
+		//refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.GlobalSearch.TextBox"), "HomePage.GlobalSearch.TextBox");
+		//refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.TextBox"), searchText, "GlobalSearch");
+		Thread.sleep(2000);
+		refGenericUtils.waitForElement(objectRepository.get("HomePage.firstSearchResult"), 10, "firstSearchResult");
 		refGenericUtils.clickOnElement(objectRepository.get("HomePage.firstSearchResult"), "HomePage.firstSearchResult");
+		refGenericUtils.stop_script_for(2000);
 	}
 	
 	public void switch_to_profile_frame(String profile_name) {

@@ -22,8 +22,8 @@ public class DriverFactory {
 			options.addArguments("--start-maximized");
 			threadDriver.set(new ChromeDriver(options));
 		}
-		//getDriver().manage().deleteAllCookies();
-		//getDriver().manage().window().maximize();
+		getDriver().manage().deleteAllCookies();
+		getDriver().manage().window().maximize();
 		return getDriver();
 	}
 	

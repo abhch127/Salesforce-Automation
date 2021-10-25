@@ -59,6 +59,7 @@
   	
   	"Opportunity.NewPrintOpportunity.button":"//button[text()='Create New Print Opportunity']",
   	"Opportunity.Advertiser.Input":"//label[text()='Select an Advertiser']/..//input",
+  	"Opportunity.RecordType.Print.RadioButton":"//span[@class='slds-form-element__label' and contains(text(), 'Print')]/..//span[@class='slds-radio_faux']",
   	
   	"PipelinePage.Clone.Button":"//button[text()='Clone']",
   	

@@ -1,4 +1,4 @@
-@ContractIO
+@Functional @ContractIO
 Feature: Opportunity validation
 
   Background: 

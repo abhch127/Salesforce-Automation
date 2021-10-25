@@ -28,7 +28,7 @@ public class AppGenericUtils extends BaseUtil {
 	public LoginPage loginPage = new LoginPage(DriverFactory.getDriver(), envDetails, objectRepository, usernumber);
 	
 	@Given("Admin has already logged into the application")
-	public void admin_has_already_logged_into_the_application() throws IOException {
+	public void admin_has_already_logged_into_the_application() {
 		loginPage.loginToApplication();
 	}
 	
@@ -442,17 +442,18 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.take_screenshot();		
 	}
 	
-	public void globalSearch(String objectName,String searchText) throws InterruptedException {
-		refGenericUtils.refreshBrowser();
+	public void globalSearch(String objectName,String searchText){
+//		refGenericUtils.refreshBrowser();
 		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.stop_script_for(5000);
 		refGenericUtils.clickOnElement(objectRepository.get("UserHomePage.GlobalSearch.TextBox"), "UserHomePage.GlobalSearch.TextBox");
-		Thread.sleep(2000);
+		refGenericUtils.stop_script_for(2000);
 		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
 		//refGenericUtils.ClearTextBox(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
 		//refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.GlobalSearch.SearchType"), "GlobalSearch.SearchType");
 		By searchType=By.xpath("(//div[@class='slds-grid slds-p-top--x-small slds-p-horizontal--x-small slds-size--1-of-1 slds-combobox-group']//*[text()='"+objectName+"'])[1]");
 		refGenericUtils.click_using_javaScript(searchType, "GlobalSearch.SearchType");
-		Thread.sleep(2000);
+		refGenericUtils.stop_script_for(2000);
 		refGenericUtils.sendKeysJS(objectRepository.get("HomePage.GlobalSearch.SearchType"), objectName);
 		//refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.SearchType"), objectName, "HomePage.GlobalSearch.SearchType");
 		//refGenericUtils.keyboard_action(objectRepository.get("HomePage.GlobalSearch.SearchType"), "Enter");
@@ -460,7 +461,7 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.sendKeysJS(objectRepository.get("HomePage.GlobalSearch.TextBox"), searchText);
 		//refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.GlobalSearch.TextBox"), "HomePage.GlobalSearch.TextBox");
 		//refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.TextBox"), searchText, "GlobalSearch");
-		Thread.sleep(2000);
+		refGenericUtils.stop_script_for(2000);
 		refGenericUtils.waitForElement(objectRepository.get("HomePage.firstSearchResult"), 10, "firstSearchResult");
 		refGenericUtils.clickOnElement(objectRepository.get("HomePage.firstSearchResult"), "HomePage.firstSearchResult");
 		refGenericUtils.stop_script_for(2000);
@@ -495,8 +496,8 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.waitUntilPageLoads();
 	}
 	
-	public void enter_values_updated(DataTable dataTable) throws InterruptedException {
-		Thread.sleep(5000);
+	public void enter_values_updated(DataTable dataTable) {
+		refGenericUtils.stop_script_for(5000);
 		Map<String,String> account_info = feature_file_data(dataTable);
 		account_info.forEach((label, value) -> {
 			if(value.equalsIgnoreCase("{AccountName}")) { 

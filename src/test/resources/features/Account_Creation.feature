@@ -1,10 +1,10 @@
-@AccountCreation
+@Regression @AccountCreation
 Feature: New Account Creation
 
   Background: 
     Given Admin has already logged into the application
 
-  @AC-1
+  @AccountCreation-Advertiser
   Scenario: Advertiser Account Creation
     When User creates new account for "Advertiser" Record type
       | Element Name                                      | Values                      |
@@ -17,11 +17,7 @@ Feature: New Account Creation
       | Copy Billing Address to Shipping Address.Checkbox | Y                           |
       | Credit Status.SingleInputDropdown                 | Cash with Order             |
 
-  @Regression
-  Scenario: Advertiser Account Approval
-    When "Surfina Adams" approves the account
-
-  @AC-2
+  @AccountCreation-Agency
   Scenario: Agency Account Creation
     When User creates new account for "Agency" Record type
       | Element Name                                      | Values                      |
@@ -35,9 +31,8 @@ Feature: New Account Creation
       | Credit Status.SingleInputDropdown                 | Cash with Order             |
       | Oracle Credit Hold.SingleInputDropdown            | Y                           |
       | Account Approval Status.SingleInputDropdown       | Prospect                    |
-    When "Surfina Adams" approves the account
 
-  @Regression
+  @AccountCreation-Brand
   Scenario: Brand Account Creation
     When User creates new account for "Brand" Record type
       | Element Name                                | Values                      |

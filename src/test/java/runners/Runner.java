@@ -11,7 +11,7 @@ import io.cucumber.testng.CucumberOptions;
 				"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:", "json:target/cucumber.json",
 				"rerun:target/rerun.txt" }, // to generate different types of reporting
 		monochrome = true, // display the console output in a proper readable format
-		tags="@Regression",
+		tags="@Functional",
 		dryRun = false, publish = true) // to check the mapping is proper between feature file and step definition file
 
 public class Runner extends AbstractTestNGCucumberTests {

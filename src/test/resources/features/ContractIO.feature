@@ -28,12 +28,12 @@ Feature: Opportunity validation
       | Opp Estimate for ALLRECIPES.TextBox      |                             1000 |
       | Available Issues.DuellistBox             | DECEMBER/JANUARY 2022 ALLRECIPES |
     When User creates new ContractIO for "Advertiser" account
-      | Element Name               | Values              |
-      | Title.SelectDropdown       | ALLRECIPES          |
-      | Start Date.Date            | Jan 1, 2021         |
-      | End Date.Date              | Dec 31, 2021        |
-      | Customer IO Number.TextBox |               00724 |
-      | ContractIO.BillTo.Dropdown | Agency              |
-      | ContractIO.Agency          | Test agency account |
-      | ContractIO.Opportunity     |                   0 |
-      | ContractIO.BillToAddress   |                   2 |
+      | Element Name               | Values         |
+      | Title.SelectDropdown       | ALLRECIPES     |
+      | Start Date.Date            | Jan 1, 2021    |
+      | End Date.Date              | Dec 31, 2021   |
+      | Customer IO Number.TextBox |          00724 |
+      | ContractIO.BillTo.Dropdown | Agency         |
+      | ContractIO.Agency          | BRIGANCE MEDIA |
+      | ContractIO.Opportunity     |              0 |
+      | ContractIO.BillToAddress   |              2 |

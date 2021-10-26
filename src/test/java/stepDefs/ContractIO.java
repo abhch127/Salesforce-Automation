@@ -28,12 +28,15 @@ public class ContractIO extends BaseUtil {
 		refGenericUtils.click_using_javaScript(objectRepository.get("NewContractIO.Button"), "NewContractIO.Button");
 		refGenericUtils.click_using_javaScript(objectRepository.get("NextButton"), "NextButton");
 		refGenericUtils.click_using_javaScript(objectRepository.get("ContractIO.Print.RadioButton"), "ContractIO.Print.RadioButton");
+		refGenericUtils.take_screenshot();
 		refGenericUtils.click_using_javaScript(objectRepository.get("NextButton"), "NextButton");
 		refGenericUtils.waitUntilPageLoads();
 		refAccountCreation.enter_values_updated(dataTable);
+		refGenericUtils.take_screenshot();
 		refGenericUtils.click_using_javaScript(objectRepository.get("NextButton"), "NextButton");
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.select_dropdown_index(objectRepository.get("ContractIO.Opportunity"), Integer.parseInt(map_info.get("ContractIO.Opportunity")), "ContractIO.Opportunity");
+		refGenericUtils.take_screenshot();
 		refGenericUtils.click_using_javaScript(objectRepository.get("NextButton"), "NextButton");
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.waitForElement(objectRepository.get("ContractIO.BillTo.Dropdown"), 10, "ContractIO.BillTo.Dropdown");
@@ -47,16 +50,20 @@ public class ContractIO extends BaseUtil {
 		Thread.sleep(2000);
 		refGenericUtils.keyboard_action(objectRepository.get("HomePage.GlobalSearch.SearchType"), "Enter");
 		refGenericUtils.click_using_javaScript(objectRepository.get("ContractIO.TestAgencyAccount"), "ContractIO.TestAgencyAccount");
+		refGenericUtils.take_screenshot();
 		refGenericUtils.click_using_javaScript(objectRepository.get("NextButton"), "NextButton");
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.select_dropdown_index(objectRepository.get("ContractIO.BillToAddress"), Integer.parseInt(map_info.get("ContractIO.BillToAddress")), "ContractIO.BillToAddress");
+		refGenericUtils.take_screenshot();
 		refGenericUtils.click_using_javaScript(objectRepository.get("NextButton"), "NextButton");
 		Thread.sleep(2000); 
+		refGenericUtils.take_screenshot();
 		refGenericUtils.click_using_javaScript(objectRepository.get("NextButton"), "NextButton");
 		Thread.sleep(2000);
 		refGenericUtils.click_using_javaScript(objectRepository.get("ContractIO.Upload Files"), "ContractIO.Upload Files");
 		Thread.sleep(2000);
 		refGenericUtils.UploadFile(Constants.UPLOAD_PDF_PATH);
+		refGenericUtils.take_screenshot();
 	}
 	
 	

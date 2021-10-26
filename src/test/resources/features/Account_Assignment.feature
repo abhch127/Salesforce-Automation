@@ -1,4 +1,4 @@
-@AccountAssignment
+@Functional @AccountAssignment
 Feature: Creation of Account Assignments
 
   Background: 

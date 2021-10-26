@@ -182,7 +182,8 @@ public class AppGenericUtils extends BaseUtil {
 	@When("user clones a {string} Opportunity")
 	public void user_clones_a_opportunity(String opportunity_type, DataTable dataTable) throws InterruptedException {
 		String Pipeline = AccountName;
-		String Opportunity = OppId;
+		String Opportunity = OppId.replaceAll("\\(.*?\\)","").trim();
+		loginPage.loginToApplication();
 		globalSearch("Pipeline", Pipeline);
 		refGenericUtils.take_screenshot();
 		By tabName = null;
@@ -196,7 +197,12 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.waitForElement(tabName, 50, "tabName selection");
 		refGenericUtils.click_using_javaScript(tabName, "Opportunity.Tab name");
-		By by_opp_number = By.xpath("//table//a[text()='"+OppId+"']");
+		By by_opp_number=null;
+		if(opportunity_type.equalsIgnoreCase("Print")||opportunity_type.equalsIgnoreCase("F360")) {
+			by_opp_number = By.xpath("//table//p[contains(text(), '"+Opportunity+"')]/..");
+		}else if(opportunity_type.equalsIgnoreCase("Digital")) {
+			by_opp_number = By.xpath("//table//a[contains(text(), '"+Opportunity+"')]");
+		}
 		refGenericUtils.stop_script_for(4000);
 		refGenericUtils.waitForElement(by_opp_number, 10, Opportunity);
 		refGenericUtils.click_using_javaScript(by_opp_number, Opportunity);
@@ -208,13 +214,26 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.stop_script_for(2000);
 		refGenericUtils.waitForElement(objectRepository.get("ClonePopup.Header"), 10, "Clone Popup Header");
 		enter_values_updated(dataTable);
-		String issue = refGenericUtils.fetch_attribute_value(objectRepository.get("ClonePopup.SelectedIssue.DuellistBox"), "title", "Selected Issue Duel listBox");
-		refGenericUtils.take_screenshot();
-		refGenericUtils.click_using_javaScript(objectRepository.get("ClonePopup.Save.Button"), "Save Button");
-		refGenericUtils.waitUntilPageLoads();
-		refGenericUtils.take_screenshot();
-		refGenericUtils.stop_script_for(5000);
-		String opp_number = refGenericUtils.get_cloned_opportunity(issue);
+		String opp_number="";
+		if(opportunity_type.equalsIgnoreCase("Print")) {
+			String issue = refGenericUtils.fetch_attribute_value(objectRepository.get("ClonePopup.SelectedIssue.DuellistBox"), "title", "Selected Issue Duel listBox");
+			refGenericUtils.take_screenshot();
+			refGenericUtils.click_using_javaScript(objectRepository.get("ClonePopup.Save.Button"), "Save Button");
+			refGenericUtils.waitUntilPageLoads();
+			refGenericUtils.take_screenshot();
+			refGenericUtils.stop_script_for(5000);
+			opp_number = refGenericUtils.get_cloned_opportunity(issue);
+		}
+		else if(opportunity_type.equalsIgnoreCase("Digital")) {
+			Map<String, String> map_of_data = enter_values_2(dataTable);
+			String clone_opp_name = map_of_data.get("Opportunity Name.TextBox");
+//			refGenericUtils.click_using_javaScript(objectRepository.get("ClonePopup.Save.Button"), "Save Button");
+			refGenericUtils.waitUntilPageLoads();
+			refGenericUtils.take_screenshot();
+			refGenericUtils.stop_script_for(5000);
+			By by_opp_name = By.xpath("//div[contains(text(),'"+clone_opp_name+"')]/../..//a");
+			opp_number = refGenericUtils.fetchingTextvalueofElement(by_opp_name, "Opportunity "+clone_opp_name);
+		}
 		if(!opp_number.equals("")) {
 			BaseUtil.scenario.log("Opportunity "+"\'"+opp_number+"\'"+" has been created successfully which is a clone of "+"\'"+Opportunity+"\'");
 			refGenericUtils.take_screenshot();
@@ -472,7 +491,7 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.switchingFrame(by_frame_name, profile_name);
 	}
 	
-	public void enter_values_2(DataTable dataTable) {
+	public Map<String,String> enter_values_2(DataTable dataTable) {
 		List<Map<String, String>> map_of_feature_file_info = dataTable.asMaps();
 		Map<String,String> map_of_account_info = new LinkedHashMap<String, String>();
 		Map<String,String> account_info = new LinkedHashMap<String, String>();
@@ -482,6 +501,7 @@ public class AppGenericUtils extends BaseUtil {
 			String value = map_of_account_info.get("Values");
 			account_info.put(label, value);
 		}
+		return account_info;
 	}
 	
 	public void search_using_waffle(String item_name) {
@@ -582,7 +602,7 @@ public class AppGenericUtils extends BaseUtil {
 					refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
 				}else if(refGenericUtils.findElementsCount(dropDownXpath1,label)==1) {
 					dropDownXpath=dropDownXpath1;
-					valueXpath=By.xpath("//*[text()='"+value+"']");
+					valueXpath=By.xpath("//*[@title='"+value+"']");
 					refGenericUtils.waitForElement(dropDownXpath, 5, label);
 					refGenericUtils.scrollToViewElement(dropDownXpath, label);
 					refGenericUtils.click_using_javaScript(dropDownXpath, label);

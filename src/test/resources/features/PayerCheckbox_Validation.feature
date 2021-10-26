@@ -1,4 +1,4 @@
-@PayerCheckbox
+@Functional @PayerCheckbox
 Feature: Payer Checkbox Validation for Advertiser
 
   Background: 

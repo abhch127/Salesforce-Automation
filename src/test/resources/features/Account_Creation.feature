@@ -10,6 +10,7 @@ Feature: New Account Creation
       | Element Name                                      | Values                      |
       | NewAccount.AccountName                            | Test_Advertiser_{TimeStamp} |
       | Account Record Sub Type.SingleInputDropdown       | Advertiser                  |
+      | No Website.Checkbox                               | Y                           |
       | Billing City.TextBox                              | Burlington                  |
       | Billing Zip/Postal Code.TextBox                   |                       27215 |
       | Billing State/Province.SingleInputDropdown        | North Carolina              |
@@ -23,6 +24,7 @@ Feature: New Account Creation
       | Element Name                                      | Values                      |
       | NewAccount.AccountName                            | Test_Advertiser_{TimeStamp} |
       | Account Record Sub Type.SingleInputDropdown       | Agency                      |
+      | No Website.Checkbox                               | Y                           |
       | Billing City.TextBox                              | Burlington                  |
       | Billing Zip/Postal Code.TextBox                   |                       27215 |
       | Billing State/Province.SingleInputDropdown        | North Carolina              |

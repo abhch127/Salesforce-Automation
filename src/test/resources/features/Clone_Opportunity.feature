@@ -9,6 +9,7 @@ Feature: Clone a Print Opportunity
     Given User creates new account for "Advertiser" Record type
       | Element Name                                      | Values                      |
       | NewAccount.AccountName                            | Test_Advertiser_{TimeStamp} |
+      | No Website.Checkbox                               | Y                           |
       | Account Record Sub Type.SingleInputDropdown       | Advertiser                  |
       | Billing City.TextBox                              | Burlington                  |
       | Billing Zip/Postal Code.TextBox                   |                       27215 |
@@ -38,6 +39,7 @@ Feature: Clone a Print Opportunity
     Given User creates new account for "Advertiser" Record type
       | Element Name                                      | Values                      |
       | NewAccount.AccountName                            | Test_Advertiser_{TimeStamp} |
+      | No Website.Checkbox                               | Y                           |
       | Account Record Sub Type.SingleInputDropdown       | Advertiser                  |
       | Billing City.TextBox                              | Burlington                  |
       | Billing Zip/Postal Code.TextBox                   |                       27215 |

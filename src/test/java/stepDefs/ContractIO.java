@@ -66,9 +66,4 @@ public class ContractIO extends BaseUtil {
 		refGenericUtils.take_screenshot();
 	}
 	
-	
-	//========Delete
-	
-	
-	
 }

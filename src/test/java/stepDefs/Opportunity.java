@@ -19,19 +19,19 @@ public class Opportunity extends BaseUtil {
 
 	@When("User creates new Opportunity for {string} type")
 	public void user_creates_new_Opportunity(String opportunity_type, DataTable dataTable) {
-		refAccountCreation.globalSearch("Pipeline", AccountName);// AccountName
+		refAccountCreation.globalSearch("Pipeline", AccountName);//AccountName
 		refGenericUtils.waitUntilPageLoads();
 		By tabName = null;
 		By buttonName = null;
 		if (opportunity_type.equalsIgnoreCase("Print")) {
 			tabName = By.xpath("//a[@data-tab-value='Print']");
-			buttonName = By.xpath("//button[text()='Create New Opportunity']");
+			buttonName = By.xpath("//button[text()='Create New Print Opportunity']");
 		} else if (opportunity_type.equalsIgnoreCase("Digital")) {
 			tabName = By.xpath("//a[@data-tab-value='Digital']");
 			buttonName = By.xpath("//button[text()='Create New DigitalOpportunity']");
 		} else if (opportunity_type.equalsIgnoreCase("F360")) {
 			tabName = By.xpath("//a[@data-tab-value='F360']");
-			buttonName = By.xpath("//button[text()='Create New F360 Opportunity']");
+			buttonName = By.xpath("//button[text()='Create New Opportunity']");
 		}
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.waitForElement(tabName, 50, "tabName selection");

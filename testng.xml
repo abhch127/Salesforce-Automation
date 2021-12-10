@@ -3,7 +3,7 @@
 <suite name="Salesforce Automation">
   <test name="Regression">
     <classes>
-      <class name="runners.Runner"/>
+      <class name="runners.RunnerTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

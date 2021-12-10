@@ -14,6 +14,6 @@ import io.cucumber.testng.CucumberOptions;
 		tags="@AccountCreation-Advertiser",
 		dryRun = false, publish = true) // to check the mapping is proper between feature file and step definition file
 
-public class Runner extends AbstractTestNGCucumberTests {
+public class RunnerTest extends AbstractTestNGCucumberTests {
 
 }

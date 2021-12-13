@@ -51,6 +51,7 @@ public class AppGenericUtils extends BaseUtil {
 //		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.CopyAddress.Checkbox"), "Copy Address Checkbox");
 		refGenericUtils.take_screenshot();
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.Save.Button"), "Save Button");
+		Thread.sleep(2000);
 		refGenericUtils.waitForElement(objectRepository.get("AccountCreated.Notification"), 10, "Account Created Notification");
 		String actual_account = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountCreated.Notification"), "Account Created Notification");
 		System.out.println("Account created : "+ actual_account);

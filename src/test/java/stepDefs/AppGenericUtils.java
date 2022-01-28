@@ -53,7 +53,7 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.Save.Button"), "Save Button");
 		Thread.sleep(2000);
 		refGenericUtils.waitForElement(objectRepository.get("AccountCreated.Notification"), 10, "Account Created Notification");
-		String actual_account = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountCreated.Notification"), "Account Created Notification");
+		String actual_account = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountPage.AccountNumber"), "Account Page Account Number");
 		System.out.println("Account created : "+ actual_account);
 		if(actual_account.equals(account_name_text)) {
 			BaseUtil.scenario.log("\'"+actual_account+"\'"+" has been created successfully");
@@ -64,6 +64,72 @@ public class AppGenericUtils extends BaseUtil {
 			Assert.fail("Failed to create the New account");
 			refGenericUtils.take_screenshot();
 			AccountName="Not Created";
+		}
+	}
+	
+	@Then("user deletes the {string} record type")
+	public void user_deletes_the_record_type(String record_type) {
+		String account_name = AccountName;
+		globalSearch("Accounts", account_name);
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.Cases.Link"), "Cases Link");
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.First.Case.Checkbox"), "First Case Checkbox");
+		refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.First.Case.DropdownButton"), "First Case Dropdown Button");
+		refGenericUtils.waitForElement(objectRepository.get("AccountPage.First.Case.Dropdown.Delete"), 5, "First Case Dropdown Delete");
+		refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.First.Case.Dropdown.Delete"), "First Case Dropdown Delete");
+		refGenericUtils.waitForElement(objectRepository.get("AccountPage.Popup.Delete.Button"), 5, "Popup Delete");
+		refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.Popup.Delete.Button"), "Popup Delete");
+		refGenericUtils.waitUntilPageLoads();
+		int count1 = refGenericUtils.findElementsCount(objectRepository.get("AccountPage.First.Case.Checkbox"), "First Case Checkbox");
+		if(count1==0) {
+			BaseUtil.scenario.log("Case has been deleted successfully");
+			refGenericUtils.take_screenshot();
+			refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.AccountsTab"), "Accounts Tab");
+			refGenericUtils.waitUntilPageLoads();
+			globalSearch("Accounts", account_name);
+			refGenericUtils.waitUntilPageLoads();
+			refGenericUtils.waitForElement(objectRepository.get("AccountPage.ShowMoreActions.Button"), 5, "Show More Actions Button");
+			refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.ShowMoreActions.Button"), "Show More Actions Button");
+			refGenericUtils.waitForElement(objectRepository.get("AccountPage.ShowMoreActions.Dropdown.Delete"), 5, "Show More Actions Dropdown Delete");
+			refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.ShowMoreActions.Dropdown.Delete"), "Show More Actions Dropdown Delete");
+			refGenericUtils.waitForElement(objectRepository.get("AccountPage.Popup.Delete.Button"), 5, "Popup Delete");
+			refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.Popup.Delete.Button"), "Popup Delete");
+			refGenericUtils.waitUntilPageLoads();
+			refGenericUtils.take_screenshot();
+//			-----Global Search------
+			refGenericUtils.waitUntilPageLoads();
+			refGenericUtils.stop_script_for(5000);
+			refGenericUtils.clickOnElement(objectRepository.get("UserHomePage.GlobalSearch.TextBox"), "UserHomePage.GlobalSearch.TextBox");
+			refGenericUtils.stop_script_for(2000);
+			refGenericUtils.clickOnElement(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
+			//refGenericUtils.ClearTextBox(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
+			//refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.GlobalSearch.SearchType"), "GlobalSearch.SearchType");
+			By searchType=By.xpath("(//div[@class='slds-grid slds-p-top--x-small slds-p-horizontal--x-small slds-size--1-of-1 slds-combobox-group']//*[text()='Accounts'])[1]");
+			refGenericUtils.click_using_javaScript(searchType, "GlobalSearch.SearchType");
+			refGenericUtils.stop_script_for(2000);
+			refGenericUtils.sendKeysJS(objectRepository.get("HomePage.GlobalSearch.SearchType"), "Accounts");
+			//refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.SearchType"), objectName, "HomePage.GlobalSearch.SearchType");
+			//refGenericUtils.keyboard_action(objectRepository.get("HomePage.GlobalSearch.SearchType"), "Enter");
+			refGenericUtils.click_using_javaScript(searchType, "searchType");
+			refGenericUtils.sendKeysJS(objectRepository.get("HomePage.GlobalSearch.TextBox"), account_name);
+			//refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.GlobalSearch.TextBox"), "HomePage.GlobalSearch.TextBox");
+			//refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.TextBox"), searchText, "GlobalSearch");
+			refGenericUtils.stop_script_for(2000);
+			By by_search_account = By.xpath("//span[@title='"+account_name+"']");
+			int count2 = refGenericUtils.findElementsCount(by_search_account, "Search Account");
+			if(count2==0) {
+				BaseUtil.scenario.log("Account "+"\'"+account_name+"\'"+" has been deleted successfully");
+				refGenericUtils.take_screenshot();
+			}
+			else {
+				Assert.fail("Failed to delete the account");
+				refGenericUtils.take_screenshot();
+			}
+		}
+		else {
+			Assert.fail("Failed to delete the Case");
+			refGenericUtils.take_screenshot();
 		}
 	}
 	
@@ -462,7 +528,7 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.take_screenshot();		
 	}
 	
-	public void globalSearch(String objectName,String searchText){
+	public void globalSearch(String objectName, String searchText){
 //		refGenericUtils.refreshBrowser();
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.stop_script_for(5000);
@@ -482,7 +548,7 @@ public class AppGenericUtils extends BaseUtil {
 		//refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.GlobalSearch.TextBox"), "HomePage.GlobalSearch.TextBox");
 		//refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.TextBox"), searchText, "GlobalSearch");
 		refGenericUtils.stop_script_for(2000);
-		refGenericUtils.waitForElement(objectRepository.get("HomePage.firstSearchResult"), 10, "firstSearchResult");
+		refGenericUtils.waitForElement(objectRepository.get("HomePage.firstSearchResult"), 10, "First Search Result");
 		refGenericUtils.clickOnElement(objectRepository.get("HomePage.firstSearchResult"), "HomePage.firstSearchResult");
 		refGenericUtils.stop_script_for(2000);
 	}

@@ -17,6 +17,7 @@ Feature: New Account Creation
       | Billing Street.TextBox                            | 786 Boone Station Drive     |
       | Copy Billing Address to Shipping Address.Checkbox | Y                           |
       | Credit Status.SingleInputDropdown                 | Cash with Order             |
+    Then user deletes the "Advertiser" record type
 
   @AccountCreation-Agency
   Scenario: Agency Account Creation

@@ -94,6 +94,7 @@ public class AppGenericUtils extends BaseUtil {
 				refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.ShowMoreActions.Button"), "Show More Actions Button");
 				refGenericUtils.waitForElement(objectRepository.get("AccountPage.ShowMoreActions.Dropdown.Delete"), 5, "Show More Actions Dropdown Delete");
 				refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.ShowMoreActions.Dropdown.Delete"), "Show More Actions Dropdown Delete");
+				
 			}
 			else {
 				refGenericUtils.waitForElement(objectRepository.get("AccountPage.Delete.Button"), 5, "Delete Button");
@@ -161,6 +162,9 @@ public class AppGenericUtils extends BaseUtil {
 			Assert.fail("Failed to approve the New account");
 			refGenericUtils.take_screenshot();
 		}
+		refGenericUtils.waitForElement(objectRepository.get("AccountPage.Logout"), 5, "Profile Logout");
+		refGenericUtils.clickUsingActions(objectRepository.get("AccountPage.Logout"), "Profile Logout");
+		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.closeCurrentTab();////a[contains(text(),'Log out as')]
 		loginPage.loginToApplication();
 	}

@@ -45,7 +45,7 @@
   	"AccountPage.Approve.BreadCrumb" : "//a[@data-tab-name='Approved']",
   	"AccountPage.Rejected.BreadCrumb":"//a[@data-tab-name='Rejected']",
   	"AccountPage.MarkCurrentAccountApproval.Button":"//span[contains(text(),'Current Account Approval')]",
-  	"AccountPage.AccountStatus":"//span[text()='Account Status']/ancestor::force-record-layout-item//lightning-formatted-text",
+  	"AccountPage.AccountStatus":"//span[text()='Account Status']/ancestor::records-record-layout-item//lightning-formatted-text",
   	"AccountPage.CreateNewPipeline.Button" : "//button[text()='Create New Pipeline']",
   	"AccountPage.AccountNumber" : "//h1//div[text()='Account']/..//lightning-formatted-text",
   	"AccountPage.Cases.Link" : "//a[contains(@href, 'Cases')]",

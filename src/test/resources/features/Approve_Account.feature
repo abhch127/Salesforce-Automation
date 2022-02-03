@@ -18,6 +18,7 @@ Feature: New Account Approval
       | Copy Billing Address to Shipping Address.Checkbox | Y                           |
       | Credit Status.SingleInputDropdown                 | Cash with Order             |
     And "Surfina Adams" approves the account
+    Then user deletes the "Advertiser" record type
 
   @AccountRejection
   Scenario: Brand Account Approval

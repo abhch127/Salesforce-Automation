@@ -1,4 +1,4 @@
-@Regression @AccountCreation
+@AccountCreation
 Feature: New Account Creation
 
   Background: 
@@ -34,11 +34,14 @@ Feature: New Account Creation
       | Credit Status.SingleInputDropdown                 | Cash with Order             |
       | Oracle Credit Hold.SingleInputDropdown            | Y                           |
       | Account Approval Status.SingleInputDropdown       | Prospect                    |
+    Then user deletes the "Agency" record type
 
   @AccountCreation-Brand
   Scenario: Brand Account Creation
     When User creates new account for "Brand" Record type
       | Element Name                                | Values                      |
       | NewAccount.AccountName                      | Test_Advertiser_{TimeStamp} |
+      | No Website.Checkbox                         | Y                           |
       | Account Record Sub Type.SingleInputDropdown | Brand                       |
       | Account Approval Status.SingleInputDropdown | Prospect                    |
+    Then user deletes the "Brand" record type

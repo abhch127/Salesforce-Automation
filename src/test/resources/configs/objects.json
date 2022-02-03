@@ -53,6 +53,7 @@
   	"AccountPage.First.Case.DropdownButton" : "//table[@aria-label='Cases']//td[@role='gridcell']//a[@role='button']",
   	"AccountPage.First.Case.Dropdown.Delete" : "//div[contains(@class, 'branding-actions')]//a[@title='Delete']",
   	"AccountPage.Popup.Delete.Button" : "//button[@title='Delete']",
+  	"AccountPage.Delete.Button":"//button[@name='Delete']",
   	"AccountPage.ShowMoreActions.Button" : "//span[text()='Show more actions']/ancestor::div[@records-highlights2_highlights2]//ul//button[@class='slds-button slds-button_icon-border-filled']",
   	"AccountPage.ShowMoreActions.Dropdown.Delete" : "//div[@role='menu' and contains(@class, 'slds-dropdown__list')]//a[@name='Delete']",
   	

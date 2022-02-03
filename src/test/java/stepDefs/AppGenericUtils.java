@@ -89,10 +89,16 @@ public class AppGenericUtils extends BaseUtil {
 			refGenericUtils.waitUntilPageLoads();
 			globalSearch("Accounts", account_name);
 			refGenericUtils.waitUntilPageLoads();
-			refGenericUtils.waitForElement(objectRepository.get("AccountPage.ShowMoreActions.Button"), 5, "Show More Actions Button");
-			refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.ShowMoreActions.Button"), "Show More Actions Button");
-			refGenericUtils.waitForElement(objectRepository.get("AccountPage.ShowMoreActions.Dropdown.Delete"), 5, "Show More Actions Dropdown Delete");
-			refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.ShowMoreActions.Dropdown.Delete"), "Show More Actions Dropdown Delete");
+			if(record_type.equals("Advertiser")) {
+				refGenericUtils.waitForElement(objectRepository.get("AccountPage.ShowMoreActions.Button"), 5, "Show More Actions Button");
+				refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.ShowMoreActions.Button"), "Show More Actions Button");
+				refGenericUtils.waitForElement(objectRepository.get("AccountPage.ShowMoreActions.Dropdown.Delete"), 5, "Show More Actions Dropdown Delete");
+				refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.ShowMoreActions.Dropdown.Delete"), "Show More Actions Dropdown Delete");
+			}
+			else {
+				refGenericUtils.waitForElement(objectRepository.get("AccountPage.Delete.Button"), 5, "Delete Button");
+				refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.Delete.Button"), "Delete Button");
+			}
 			refGenericUtils.waitForElement(objectRepository.get("AccountPage.Popup.Delete.Button"), 5, "Popup Delete");
 			refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.Popup.Delete.Button"), "Popup Delete");
 			refGenericUtils.waitUntilPageLoads();

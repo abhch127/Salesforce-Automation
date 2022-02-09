@@ -105,6 +105,7 @@ public class AppGenericUtils extends BaseUtil {
 			refGenericUtils.waitUntilPageLoads();
 			refGenericUtils.take_screenshot();
 //			-----Global Search------
+			refGenericUtils.refreshBrowser();
 			refGenericUtils.waitUntilPageLoads();
 			refGenericUtils.stop_script_for(5000);
 			refGenericUtils.clickOnElement(objectRepository.get("UserHomePage.GlobalSearch.TextBox"), "UserHomePage.GlobalSearch.TextBox");

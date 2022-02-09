@@ -57,7 +57,5 @@ public class ExcelUtility {
 			Assert.fail("fetchCellValue: Method had Exceptions >>"+e.getMessage());
 		}
 		return cellValue;
-		
 	}
-
 }

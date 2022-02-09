@@ -4,14 +4,14 @@
     "qa": {
       "url": "https://test.salesforce.com/",
       "username1": "reynold.clinton@meredith.com.qa",
-      "password1": "Automation@123",
-      "profilePath":"C:/Users/balur/AppData/Local/Google/Chrome/User Data"
+      "password1": "Time@4444",
+      "profilePath":"C:/Users/clintonr/AppData/Local/Google/Chrome/User Data"
     },
     "uat": {
-      "url": "https://test.salesforce.com/",
+      "url": "https://meredith--qa.lightning.force.com/",
       "username1": "reynold.clinton@meredith.com.full",
       "password1": "Test@123",
-      "profilePath":"C:/Users/balur/AppData/Local/Google/Chrome/User Data"
+      "profilePath":"C:/Users/clintonr/AppData/Local/Google/Chrome/User Data"
     }
    }
  }

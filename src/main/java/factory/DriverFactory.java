@@ -18,7 +18,7 @@ public class DriverFactory {
 			Process proc = rt.exec("taskkill /im chrome.exe /f /t");
 			WebDriverManager.chromedriver().setup();
 			ChromeOptions options = new ChromeOptions();
-			options.addArguments("user-data-dir="+profile);
+//			options.addArguments("user-data-dir="+profile);
 			options.addArguments("--start-maximized");
 			threadDriver.set(new ChromeDriver(options));
 		}

@@ -25,16 +25,17 @@ public class LoginPage {
 	}
 	
 	public void loginToApplication() {
-		
 		String	url = envDetails.get("url").toString();
-		String	username = envDetails.get("username"+Integer.parseInt(usernumber.split("\\.")[0])).toString();
-		String  password = envDetails.get("password"+Integer.parseInt(usernumber.split("\\.")[0])).toString();
+		String	username = envDetails.get("username" + Integer.parseInt(usernumber.split("\\.")[0])).toString();
+		String  password = envDetails.get("password" + Integer.parseInt(usernumber.split("\\.")[0])).toString();
 		//String profile=envDetails.get("profilePath").toString();
 		DriverFactory.getDriver().get(url);
 		refGenericUtils.waitUntilPageLoads();
-		refGenericUtils.ClearTextBox(objectRepository.get("LoginPage.UserName"),"Username");
-		refGenericUtils.ClearTextBox(objectRepository.get("LoginPage.Password"),"Password");
+		refGenericUtils.ClearTextBox(objectRepository.get("LoginPage.UserName"), "Username");
+		refGenericUtils.ClearTextBox(objectRepository.get("LoginPage.Password"), "Password");
+//		refGenericUtils.click_using_javaScript(objectRepository.get("LoginPage.ClearIcon"), "Clear Icon");
 		refGenericUtils.toEnterTextValue(objectRepository.get("LoginPage.UserName"), username, "Username");
+//		refGenericUtils.ClearTextBox(objectRepository.get("LoginPage.Password"), "Password");
 		refGenericUtils.toEnterTextValue(objectRepository.get("LoginPage.Password"), password, "Password");
 		refGenericUtils.clickOnElement(objectRepository.get("LoginPage.SubmitButton"), "Submit Button");
 		refGenericUtils.waitUntilPageLoads();

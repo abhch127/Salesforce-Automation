@@ -12,10 +12,10 @@ public class DriverFactory {
 	
 	public static ThreadLocal<WebDriver> threadDriver = new ThreadLocal<>();
 	
-	public WebDriver init_driver(String browser,String profile) throws IOException {
+	public WebDriver init_driver(String browser, String profile) throws IOException {
 		if(browser.equalsIgnoreCase("Chrome")) {
 			Runtime rt = Runtime.getRuntime();
-			Process proc = rt.exec("taskkill /im chrome.exe /f /t");
+//			Process proc = rt.exec("taskkill /im chrome.exe /f /t");
 			WebDriverManager.chromedriver().setup();
 			ChromeOptions options = new ChromeOptions();
 //			options.addArguments("user-data-dir="+profile);

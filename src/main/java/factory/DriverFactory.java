@@ -15,12 +15,16 @@ public class DriverFactory {
 	public WebDriver init_driver(String browser, String profile) throws IOException {
 		if(browser.equalsIgnoreCase("Chrome")) {
 			Runtime rt = Runtime.getRuntime();
-//			Process proc = rt.exec("taskkill /im chrome.exe /f /t");
-			WebDriverManager.chromedriver().setup();
+			Process proc = rt.exec("taskkill /im chrome.exe /f /t");
+//			WebDriverManager.chromedriver().setup();
+			System.setProperty("webdriver.chrome.driver", "./Drivers/chromedriver-win64/chromedriver.exe");
 			ChromeOptions options = new ChromeOptions();
-//			options.addArguments("user-data-dir="+profile);
+			options.addArguments("--user-data-dir="+profile);
+			//options.addArguments("--profile-directory=Person 1");
 			options.addArguments("--start-maximized");
-			threadDriver.set(new ChromeDriver(options));
+
+			ChromeDriver driver = new ChromeDriver(options);
+			threadDriver.set(driver);
 		}
 		getDriver().manage().deleteAllCookies();
 		getDriver().manage().window().maximize();

@@ -103,7 +103,7 @@ public class GenericUtils extends BaseUtil {
 
 	public void click_using_javaScript(By byXpath, String elementName) {
 		try {
-			waitForElement(byXpath, 20, elementName);
+			waitForElement(byXpath, 100, elementName);
 			WebElement element = driver.findElement(byXpath);
 			JavascriptExecutor myExecutor = ((JavascriptExecutor) driver);
 			myExecutor.executeScript("arguments[0].click();", element);

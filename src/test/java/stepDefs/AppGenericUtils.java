@@ -5,7 +5,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import base.BaseUtil;
@@ -23,9 +25,13 @@ public class AppGenericUtils extends BaseUtil {
 	public static String account_name_text;
 	public static String case_number;
 	public static String actual_assignment_type;
+
+	//Abhishek declared
+	public static WebDriver driver = DriverFactory.getDriver();
 	
 	public GenericUtils refGenericUtils = new GenericUtils(DriverFactory.getDriver());
 	public LoginPage loginPage = new LoginPage(DriverFactory.getDriver(), envDetails, objectRepository, usernumber);
+
 	
 	@Given("Admin has already logged into the application")
 	public void admin_has_already_logged_into_the_application() {
@@ -49,7 +55,7 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.waitForElement(objectRepository.get("NewAccountCreation.Header"), 10, "New Account "+record_type+" Header");
 		enter_values_updated(dataTable);
 //		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.CopyAddress.Checkbox"), "Copy Address Checkbox");
-		refGenericUtils.take_screenshot();
+//		refGenericUtils.take_screenshot();
 		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.Save.Button"), "Save Button");
 		Thread.sleep(2000);
 		refGenericUtils.waitForElement(objectRepository.get("AccountCreated.Notification"), 10, "Account Created Notification");
@@ -113,7 +119,7 @@ public class AppGenericUtils extends BaseUtil {
 			refGenericUtils.clickOnElement(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
 			//refGenericUtils.ClearTextBox(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
 			//refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.GlobalSearch.SearchType"), "GlobalSearch.SearchType");
-			By searchType=By.xpath("(//div[@class='slds-grid slds-p-top--x-small slds-p-horizontal--x-small slds-size--1-of-1 slds-combobox-group']//*[text()='Accounts'])[1]");
+			By searchType=By.xpath("(//div[@class='slds-grid slds-p-top--x-small slds-p-horizontal--x-small slds-size--1-of-1 slds-combobox-group header']//*[text()='Accounts'])[1]");
 			refGenericUtils.click_using_javaScript(searchType, "GlobalSearch.SearchType");
 			refGenericUtils.stop_script_for(2000);
 			refGenericUtils.sendKeysJS(objectRepository.get("HomePage.GlobalSearch.SearchType"), "Accounts");
@@ -538,7 +544,9 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.take_screenshot();		
 	}
-	
+
+
+	@When("user enters object name as {string} and record name as {string}")
 	public void globalSearch(String objectName, String searchText){
 //		refGenericUtils.refreshBrowser();
 		refGenericUtils.waitUntilPageLoads();
@@ -548,7 +556,7 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
 		//refGenericUtils.ClearTextBox(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
 		//refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.GlobalSearch.SearchType"), "GlobalSearch.SearchType");
-		By searchType=By.xpath("(//div[@class='slds-grid slds-p-top--x-small slds-p-horizontal--x-small slds-size--1-of-1 slds-combobox-group']//*[text()='"+objectName+"'])[1]");
+		By searchType=By.xpath("(//div[@class='slds-grid slds-p-top--x-small slds-p-horizontal--x-small slds-size--1-of-1 slds-combobox-group header']//*[text()='"+objectName+"'])[1]");
 		refGenericUtils.click_using_javaScript(searchType, "GlobalSearch.SearchType");
 		refGenericUtils.stop_script_for(2000);
 		refGenericUtils.sendKeysJS(objectRepository.get("HomePage.GlobalSearch.SearchType"), objectName);
@@ -612,8 +620,12 @@ public class AppGenericUtils extends BaseUtil {
 				By textBox=null;
 				By textBox1=By.xpath("//label[text()='"+label+"']/ancestor::lightning-input//input");
 				By textBox2=By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-m-bottom_x-small']//input");
-				By textBox3=By.xpath("//span[text()='"+label+"']/../..//input[@type='text']");
+				By textBox3=By.xpath("//legend[text()='"+label+"']/../..//input[@type='text']");
 				By textBox4=By.xpath("//span[text()='"+label+"']/../..//textarea[@role='textbox']");
+				By textBox5 = By.xpath("//label[text()='"+label+"']/ancestor::lightning-textarea//textarea");
+
+//				System.out.print("textBox5"+textBox5);
+
 				if(refGenericUtils.findElementsCount(textBox1,label)==1)
 					textBox=textBox1;
 				else if(refGenericUtils.findElementsCount(textBox2,label)==1)
@@ -622,6 +634,13 @@ public class AppGenericUtils extends BaseUtil {
 					textBox=textBox3;
 				else if(refGenericUtils.findElementsCount(textBox4,label)==1)
 					textBox=textBox4;
+				else if(refGenericUtils.findElementsCount(textBox5, label)==1){
+					textBox=textBox5;
+
+				}
+
+
+
 				refGenericUtils.waitForElement(textBox, 20, label);
 				refGenericUtils.scrollToViewElement(textBox, label);
 				refGenericUtils.ClearTextBox(textBox, label);

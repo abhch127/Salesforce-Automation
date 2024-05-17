@@ -3,15 +3,15 @@
   "salesforce": {
     "qa": {
       "url": "https://test.salesforce.com/",
-      "username1": "reynold.clinton@meredith.com.qa",
-      "password1": "Time@4444",
-      "profilePath":"C:/Users/clintonr/AppData/Local/Google/Chrome/User Data"
+      "username1": "abhishek.chunduri@meredith.com.qa",
+      "password1": "asabhi9972AB##",
+      "profilePath":"C:\\Users\\AbhishekChunduri\\AppData\\Local\\Google\\Chrome\\User Data"
     },
     "uat": {
-      "url": "https://meredith--qa.lightning.force.com/",
-      "username1": "reynold.clinton@meredith.com.full",
-      "password1": "Test@123",
-      "profilePath":"C:/Users/clintonr/AppData/Local/Google/Chrome/User Data"
+      "url": "https://meredith--qa.sandbox.lightning.force.com",
+      "username1": "ramsundar.s.p@meredith.com.qa",
+      "password1": "Sfdcout123",
+      "profilePath":"C:\\Users\\RamsundarSP\\AppData\\Local\\Google\\Chrome\\User Data"
     }
    }
  }

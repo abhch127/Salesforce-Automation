@@ -11,8 +11,9 @@ Feature: New Account Creation
       | NewAccount.AccountName                            | Test_Advertiser_{TimeStamp} |
       | Account Record Sub Type.SingleInputDropdown       | Advertiser                  |
       | No Website.Checkbox                               | Y                           |
+      | Billing Street.TextBox                            | 786 Boone Station Drive     |
       | Billing City.TextBox                              | Burlington                  |
-      | Billing Zip/Postal Code.TextBox                   |                       27215 |
+      | Billing Zip/Postal Code.TextBox                   | 27215                       |
       | Billing State/Province.SingleInputDropdown        | North Carolina              |
       | Billing Street.TextBox                            | 786 Boone Station Drive     |
       | Copy Billing Address to Shipping Address.Checkbox | Y                           |

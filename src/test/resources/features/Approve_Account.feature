@@ -5,7 +5,7 @@ Feature: New Account Approval
     Given Admin has already logged into the application
 
   @AccountApproval
-  Scenario: Print Opportunity Creation
+  Scenario: Advertiser Account Approval
     Given User creates new account for "Advertiser" Record type
       | Element Name                                      | Values                      |
       | NewAccount.AccountName                            | Test_Advertiser_{TimeStamp} |

@@ -39,7 +39,7 @@ public class Hooks extends BaseUtil{
 				envDetails = jsonUtility.environmentSetUp(applicationName.toLowerCase(), environment, Constants.ENVIRONMENT_PATH);
 				String profile=envDetails.get("profilePath").toString();
 				objectRepository = jsonUtility.readObjectRepository(applicationName.toLowerCase(), Constants.OBJECT_PATH);
-				driver = driverFactory.init_driver(browserName,profile);
+				driver = driverFactory.init_driver(browserName,profile, System.getProperty("os.name"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

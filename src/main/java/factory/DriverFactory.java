@@ -17,8 +17,9 @@ public class DriverFactory {
 		if(browser.equalsIgnoreCase("Chrome") && os.contains("Windows")) {
 			Runtime rt = Runtime.getRuntime();
 			Process proc = rt.exec("taskkill /im chrome.exe /f /t");
-//			WebDriverManager.chromedriver().setup();
-			System.setProperty("webdriver.chrome.driver", "./Drivers/chromedriver-win64/chromedriver.exe");
+			WebDriverManager.chromedriver().setup();
+//			System.setProperty("webdriver.chrome.driver", "./Drivers/chromedriver-win64/chromedriver.exe");
+			
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("--user-data-dir="+profile);
 			//options.addArguments("--profile-directory=Person 1");
@@ -29,11 +30,13 @@ public class DriverFactory {
 		}
 
 		else if(browser.equalsIgnoreCase("Chrome") && os.contains("Mac")){
+			
+			System.out.println("in the Mac if case");
 
-			Runtime rt = Runtime.getRuntime();
-			Process proc = rt.exec("taskkill /im chrome.exe /f /t");
-//			WebDriverManager.chromedriver().setup();
-			System.setProperty("webdriver.chrome.driver", "./Drivers/chromedriver-win64/chromedriver.exe");
+//			Runtime rt = Runtime.getRuntime();
+//			Process proc = rt.exec("taskkill /im chrome.exe /f /t");
+			
+			WebDriverManager.chromedriver().setup();
 			ChromeOptions options = new ChromeOptions();
 //			options.addArguments("--user-data-dir="+profile);
 			//options.addArguments("--profile-directory=Person 1");

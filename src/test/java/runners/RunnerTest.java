@@ -13,7 +13,7 @@ import io.cucumber.testng.CucumberOptions;
 				"rerun:target/rerun.txt", 
 				"junit:target/cucumber-results.xml"}, // to generate different types of reporting
 		monochrome = true, // display the console output in a proper readable format
-		tags= "@AccountApproval",
+		tags= "@AccountCreation-Advertiser",
 		dryRun = false, publish = true) // to check the mapping is proper between feature file and step definition file
 
 public class RunnerTest extends AbstractTestNGCucumberTests {

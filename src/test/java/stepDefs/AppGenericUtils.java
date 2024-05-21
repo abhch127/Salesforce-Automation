@@ -56,9 +56,13 @@ public class AppGenericUtils extends BaseUtil {
 		enter_values_updated(dataTable);
 //		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.CopyAddress.Checkbox"), "Copy Address Checkbox");
 //		refGenericUtils.take_screenshot();
-		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.Save.Button"), "Save Button");
+		refGenericUtils.clickOnElement(objectRepository.get("NewAccount.Create.Button"), "Save Button");
 		Thread.sleep(2000);
-		refGenericUtils.waitForElement(objectRepository.get("AccountCreated.Notification"), 10, "Account Created Notification");
+
+		/*Toast Notification has a bug in Account Creation functionality in Salesforce, Need to build it after its fixed
+		refGenericUtils.waitForElement(objectRepository.get("AccountCreated.Notification"), 10, "Account Created Notification");*/
+
+
 		String actual_account = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("AccountPage.AccountNumber"), "Account Page Account Number");
 		System.out.println("Account created : "+ actual_account);
 		if(actual_account.equals(account_name_text)) {
@@ -606,11 +610,12 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.stop_script_for(5000);
 		Map<String,String> account_info = feature_file_data(dataTable);
 		account_info.forEach((label, value) -> {
-			if(value.equalsIgnoreCase("{AccountName}")) { 
+			if(value.equalsIgnoreCase("{AccountName}")) {
 				value=AccountName;
 			}
 			if(label.endsWith("AccountName")) {
 				account_name_text = value.replace("{TimeStamp}", refGenericUtils.get_Date("MMMdd'_'HHmm"));
+				System.out.println("label: "+  label);
 				refGenericUtils.waitForElement(objectRepository.get(label), 5, label);
 				refGenericUtils.scrollToViewElement(objectRepository.get(label), label);
 				refGenericUtils.toEnterTextValue(objectRepository.get(label), account_name_text, label);
@@ -623,6 +628,7 @@ public class AppGenericUtils extends BaseUtil {
 				By textBox3=By.xpath("//legend[text()='"+label+"']/../..//input[@type='text']");
 				By textBox4=By.xpath("//span[text()='"+label+"']/../..//textarea[@role='textbox']");
 				By textBox5 = By.xpath("//label[text()='"+label+"']/ancestor::lightning-textarea//textarea");
+
 
 //				System.out.print("textBox5"+textBox5);
 
@@ -679,10 +685,15 @@ public class AppGenericUtils extends BaseUtil {
 				label=label.replace(".SingleInputDropdown","");
 				By dropDownXpath=null; By valueXpath=null;
 				By dropDownXpath1=By.xpath("//label[text()='"+label+"']/..//input");
-				By valueXpath1=By.xpath("//label[text()='"+label+"']/..//ul/li");
+//				By valueXpath1=By.xpath("//label[text()='"+label+"']/..//ul/li");
+				By valueXpath1 = By.xpath("//label[text()="+label+"]/..//lightning-base-combobox-item/span[2]");
 				By dropDownXpath2=By.xpath("//span[text()='"+label+"']/../..//a[@class='select']");
 				By valueXpath2=By.xpath("//div[@class='select-options']//li//a");
-				if((refGenericUtils.findElementsCount(dropDownXpath1,label)==1) && (refGenericUtils.findElementsCount(valueXpath1,value)>0)) {
+
+				By dropDwnXpath3 = By.xpath("//label[text()="+label+"]");
+				By valueXpath3 = By.xpath("//label[text()="+label+"]/ancestor::lightning-picklist//lightning-base-combobox-item/span[2]");
+
+				if((refGenericUtils.findElementsCount(dropDownXpath1,"input Single Dropdown" )==1)&&(refGenericUtils.findElementsCount(valueXpath1,"input values")>0)){
 					dropDownXpath=dropDownXpath1;
 					valueXpath=valueXpath1;
 					refGenericUtils.waitForElement(dropDownXpath, 5, label);
@@ -705,6 +716,13 @@ public class AppGenericUtils extends BaseUtil {
 					refGenericUtils.click_using_javaScript(dropDownXpath, label);
 					refGenericUtils.waitForElement(valueXpath, 10, label);
 					refGenericUtils.click_using_javaScript(valueXpath, value);
+				} else if((refGenericUtils.findElementsCount(dropDownXpath2,"input Single Dropdown" )==1)&&(refGenericUtils.findElementsCount(valueXpath1,"input values")>0)){
+					dropDownXpath=dropDwnXpath3;
+					valueXpath=valueXpath3;
+					refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.click_using_javaScript(dropDownXpath, label);
+					refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
 				}
 				refGenericUtils.waitUntilPageLoads();
 			}

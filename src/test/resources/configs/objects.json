@@ -28,10 +28,10 @@
   	"ExistingAccountMatch.CreateNewAgencyButton" : "//button[@title='Create New Agency']",
   	"ExistingAccountMatch.CreateNewBrandButton" : "//button[@title='Create New Brand']",
   	
-  	"NewAccountCreation.Header" : "//h2[contains(text(),'New Account: ')]",
-  	"NewAccount.AccountName" : "//label[text()='Account Name']/../..//input[@type='text']",
+  	"NewAccountCreation.Header" : "//h2[contains(text(),'Create Account Record')]",
+  	"NewAccount.AccountName" : "//lightning-formatted-rich-text//*[text()='Account Name']/ancestor::flowruntime-screen-field//input",
   	"NewAccount.CopyAddress.Checkbox" :"(//input[@type='checkbox'])[2]",
-  	"NewAccount.Save.Button" : "//button[text()=\"Save\"]",
+  	"NewAccount.Create.Button" : "//footer//button[text()='Create']",
   	"AccountCreated.Notification": "//span[contains(@class, 'toastMessage')]",
   	
   	"HomePage.GearIcon" : "//a[contains(@class,'menuTriggerLink') and @role='button']",

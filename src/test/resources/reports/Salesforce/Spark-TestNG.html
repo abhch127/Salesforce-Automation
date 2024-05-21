@@ -35,7 +35,7 @@
 <a href="#"><span class="badge badge-primary">Salesforce Report</span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">May 18, 2024 03:36:46 pm</span></a>
+<a href="#"><span class="badge badge-primary">May 20, 2024 07:43:35 pm</span></a>
 </li>
 </ul>
 </div>
@@ -57,11 +57,6 @@
 <span class="ico"><i class="fa fa-tag"></i></span>
 </a>
 </li>
-<li class="nav-item dropdown" onclick="toggleView('exception-view')">
-<a id="nav-exception" class="dropdown-toggle" href="#">
-<span class="ico"><i class="fa fa-bug"></i></span>
-</a>
-</li>
 </ul>
 </div>
 </div>      <div class="vcontainer">
@@ -71,25 +66,25 @@
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>May 18, 2024 03:36:46 pm</h3>
+<h3>May 20, 2024 07:43:35 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>May 18, 2024 03:39:36 pm</h3>
+<h3>May 20, 2024 07:46:29 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0 text-pass">Features Passed</p>
-<h3>0</h3>
+<h3>1</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0 text-fail">Features Failed</p>
-<h3>1</h3>
+<h3>0</h3>
 </div></div>
 </div>
 </div>
@@ -105,12 +100,12 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='0%'>
-<b>0</b> features passed
+<div><small data-tooltip='100%'>
+<b>1</b> features passed
 </small>
 </div>
 <div>
-<small data-tooltip='100%'><b>1</b> features failed,
+<small data-tooltip='0%'><b>0</b> features failed,
 <b>0</b> skipped, <b data-tooltip='0%'>0</b> others
 </small>
 </div>
@@ -128,9 +123,9 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='0%'><b>0</b> scenarios passed</small></div>
+<div><small data-tooltip='100%'><b>1</b> scenarios passed</small></div>
 <div>
-<small data-tooltip='100%'><b>1</b> scenarios failed,
+<small data-tooltip='0%'><b>0</b> scenarios failed,
 <b>0</b> skipped, <b data-tooltip='%'>0</b> others
 </small>
 </div>
@@ -148,10 +143,10 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='16%'><b>1</b> steps passed</small></div>
+<div><small data-tooltip='100%'><b>3</b> steps passed</small></div>
 <div>
-<small data-tooltip='50%'><b>3</b> steps failed,
-<b>2</b> skipped, <b data-tooltip='%'>0</b> others
+<small data-tooltip='0%'><b>0</b> steps failed,
+<b>0</b> skipped, <b data-tooltip='%'>0</b> others
 </small>
 </div>
 </div>
@@ -167,7 +162,7 @@
 </div></div>
 <script>
 var timeline = {
-"New Account Approval":169.764
+"New Account Creation":170.567
 };
 </script>
 <div class="row">
@@ -177,28 +172,20 @@ var timeline = {
 <div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
 <thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead><tbody>
 <tr>
-<td>@Regression</td>
-<td>0</td>
+<td>@AccountCreation-Advertiser</td>
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0%</td>
+<td>0</td>
+<td>100%</td>
 </tr>
 <tr>
-<td>@ApproveReject</td>
-<td>0</td>
+<td>@AccountCreation</td>
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0%</td>
-</tr>
-<tr>
-<td>@AccountApproval</td>
 <td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0%</td>
+<td>100%</td>
 </tr>
 </tbody>
 </table></div>
@@ -235,21 +222,21 @@ var timeline = {
 <script>
 var statusGroup = {
 parentCount: 5,
-passParent: 0,
-failParent: 1,
+passParent: 1,
+failParent: 0,
 warningParent: 0,
 skipParent: 0,
 childCount: 5,
-passChild: 0,
-failChild: 1,
+passChild: 1,
+failChild: 0,
 warningChild: 0,
 skipChild: 0,
 infoChild: 0,
 grandChildCount: 5,
-passGrandChild: 1,
-failGrandChild: 3,
+passGrandChild: 3,
+failGrandChild: 0,
 warningGrandChild: 0,
-skipGrandChild: 2,
+skipGrandChild: 0,
 infoGrandChild: 0,
 eventsCount: 5,
 };
@@ -263,7 +250,7 @@ eventsCount: 5,
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
 <ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" status="fail" href="#"><span>Fail</span><span class="status danger"></span></a>
+<a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a>
 <div class="dropdown-divider"></div>
 <a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
 </ul>
@@ -271,31 +258,31 @@ eventsCount: 5,
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tag"></i></a>
 <ul id="tag-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" href="#">@Regression</a><a class="dropdown-item" href="#">@ApproveReject</a><a class="dropdown-item" href="#">@AccountApproval</a>
+<a class="dropdown-item" href="#">@AccountCreation-Advertiser</a><a class="dropdown-item" href="#">@AccountCreation</a>
 </ul>
 </li>
 </ul>
 </div>    <div class="test-list-wrapper scrollable">
       <ul class="test-list-item">
-        <li class="test-item"  status="fail" test-id="1"
+        <li class="test-item"  status="pass" test-id="1"
           author=""
           tag=""
           device="">
           <div class="test-detail">
-            <p class="name">New Account Approval</p>
+            <p class="name">New Account Creation</p>
             <p class="text-sm">
-              <span>3:36:47 pm</span> / <span>00:02:49:764</span>
-              <span class="badge fail-bg log float-right">Fail</span>
+              <span>7:43:38 pm</span> / <span>00:02:50:567</span>
+              <span class="badge pass-bg log float-right">Pass</span>
             </p>
           </div>
           <div class="test-contents d-none">
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-fail">New Account Approval</h5>
-<span class='badge badge-success'>05.18.2024 3:36:47 pm</span>
-<span class='badge badge-danger'>05.18.2024 3:39:36 pm</span>
-<span class='badge badge-default'>00:02:49:764</span>
+<h5 class="test-status text-pass">New Account Creation</h5>
+<span class='badge badge-success'>05.20.2024 7:43:38 pm</span>
+<span class='badge badge-danger'>05.20.2024 7:46:29 pm</span>
+<span class='badge badge-default'>00:02:50:567</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 <span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
 <span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
@@ -307,22 +294,22 @@ eventsCount: 5,
   <div class="card">
     <div class="card-header" role="tab">
       <div class="card-title">
-        <div class="node" id="2"><span class="badge log fail-bg mr-2">Fail</span>Advertiser Account Approval</div>
+        <div class="node" id="2"><span class="badge log pass-bg mr-2">Pass</span>Advertiser Account Creation</div>
           <div class="status-avatar float-right mr-4">
             <i class="fa fa-paperclip"></i>
           </div>
       </div>
     </div>
-        <div class="">
+        <div class="collapse">
           <div class="card-body">
               <div class="step pass-bg" title="stepDefs.AppGenericUtils.admin_has_already_logged_into_the_application()">
                 <span>Given Admin has already logged into the application</span>
       <div>
       </div>
               </div>
-              <div class="step fail-bg" title="stepDefs.AppGenericUtils.user_creates_new_account_for_record_type(java.lang.String,io.cucumber.datatable.DataTable)">
-                <span>Given User creates new account for "Advertiser" Record type</span>
-      <div><table class='markup-table table '><tr><td>Element Name</td><td>Values</td></tr><tr><td>NewAccount.AccountName</td><td>Test_Advertiser_{TimeStamp}</td></tr><tr><td>No Website.Checkbox</td><td>Y</td></tr><tr><td>Account Record Sub Type.SingleInputDropdown</td><td>Advertiser</td></tr><tr><td>Billing City.TextBox</td><td>Burlington</td></tr><tr><td>Billing Zip/Postal Code.TextBox</td><td>27215</td></tr><tr><td>Billing State/Province.SingleInputDropdown</td><td>North Carolina</td></tr><tr><td>Billing Street.TextBox</td><td>786 Boone Station Drive</td></tr><tr><td>Copy Billing Address to Shipping Address.Checkbox</td><td>Y</td></tr><tr><td>Credit Status.SingleInputDropdown</td><td>Cash with Order</td></tr></table>
+              <div class="step pass-bg" title="stepDefs.AppGenericUtils.user_creates_new_account_for_record_type(java.lang.String,io.cucumber.datatable.DataTable)">
+                <span>When User creates new account for "Advertiser" Record type</span>
+      <div><table class='markup-table table '><tr><td>Element Name</td><td>Values</td></tr><tr><td>NewAccount.AccountName</td><td>Test_Advertiser_{TimeStamp}</td></tr><tr><td>No Website.Checkbox</td><td>Y</td></tr><tr><td>Country.SingleInputDropdown</td><td>India</td></tr><tr><td>Street.TextBox</td><td>XYZ_Test_Street</td></tr><tr><td>City.TextBox</td><td>Bengaluru</td></tr><tr><td>State/Province.SingleInputDropdown</td><td>Karnataka</td></tr><tr><td>Zip/Postal Code.TextBox</td><td>50001</td></tr></table>
       </div>
       <div>
           <div class="row mb-3"><div class="col-md-3">
@@ -342,12 +329,21 @@ eventsCount: 5,
     
     </div></div>
 </div>
+      <div>'Test_Advertiser_May20_1944' has been created successfully
+      </div>
       <div>
           <div class="row mb-3"><div class="col-md-3">
 <img data-featherlight='../Salesforce/embedded4.png' src="../Salesforce/embedded4.png">
     
     </div></div>
 </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="stepDefs.AppGenericUtils.user_deletes_the_record_type(java.lang.String)">
+                <span>Then user deletes the "Advertiser" record type</span>
+      <div>Case has been deleted successfully
+      </div>
       <div>
           <div class="row mb-3"><div class="col-md-3">
 <img data-featherlight='../Salesforce/embedded5.png' src="../Salesforce/embedded5.png">
@@ -360,90 +356,15 @@ eventsCount: 5,
     
     </div></div>
 </div>
+      <div>Account 'Test_Advertiser_May20_1944' has been deleted successfully
+      </div>
       <div>
-        <textarea disabled class="code-block">org.openqa.selenium.NoSuchWindowException: no such window: target window already closed
-from unknown error: web view not found
-  (Session info: chrome=124.0.6367.209)
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'Abhisheks-MacBook-Pro.local', ip: '2405:201:c03b:186e:c9f1:e7e0:257f:9d89%en0', os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '14.4.1', java.version: '17.0.6'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 124.0.6367.209, chrome: {chromedriverVersion: 124.0.6367.207 (a9001a6e39f..., userDataDir: /var/folders/b2/f1f6_q9x5wj...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:49255}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: MAC, platformName: MAC, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 0f8ce7c4a145105be9d4fd78443ada97
-	at jdk.internal.reflect.GeneratedConstructorAccessor22.newInstance(Unknown Source)
-	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:609)
-	at org.openqa.selenium.remote.RemoteWebDriver.getScreenshotAs(RemoteWebDriver.java:295)
-	at utilities.GenericUtils.take_screenshot(GenericUtils.java:338)
-	at utilities.GenericUtils.toEnterTextValue(GenericUtils.java:86)
-	at stepDefs.AppGenericUtils.lambda$0(AppGenericUtils.java:616)
-	at java.base/java.util.LinkedHashMap.forEach(LinkedHashMap.java:721)
-	at stepDefs.AppGenericUtils.enter_values_updated(AppGenericUtils.java:608)
-	at stepDefs.AppGenericUtils.user_creates_new_account_for_record_type(AppGenericUtils.java:56)
-	at ✽.User creates new account for "Advertiser" Record type(file:///Users/abhishekch/Desktop/Automation%20Projects/Salesforce.Automation/src/test/resources/features/Approve_Account.feature:9)
-</textarea>
-      
-      </div>
-              </div>
-              <div class="step skip-bg" title="stepDefs.AppGenericUtils.approves_the_account(java.lang.String)">
-                <span>And "Surfina Adams" approves the account</span>
-      <div>Step skipped
-      </div>
-              </div>
-              <div class="step skip-bg" title="stepDefs.AppGenericUtils.user_deletes_the_record_type(java.lang.String)">
-                <span>Then user deletes the "Advertiser" record type</span>
-      <div>Step skipped
-      </div>
-              </div>
-              <div class="step fail-bg" title="AFTER">
-                <span>hooks.Hooks.assert_all()</span>
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../Salesforce/embedded7.png' src="../Salesforce/embedded7.png">
+    
+    </div></div>
+</div>
       <div>
-        <textarea disabled class="code-block">java.lang.AssertionError: The following asserts failed:
-	Failed to find New Account Advertiser Header in 10 sec,
-	Failed to find NewAccount.AccountName in 5 sec,
-	Failed to double click on NewAccount.AccountName,
-	Failed to find NewAccount.AccountName in 20 sec,
-	Failed to enter the text 'Test_Advertiser_May18_1539' in NewAccount.AccountName
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:47)
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:31)
-	at hooks.Hooks.assert_all(Hooks.java:65)
-</textarea>
-      
-      </div>
-              </div>
-              <div class="step fail-bg" title="AFTER">
-                <span>hooks.Hooks.tearDown()</span>
-      <div>
-        <textarea disabled class="code-block">org.openqa.selenium.NoSuchWindowException: no such window: target window already closed
-from unknown error: web view not found
-  (Session info: chrome=124.0.6367.209)
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'Abhisheks-MacBook-Pro.local', ip: '2405:201:c03b:186e:c9f1:e7e0:257f:9d89%en0', os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '14.4.1', java.version: '17.0.6'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 124.0.6367.209, chrome: {chromedriverVersion: 124.0.6367.207 (a9001a6e39f..., userDataDir: /var/folders/b2/f1f6_q9x5wj...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:49255}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: MAC, platformName: MAC, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 0f8ce7c4a145105be9d4fd78443ada97
-	at jdk.internal.reflect.GeneratedConstructorAccessor22.newInstance(Unknown Source)
-	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:609)
-	at org.openqa.selenium.remote.RemoteWebDriver.getScreenshotAs(RemoteWebDriver.java:295)
-	at hooks.Hooks.tearDown(Hooks.java:58)
-</textarea>
-      
       </div>
               </div>
           </div>
@@ -465,130 +386,6 @@ Session ID: 0f8ce7c4a145105be9d4fd78443ada97
 <div class="test-list">
 <div class="test-list-tools">
 <ul class="tools pull-left"><li><a href=""><span class="font-size-14">Category</span></a></li></ul>
-<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">3</span></a></li></ul>
-</div>
-<div class="test-list-wrapper scrollable">
-<ul class="test-list-item">
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log badge-danger'>1</span>
-</span>
-<p class="name">@Regression</p>
-<p class="duration text-sm">1 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>@Regression</h4>
-<span status="fail" class='badge log badge-danger'>1 failed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="fail">
-<td><span class="badge log fail-bg">Fail</span></td>
-<td>15:36:47 pm</td>
-<td>
-<a href="#" class="linked" test-id='1' id='2'>Advertiser Account Approval</a>
-<div class="">
-<span class="badge badge-default">New Account Approval.Advertiser Account Approval</span>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log badge-danger'>1</span>
-</span>
-<p class="name">@ApproveReject</p>
-<p class="duration text-sm">1 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>@ApproveReject</h4>
-<span status="fail" class='badge log badge-danger'>1 failed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="fail">
-<td><span class="badge log fail-bg">Fail</span></td>
-<td>15:36:47 pm</td>
-<td>
-<a href="#" class="linked" test-id='1' id='2'>Advertiser Account Approval</a>
-<div class="">
-<span class="badge badge-default">New Account Approval.Advertiser Account Approval</span>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log badge-danger'>1</span>
-</span>
-<p class="name">@AccountApproval</p>
-<p class="duration text-sm">1 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>@AccountApproval</h4>
-<span status="fail" class='badge log badge-danger'>1 failed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="fail">
-<td><span class="badge log fail-bg">Fail</span></td>
-<td>15:36:47 pm</td>
-<td>
-<a href="#" class="linked" test-id='1' id='2'>Advertiser Account Approval</a>
-<div class="">
-<span class="badge badge-default">New Account Approval.Advertiser Account Approval</span>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="test-content scrollable">
-<div class="test-content-detail">
-<div class="detail-body"></div>
-</div>
-</div>
-</div><div class="test-wrapper row view exception-view attributes-view">
-<div class="test-list">
-<div class="test-list-tools">
-<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Exception</span></a></li></ul>
 <ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">2</span></a></li></ul>
 </div>
 <div class="test-list-wrapper scrollable">
@@ -596,15 +393,15 @@ Session ID: 0f8ce7c4a145105be9d4fd78443ada97
 <li class="test-item">
 <div class="test-detail">
 <span class="meta">
-<span class='badge log badge-danger'>1</span>
+<span class='badge log pass-bg'>1</span>
 </span>
-<p class="name">java.lang.AssertionError</p>
+<p class="name">@AccountCreation-Advertiser</p>
 <p class="duration text-sm">1 tests</p>
 </div>
 <div class="test-contents d-none">
 <div class="info">
-<h4>java.lang.AssertionError</h4>
-<span status="fail" class='badge log badge-danger'>1 failed</span>
+<h4>@AccountCreation-Advertiser</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
 </div>
 <table class='table table-sm mt-4'>
 <thead>
@@ -615,13 +412,13 @@ Session ID: 0f8ce7c4a145105be9d4fd78443ada97
 </tr>
 </thead>
 <tbody>
-<tr class="tag-test-status" status="fail">
-<td><span class="badge log fail-bg">Fail</span></td>
-<td>15:39:36 pm</td>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>19:43:38 pm</td>
 <td>
-<a href="#" class="linked" test-id='1' id='8'>hooks.Hooks.assert_all()</a>
+<a href="#" class="linked" test-id='1' id='2'>Advertiser Account Creation</a>
 <div class="">
-<span class="badge badge-default">New Account Approval.Advertiser Account Approval.hooks.Hooks.assert_all()</span>
+<span class="badge badge-default">New Account Creation.Advertiser Account Creation</span>
 </div>
 </td>
 </tr>
@@ -632,15 +429,15 @@ Session ID: 0f8ce7c4a145105be9d4fd78443ada97
 <li class="test-item">
 <div class="test-detail">
 <span class="meta">
-<span class='badge log badge-danger'>2</span>
+<span class='badge log pass-bg'>1</span>
 </span>
-<p class="name">org.openqa.selenium.NoSuchWindowException</p>
-<p class="duration text-sm">2 tests</p>
+<p class="name">@AccountCreation</p>
+<p class="duration text-sm">1 tests</p>
 </div>
 <div class="test-contents d-none">
 <div class="info">
-<h4>org.openqa.selenium.NoSuchWindowException</h4>
-<span status="fail" class='badge log badge-danger'>2 failed</span>
+<h4>@AccountCreation</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
 </div>
 <table class='table table-sm mt-4'>
 <thead>
@@ -651,23 +448,13 @@ Session ID: 0f8ce7c4a145105be9d4fd78443ada97
 </tr>
 </thead>
 <tbody>
-<tr class="tag-test-status" status="fail">
-<td><span class="badge log fail-bg">Fail</span></td>
-<td>15:38:12 pm</td>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>19:43:38 pm</td>
 <td>
-<a href="#" class="linked" test-id='1' id='5'>Given User creates new account for "Advertiser" Record type</a>
+<a href="#" class="linked" test-id='1' id='2'>Advertiser Account Creation</a>
 <div class="">
-<span class="badge badge-default">New Account Approval.Advertiser Account Approval.Given User creates new account for "Advertiser" Record type</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="fail">
-<td><span class="badge log fail-bg">Fail</span></td>
-<td>15:39:36 pm</td>
-<td>
-<a href="#" class="linked" test-id='1' id='9'>hooks.Hooks.tearDown()</a>
-<div class="">
-<span class="badge badge-default">New Account Approval.Advertiser Account Approval.hooks.Hooks.tearDown()</span>
+<span class="badge badge-default">New Account Creation.Advertiser Account Creation</span>
 </div>
 </td>
 </tr>

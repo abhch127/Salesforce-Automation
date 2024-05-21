@@ -7,17 +7,14 @@ Feature: New Account Creation
   @AccountCreation-Advertiser
   Scenario: Advertiser Account Creation
     When User creates new account for "Advertiser" Record type
-      | Element Name                                      | Values                      |
-      | NewAccount.AccountName                            | Test_Advertiser_{TimeStamp} |
-      | Account Record Sub Type.SingleInputDropdown       | Advertiser                  |
-      | No Website.Checkbox                               | Y                           |
-      | Billing Street.TextBox                            | 786 Boone Station Drive     |
-      | Billing City.TextBox                              | Burlington                  |
-      | Billing Zip/Postal Code.TextBox                   | 27215                       |
-      | Billing State/Province.SingleInputDropdown        | North Carolina              |
-      | Billing Street.TextBox                            | 786 Boone Station Drive     |
-      | Copy Billing Address to Shipping Address.Checkbox | Y                           |
-      | Credit Status.SingleInputDropdown                 | Cash with Order             |
+      | Element Name                       | Values                      |
+      | NewAccount.AccountName             | Test_Advertiser_{TimeStamp} |
+      | No Website.Checkbox                | Y                           |
+      | Country.SingleInputDropdown        | India                       |
+      | Street.TextBox                     | XYZ_Test_Street             |
+      | City.TextBox                       | Bengaluru                   |
+      | State/Province.SingleInputDropdown | Karnataka                   |
+      | Zip/Postal Code.TextBox            | 50001                       |
     Then user deletes the "Advertiser" record type
 
   @AccountCreation-Agency

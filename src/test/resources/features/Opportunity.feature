@@ -6,28 +6,24 @@ Feature: Opportunity validation
 
   @OpportunityCreation-Print
   Scenario: Print Opportunity Creation
-    Given User creates new account for "Advertiser" Record type
-      | Element Name                                      | Values                      |
-      | NewAccount.AccountName                            | Test_Advertiser_{TimeStamp} |
-      | No Website.Checkbox                               | Y                           |
-      | Account Record Sub Type.SingleInputDropdown       | Advertiser                  |
-      | Billing City.TextBox                              | Burlington                  |
-      | Billing Zip/Postal Code.TextBox                   |                       27215 |
-      | Billing State/Province.SingleInputDropdown        | North Carolina              |
-      | Billing Street.TextBox                            | 786 Boone Station Drive     |
-      | Copy Billing Address to Shipping Address.Checkbox | Y                           |
-      | Credit Status.SingleInputDropdown                 | Cash with Order             |
-    And "Surfina Adams" approves the account
-    And user creates a Pipeline
-      | Element Name | Values |
-      | Year.TextBox |   2021 |
-    When User creates new Opportunity for "Print" type
-      | Element Name                             | Values                           |
-      | Select an Advertiser.SingleInputDropdown | {AccountName}                    |
-      | Stage.SelectDropdown                     | 10% - Proposal Submitted         |
-      | Available Titles.DuellistBox             | ALLRECIPES                       |
-      | Opp Estimate for ALLRECIPES.TextBox      |                             1000 |
-      | Available Issues.DuellistBox             | DECEMBER/JANUARY 2022 ALLRECIPES |
+    Given user searches object name as "Pipeline" and record name as "AQUASANA 2024" and lands on record
+    When User navigates to New Opportunity  for "Print" type
+    And User updates the Opportunity entries
+      | Element Name                   | Values                   |
+      | Brand.SingleInputDropdown      | CLASSICO PRODUCTS        |
+      | Advertiser.SingleInputDropdown | KRAFT HEINZ COMPANY, THE |
+      | Title.SingleInputDropdown      | ALLRECIPES               |
+      | Issue.SingleInputDropdown      | SPRING 2024 ALLRECIPES   |
+
+    And User clicks Next Button
+    And User clicks Next Button
+    And User updates the Opportunity entries
+      | Element Name                                      | Values |
+      | Planning Agency.Lookup                            | BPN    |
+      | Opp Estimate.TextBox                              | 10001  |
+      | Foundry/Content Strategy involved?.SelectDropdown | Yes    |
+    Then user confirms the creation of Opportunity Type "Print"
+
 
   @OpportunityCreation-Digital
   Scenario: Digital Opportunity creation

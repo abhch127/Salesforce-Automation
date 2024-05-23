@@ -37,9 +37,8 @@ Feature: New Account Creation
   @AccountCreation-Brand
   Scenario: Brand Account Creation
     When User creates new account for "Brand" Record type
-      | Element Name                                | Values                 |
-      | NewAccount.AccountName                      | Test_Brand_{TimeStamp} |
-      | No Website.Checkbox                         | Y                      |
-      | Account Record Sub Type.SingleInputDropdown | Brand                  |
-      | Account Approval Status.SingleInputDropdown | Prospect               |
+      | Element Name           | Values                 |
+      | NewAccount.AccountName | Test_Brand_{TimeStamp} |
+      | No Website.Checkbox    | Y                      |
+      | Phone.TextBox          |1999199199              |
     Then user deletes the "Brand" record type

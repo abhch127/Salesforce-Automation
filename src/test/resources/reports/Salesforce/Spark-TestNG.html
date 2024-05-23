@@ -11,7 +11,7 @@
 <link href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@d6562a79075e061305ccfdb82f01e5e195e2d307/spark/css/spark-style.css" rel="stylesheet" />
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://cdn.rawgit.com/extent-framework/extent-github-cdn/7cc78ce/spark/js/jsontree.js"></script>
-<style type="text/css"></style></head><body class="spa bdd-report ">
+<style type="text/css"></style></head><body class="spa bdd-report standard">
   <div class="app">
     <div class="layout">
 <div class="header navbar">
@@ -35,7 +35,7 @@
 <a href="#"><span class="badge badge-primary">Salesforce Report</span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">May 20, 2024 07:43:35 pm</span></a>
+<a href="#"><span class="badge badge-primary">May 23, 2024 05:53:39 pm</span></a>
 </li>
 </ul>
 </div>
@@ -66,13 +66,13 @@
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>May 20, 2024 07:43:35 pm</h3>
+<h3>May 23, 2024 05:53:39 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>May 20, 2024 07:46:29 pm</h3>
+<h3>May 23, 2024 05:55:54 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
@@ -143,7 +143,7 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='100%'><b>3</b> steps passed</small></div>
+<div><small data-tooltip='100%'><b>8</b> steps passed</small></div>
 <div>
 <small data-tooltip='0%'><b>0</b> steps failed,
 <b>0</b> skipped, <b data-tooltip='%'>0</b> others
@@ -162,7 +162,7 @@
 </div></div>
 <script>
 var timeline = {
-"New Account Creation":170.567
+"Opportunity validation":133.088
 };
 </script>
 <div class="row">
@@ -172,7 +172,7 @@ var timeline = {
 <div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
 <thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead><tbody>
 <tr>
-<td>@AccountCreation-Advertiser</td>
+<td>@Regression</td>
 <td>1</td>
 <td>0</td>
 <td>0</td>
@@ -180,7 +180,15 @@ var timeline = {
 <td>100%</td>
 </tr>
 <tr>
-<td>@AccountCreation</td>
+<td>@Opportunity</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@OpportunityCreation-Print</td>
 <td>1</td>
 <td>0</td>
 <td>0</td>
@@ -233,7 +241,7 @@ warningChild: 0,
 skipChild: 0,
 infoChild: 0,
 grandChildCount: 5,
-passGrandChild: 3,
+passGrandChild: 8,
 failGrandChild: 0,
 warningGrandChild: 0,
 skipGrandChild: 0,
@@ -258,7 +266,7 @@ eventsCount: 5,
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tag"></i></a>
 <ul id="tag-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" href="#">@AccountCreation-Advertiser</a><a class="dropdown-item" href="#">@AccountCreation</a>
+<a class="dropdown-item" href="#">@Regression</a><a class="dropdown-item" href="#">@Opportunity</a><a class="dropdown-item" href="#">@OpportunityCreation-Print</a>
 </ul>
 </li>
 </ul>
@@ -269,9 +277,9 @@ eventsCount: 5,
           tag=""
           device="">
           <div class="test-detail">
-            <p class="name">New Account Creation</p>
+            <p class="name">Opportunity validation</p>
             <p class="text-sm">
-              <span>7:43:38 pm</span> / <span>00:02:50:567</span>
+              <span>5:53:41 pm</span> / <span>00:02:13:088</span>
               <span class="badge pass-bg log float-right">Pass</span>
             </p>
           </div>
@@ -279,10 +287,10 @@ eventsCount: 5,
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-pass">New Account Creation</h5>
-<span class='badge badge-success'>05.20.2024 7:43:38 pm</span>
-<span class='badge badge-danger'>05.20.2024 7:46:29 pm</span>
-<span class='badge badge-default'>00:02:50:567</span>
+<h5 class="test-status text-pass">Opportunity validation</h5>
+<span class='badge badge-success'>05.23.2024 5:53:41 pm</span>
+<span class='badge badge-danger'>05.23.2024 5:55:54 pm</span>
+<span class='badge badge-default'>00:02:13:088</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 <span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
 <span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
@@ -294,7 +302,7 @@ eventsCount: 5,
   <div class="card">
     <div class="card-header" role="tab">
       <div class="card-title">
-        <div class="node" id="2"><span class="badge log pass-bg mr-2">Pass</span>Advertiser Account Creation</div>
+        <div class="node" id="2"><span class="badge log pass-bg mr-2">Pass</span>Print Opportunity Creation</div>
           <div class="status-avatar float-right mr-4">
             <i class="fa fa-paperclip"></i>
           </div>
@@ -307,10 +315,13 @@ eventsCount: 5,
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepDefs.AppGenericUtils.user_creates_new_account_for_record_type(java.lang.String,io.cucumber.datatable.DataTable)">
-                <span>When User creates new account for "Advertiser" Record type</span>
-      <div><table class='markup-table table '><tr><td>Element Name</td><td>Values</td></tr><tr><td>NewAccount.AccountName</td><td>Test_Advertiser_{TimeStamp}</td></tr><tr><td>No Website.Checkbox</td><td>Y</td></tr><tr><td>Country.SingleInputDropdown</td><td>India</td></tr><tr><td>Street.TextBox</td><td>XYZ_Test_Street</td></tr><tr><td>City.TextBox</td><td>Bengaluru</td></tr><tr><td>State/Province.SingleInputDropdown</td><td>Karnataka</td></tr><tr><td>Zip/Postal Code.TextBox</td><td>50001</td></tr></table>
+              <div class="step pass-bg" title="stepDefs.AppGenericUtils.globalSearch(java.lang.String,java.lang.String)">
+                <span>Given user searches object name as "Pipeline" and record name as "AQUASANA 2024" and lands on record</span>
+      <div>
       </div>
+              </div>
+              <div class="step pass-bg" title="stepDefs.Opportunity.user_navigates_to_new_Opportunity(java.lang.String)">
+                <span>When User navigates to New Opportunity  for "Print" type</span>
       <div>
           <div class="row mb-3"><div class="col-md-3">
 <img data-featherlight='../Salesforce/embedded1.png' src="../Salesforce/embedded1.png">
@@ -324,13 +335,28 @@ eventsCount: 5,
     </div></div>
 </div>
       <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="stepDefs.AppGenericUtils.update_Opp_entries(io.cucumber.datatable.DataTable)">
+                <span>And User updates the Opportunity entries</span>
+      <div><table class='markup-table table '><tr><td>Element Name</td><td>Values</td></tr><tr><td>Brand.SingleInputDropdown</td><td>CLASSICO PRODUCTS</td></tr><tr><td>Advertiser.SingleInputDropdown</td><td>KRAFT HEINZ COMPANY, THE</td></tr><tr><td>Title.SingleInputDropdown</td><td>ALLRECIPES</td></tr><tr><td>Issue.SingleInputDropdown</td><td>SPRING 2024 ALLRECIPES</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="stepDefs.AppGenericUtils.user_clicks_Next_button()">
+                <span>And User clicks Next Button</span>
+      <div>
           <div class="row mb-3"><div class="col-md-3">
 <img data-featherlight='../Salesforce/embedded3.png' src="../Salesforce/embedded3.png">
     
     </div></div>
 </div>
-      <div>'Test_Advertiser_May20_1944' has been created successfully
+      <div>
       </div>
+              </div>
+              <div class="step pass-bg" title="stepDefs.AppGenericUtils.user_clicks_Next_button()">
+                <span>And User clicks Next Button</span>
       <div>
           <div class="row mb-3"><div class="col-md-3">
 <img data-featherlight='../Salesforce/embedded4.png' src="../Salesforce/embedded4.png">
@@ -340,10 +366,15 @@ eventsCount: 5,
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepDefs.AppGenericUtils.user_deletes_the_record_type(java.lang.String)">
-                <span>Then user deletes the "Advertiser" record type</span>
-      <div>Case has been deleted successfully
+              <div class="step pass-bg" title="stepDefs.AppGenericUtils.update_Opp_entries(io.cucumber.datatable.DataTable)">
+                <span>And User updates the Opportunity entries</span>
+      <div><table class='markup-table table '><tr><td>Element Name</td><td>Values</td></tr><tr><td>Planning Agency.Lookup</td><td>BPN</td></tr><tr><td>Opp Estimate.TextBox</td><td>10001</td></tr><tr><td>Foundry/Content Strategy involved?.SelectDropdown</td><td>Yes</td></tr></table>
       </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="stepDefs.Opportunity.user_confirms_the_creation_of_opportunity(java.lang.String)">
+                <span>Then user confirms the creation of Opportunity Type "Print"</span>
       <div>
           <div class="row mb-3"><div class="col-md-3">
 <img data-featherlight='../Salesforce/embedded5.png' src="../Salesforce/embedded5.png">
@@ -356,11 +387,17 @@ eventsCount: 5,
     
     </div></div>
 </div>
-      <div>Account 'Test_Advertiser_May20_1944' has been deleted successfully
-      </div>
       <div>
           <div class="row mb-3"><div class="col-md-3">
 <img data-featherlight='../Salesforce/embedded7.png' src="../Salesforce/embedded7.png">
+    
+    </div></div>
+</div>
+      <div>New Print Opportunity  has been created Successfully
+      </div>
+      <div>
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../Salesforce/embedded8.png' src="../Salesforce/embedded8.png">
     
     </div></div>
 </div>
@@ -386,7 +423,7 @@ eventsCount: 5,
 <div class="test-list">
 <div class="test-list-tools">
 <ul class="tools pull-left"><li><a href=""><span class="font-size-14">Category</span></a></li></ul>
-<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">2</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">3</span></a></li></ul>
 </div>
 <div class="test-list-wrapper scrollable">
 <ul class="test-list-item">
@@ -395,12 +432,12 @@ eventsCount: 5,
 <span class="meta">
 <span class='badge log pass-bg'>1</span>
 </span>
-<p class="name">@AccountCreation-Advertiser</p>
+<p class="name">@Regression</p>
 <p class="duration text-sm">1 tests</p>
 </div>
 <div class="test-contents d-none">
 <div class="info">
-<h4>@AccountCreation-Advertiser</h4>
+<h4>@Regression</h4>
 <span status="pass" class='badge log pass-bg'>1 passed</span>
 </div>
 <table class='table table-sm mt-4'>
@@ -414,11 +451,11 @@ eventsCount: 5,
 <tbody>
 <tr class="tag-test-status" status="pass">
 <td><span class="badge log pass-bg">Pass</span></td>
-<td>19:43:38 pm</td>
+<td>17:53:41 pm</td>
 <td>
-<a href="#" class="linked" test-id='1' id='2'>Advertiser Account Creation</a>
+<a href="#" class="linked" test-id='1' id='2'>Print Opportunity Creation</a>
 <div class="">
-<span class="badge badge-default">New Account Creation.Advertiser Account Creation</span>
+<span class="badge badge-default">Opportunity validation.Print Opportunity Creation</span>
 </div>
 </td>
 </tr>
@@ -431,12 +468,12 @@ eventsCount: 5,
 <span class="meta">
 <span class='badge log pass-bg'>1</span>
 </span>
-<p class="name">@AccountCreation</p>
+<p class="name">@Opportunity</p>
 <p class="duration text-sm">1 tests</p>
 </div>
 <div class="test-contents d-none">
 <div class="info">
-<h4>@AccountCreation</h4>
+<h4>@Opportunity</h4>
 <span status="pass" class='badge log pass-bg'>1 passed</span>
 </div>
 <table class='table table-sm mt-4'>
@@ -450,11 +487,47 @@ eventsCount: 5,
 <tbody>
 <tr class="tag-test-status" status="pass">
 <td><span class="badge log pass-bg">Pass</span></td>
-<td>19:43:38 pm</td>
+<td>17:53:41 pm</td>
 <td>
-<a href="#" class="linked" test-id='1' id='2'>Advertiser Account Creation</a>
+<a href="#" class="linked" test-id='1' id='2'>Print Opportunity Creation</a>
 <div class="">
-<span class="badge badge-default">New Account Creation.Advertiser Account Creation</span>
+<span class="badge badge-default">Opportunity validation.Print Opportunity Creation</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@OpportunityCreation-Print</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@OpportunityCreation-Print</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:53:41 pm</td>
+<td>
+<a href="#" class="linked" test-id='1' id='2'>Print Opportunity Creation</a>
+<div class="">
+<span class="badge badge-default">Opportunity validation.Print Opportunity Creation</span>
 </div>
 </td>
 </tr>

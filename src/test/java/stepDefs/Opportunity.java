@@ -1,5 +1,7 @@
 package stepDefs;
 
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -17,15 +19,20 @@ public class Opportunity extends BaseUtil {
 	public AppGenericUtils refAccountCreation = new AppGenericUtils();
 	public LoginPage loginPage = new LoginPage(DriverFactory.getDriver(), envDetails, objectRepository, usernumber);
 
-	@When("User creates new Opportunity for {string} type")
-	public void user_creates_new_Opportunity(String opportunity_type, DataTable dataTable) {
-		refAccountCreation.globalSearch("Pipeline", AccountName);//AccountName
+
+	@When("User navigates to New Opportunity  for {string} type")
+	public void user_navigates_to_new_Opportunity(String opportunity_type) {
+
+		/*Since we are already present on Pipeline Page
+		refAccountCreation.globalSearch("Pipeline", AccountName);//AccountName */
+
 		refGenericUtils.waitUntilPageLoads();
+
 		By tabName = null;
 		By buttonName = null;
 		if (opportunity_type.equalsIgnoreCase("Print")) {
 			tabName = By.xpath("//a[@data-tab-value='Print']");
-			buttonName = By.xpath("//button[text()='Create New Print Opportunity']");
+			buttonName = By.xpath("//button[text()='Create New Opportunity']");
 		} else if (opportunity_type.equalsIgnoreCase("Digital")) {
 			tabName = By.xpath("//a[@data-tab-value='Digital']");
 			buttonName = By.xpath("//button[text()='Create New DigitalOpportunity']");
@@ -45,21 +52,37 @@ public class Opportunity extends BaseUtil {
 			refGenericUtils.take_screenshot();
 			refGenericUtils.click_using_javaScript(objectRepository.get("NextButton"), "Next Button");
 		}
-		// refGenericUtils.waitForElement(byXpath, 20, ElementName);
-		refAccountCreation.enter_values_updated(dataTable);
-		refGenericUtils.click_using_javaScript(objectRepository.get("Save.Button"), "Save.Button");
-		refGenericUtils.waitForElement(objectRepository.get("NewContractIO.Button"), 20, "NewContractIO.Button");
+		refGenericUtils.waitForElement(By.xpath("//*[text()='Brand']"), 20, "Brand Field");
+	}
+	@Then("user confirms the creation of Opportunity Type {string}")
+	public void user_confirms_the_creation_of_opportunity(String opportunity_type){
 		refGenericUtils.take_screenshot();
-		refGenericUtils.click_using_javaScript(objectRepository.get("PrintOpportunity.IdLink"),
-				"PrintOpportunity.IdLink");
-		OppId = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("PrintOpportunity.IdLink"), "Opp-Id");
-		refGenericUtils.waitForElement(objectRepository.get("PrintOpportunity.IdLink"), 20, "PrintOpportunity.IdLink");
+		refGenericUtils.click_using_javaScript(objectRepository.get("CreateNewOpportunity.Create.Button"), "CreateNewOpportunity.Create.Button");
+		refGenericUtils.stop_script_for(5000);
+		refGenericUtils.waitForElement(objectRepository.get("PipelinePage.MyTeamOpps.CheckBox"), 10, "My Team Opps Checkbox");
+		refGenericUtils.take_screenshot();
+
+		//uncheck "My Team Opps" button
+		refGenericUtils.click_using_javaScript(objectRepository.get("PipelinePage.MyTeamOpps.CheckBox"), "My Team Opps Checkbox");
+		System.out.println("Unchecked");
+
 		refGenericUtils.stop_script_for(2000);
+
+//		After Unchecking the checkbox all Opps would be displayed
+//		Click the First Opportunity Number to display its details on Right side
+//		refGenericUtils.click_using_javaScript(objectRepository.get("PrintOpportunity.IdLink"),
+//				"PrintOpportunity.IdLink");
+
+		System.out.println("Clicked");
+//		OppId = refGenericUtils.fetchingTextvalueofElement(objectRepository.get("PrintOpportunity.IdLink"), "Opp-Id");
+//		refGenericUtils.waitForElement(objectRepository.get("PrintOpportunity.IdLink"), 20, "PrintOpportunity.IdLink");
+		refGenericUtils.stop_script_for(2000);
+
 		refGenericUtils.take_screenshot();
-		int count = refGenericUtils.findElementsCount(objectRepository.get("Opprtunity.CloneButton"),
-				"Opprtunity.CloneButton");
+		int count = refGenericUtils.findElementsCount(objectRepository.get("Pipeline.CreateNewOpportunity.Button"), "Create New Opportunity Button");
+
 		if (count == 1) {
-			BaseUtil.scenario.log("New "+opportunity_type+" Opportunity "+OppId+" has been created Successfully");
+			BaseUtil.scenario.log("New "+opportunity_type+" Opportunity  has been created Successfully");
 			refGenericUtils.take_screenshot();
 		} else {
 			BaseUtil.scenario.log("Failed to create the "+opportunity_type+" Opportunity");

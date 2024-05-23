@@ -419,6 +419,22 @@ public int findElementsCount(By byxpath, String element_name){
   	
 	return elements.size();	 
     }
+
+	public List<WebElement> findElements(By byxpath, String element_name){
+		List<WebElement> elements = null;
+		try{
+			elements = driver.findElements(byxpath);
+
+		}catch(Exception E){
+			E.printStackTrace();
+			softAssert.fail("Unable to find the Count of Element "+element_name);
+			take_screenshot();
+		}
+
+		return elements;
+	}
+
+
 	public void select_dropdown_index(By by_xpath, int index, String element_name) {
 		try {
 			WebElement element = driver.findElement(by_xpath);

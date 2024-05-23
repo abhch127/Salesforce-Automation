@@ -72,9 +72,15 @@
   	
   	"Opportunity.NewPrintOpportunity.button":"//button[text()='Create New Print Opportunity']",
   	"Opportunity.Advertiser.Input":"//label[text()='Select an Advertiser']/..//input",
-  	"Opportunity.RecordType.Print.RadioButton":"//span[@class='slds-form-element__label' and contains(text(), 'Print')]/..//span[@class='slds-radio_faux']",
+  	"Opportunity.RecordType.Print.RadioButton":"//legend[text()='Select a record type']/..//*[text()='Print']/ancestor::label/span[1]",
+
+	"CreateNewOpportunity.Next.Button": "//footer//button[text()='Next']",
+	"CreateNewOpportunity.AccountAssignmentValidation": "//span[contains(text(), 'This account is not assigned to you')]",
+	"CreateNewOpportunity.Create.Button": "//footer//button[text()='Create']",
   	
   	"PipelinePage.Clone.Button":"//button[text()='Clone']",
+	"PipelinePage.MyTeamOpps.CheckBox": "//lightning-input//span[contains(@class,'slds-checkbox_faux')]",
+	"Pipeline.CreateNewOpportunity.Button": "//button[text()='Create New Opportunity']",
   	
   	"ClonePopup.Header" : "//h2//span[contains(text(), 'Clone')]",
   	"ClonePopup.SelectedIssue.DuellistBox" : "//span[text()='Selected Issues']/..//span[@class='slds-truncate']",

@@ -1,13 +1,13 @@
 package stepDefs;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import base.BaseUtil;
@@ -550,7 +550,7 @@ public class AppGenericUtils extends BaseUtil {
 	}
 
 
-	@When("user enters object name as {string} and record name as {string}")
+	@When("user searches object name as {string} and record name as {string} and lands on record")
 	public void globalSearch(String objectName, String searchText){
 //		refGenericUtils.refreshBrowser();
 		refGenericUtils.waitUntilPageLoads();
@@ -783,6 +783,267 @@ public class AppGenericUtils extends BaseUtil {
 			}
 		});
 	}
+
+
+
+
+//	//Updates Opportunity Entries Dynamically
+//	public void createOpportunityDynamically(DataTable datatable){
+//		List<WebElement> Elements = null;
+//		List<String> labels = null;
+//
+////		On Opp Creation first Page
+////		* Collect all fields present on the Page
+////		* Match the collected field labels with Datatable fields
+////		* Shrink the Datatable with only matching field with keeping original one intact
+////		* call "update_Opp_Entries(shrinkedDatatable)"
+////		*
+//		// Repeat the Same Process for Next Page, by checking the Account Assignment Validation Page
+//
+//		List<Map<String, String>> datatable_Map = datatable.asMaps(String.class, String.class);
+//		List<Map<String, String>> finalDataMap = null;
+//
+//
+//		By xpath1 = By.xpath("//flowruntime-screen-field//lightning-formatted-text/span");
+//		By xpath2 = By.xpath("//flowruntime-screen-field//label/span");
+//		By xpath3 = By.xpath("//flowruntime-screen-field//label");
+//
+//		List<WebElement> ele1 = refGenericUtils.findElementsCount(xpath1, "xpath1") >0? refGenericUtils.findElements(xpath1,"xpath1"): null;
+//		List<WebElement> ele2 = refGenericUtils.findElementsCount(xpath2, "xpath2") >0? refGenericUtils.findElements(xpath2,"xpath2"): null;
+//		List<WebElement> ele3 = refGenericUtils.findElementsCount(xpath3, "xpath3") >0? refGenericUtils.findElements(xpath3,"xpath1"): null;
+//
+//		ele1.addAll(ele2);
+//		ele1.addAll(ele3);
+//
+//		Elements = ele1;
+//
+//		for(WebElement ele : Elements){
+//			String extractedLabel = null;
+//			if(ele!=null){
+//				extractedLabel = refGenericUtils.fetchingTextvalueofElement(ele, "Element");
+//			} else continue;
+//
+//			labels.add(extractedLabel);
+//		}
+//
+//		//datatable_Map, [('Key':'Value'),(),()]
+//		for(int i=0; i < datatable_Map.size(); i++){
+//			String key = datatable_Map.get(i).keySet().toArray()[1].toString();
+//			if(key.contains(labels.get(i))){
+//				finalDataMap.add( datatable_Map.get(i));
+//			}
+//
+//
+//		}
+//
+////		DataTable finalDataMapTable = DataTable.create(finalDataMap);
+//
+//
+//		refAccountCreation.update_Opp_entries(dataTable);
+//		refGenericUtils.take_screenshot();
+//		refGenericUtils.clickOnElement(objectRepository.get("CreateNewOpportunity.Next.Button"), "Opportunity Creation Next Button");
+//		refGenericUtils.waitUntilPageLoads();
+//		By accountAssignmentValidation = objectRepository.get("CreateNewOpportunity.AccountAssignmentValidation");
+//
+//		//if the "This account is not assigned to you? Do you wish to Continue" window appears then IF condition handles it
+//		if(refGenericUtils.findElementsCount(accountAssignmentValidation, "Account Assignment validation")>0){
+//
+//			refGenericUtils.take_screenshot();
+//			refGenericUtils.clickOnElement(objectRepository.get("CreateNewOpportunity.Next.Button"), "Next Button");
+//		}
+//
+//		refGenericUtils.waitUntilPageLoads();
+//		refAccountCreation.update_Opp_entries(dataTable);
+//		refGenericUtils.take_screenshot();
+//
+//		//New Oportunity Create Button
+//		refGenericUtils.waitForElement(objectRepository.get("CreateNewOpportunity.Create.Button"),10, "Opportunity Create Button");
+//		refGenericUtils.click_using_javaScript(objectRepository.get("CreateNewOpportunity.Create.Button"), "Opportunity Create Button");
+//
+//	}
+//
+
+
+	@When("User clicks Next Button")
+	public void user_clicks_Next_button(){
+		refGenericUtils.take_screenshot();
+		refGenericUtils.waitForElement(objectRepository.get("CreateNewOpportunity.Next.Button"), 10, "CreateNewOpportunity.Next.Button");
+		refGenericUtils.click_using_javaScript(objectRepository.get("CreateNewOpportunity.Next.Button"), "CreateNewOpportunity.Next.Button");
+
+	}
+
+
+	//Updates entries of Opportunities only
+
+	@When("User updates the Opportunity entries")
+	public void update_Opp_entries(DataTable dataTable) {
+		refGenericUtils.stop_script_for(5000);
+		Map<String,String> account_info = feature_file_data(dataTable);
+		System.out.println("account_info: " + account_info);
+		//ex:- (OpportunityName.TextBox, "Test_Opp_TimeStamp")
+		account_info.forEach((label, value) -> {
+
+//			System.out.println(label + value);
+
+			if(label.endsWith("TextBox")) {
+				label=label.replace(".TextBox", "");
+				By textBox=null;
+
+				//Different combinations of possible textboxes
+				By textBox1 = By.xpath("//lightning-formatted-rich-text//*[text()='"+label+"']/../../..//input");
+
+
+//				System.out.print("textBox5"+textBox5);
+
+				if(refGenericUtils.findElementsCount(textBox1,label)==1)
+					textBox=textBox1;
+
+
+				refGenericUtils.waitForElement(textBox, 20, label);
+				refGenericUtils.scrollToViewElement(textBox, label);
+				refGenericUtils.ClearTextBox(textBox, label);
+				refGenericUtils.toEnterTextValue(textBox, value, label);
+			}
+			else if(label.endsWith("SelectDropdown")) {
+				label=label.replace(".SelectDropdown","");
+				By dropDownXpath = null;
+				By dropDownXpath1 = By.xpath("//*[text()='"+label+"']/ancestor::div[contains(@class, 'slds-form-element')]//Select");
+				By dropDownXpath2 = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-m-bottom_x-small']//select");
+				By dropDownXpath3 = By.xpath("//*[text()='"+label+"']/ancestor::div[contains(@class, 'select')]//Select");
+				if(refGenericUtils.findElementsCount(dropDownXpath1,label)==1) {
+					dropDownXpath=dropDownXpath1;
+					refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.select_dropdown_value(dropDownXpath, value, label);
+					refGenericUtils.waitUntilPageLoads();
+				}
+				else if(refGenericUtils.findElementsCount(dropDownXpath3,label)==1) {
+					dropDownXpath=dropDownXpath3;
+					refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.select_dropdown_value(dropDownXpath, value, label);
+					refGenericUtils.waitUntilPageLoads();
+				}
+				else if(refGenericUtils.findElementsCount(dropDownXpath2,label)==1) {
+					dropDownXpath=dropDownXpath2;
+					refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.click_using_javaScript(dropDownXpath, label);
+					refGenericUtils.toEnterTextValue(dropDownXpath, value, label);
+					refGenericUtils.waitUntilPageLoads();
+				}
+			}
+			else if(label.endsWith("SingleInputDropdown")) {
+
+//
+			
+				label=label.replace(".SingleInputDropdown","");
+				By dropDownXpath=null; By valueXpath=null;
+
+
+
+				By dropDownXpath1 = By.xpath("//flowruntime-screen-field//label[text()='"+label+"']/..//button");
+				By valueXpath1 = By.xpath("//flowruntime-screen-field//label[text()='"+label+"']/..//lightning-base-combobox-item/span");
+
+				if((refGenericUtils.findElementsCount(dropDownXpath1,"Single Input Dropdown" )==1)&&(refGenericUtils.findElementsCount(valueXpath1,"input values")>0)){
+//
+					dropDownXpath=dropDownXpath1;
+					valueXpath=valueXpath1;
+					refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.click_using_javaScript(dropDownXpath, label);
+					refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
+				}else if((refGenericUtils.findElementsCount(dropDownXpath1,"Single Input Dropdown" )==1)){
+//
+					dropDownXpath=dropDownXpath1;
+					valueXpath=valueXpath1;
+					refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.clickOnElement(dropDownXpath, "dropDownXpath");
+					refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
+				}
+
+
+
+				refGenericUtils.waitUntilPageLoads();
+			}
+			else if(label.endsWith("DuellistBox")) {
+				label = label.replace(".DuellistBox","");
+				By by_listBox_value = By.xpath("//*[text()='"+label+"']/..//span[@title='"+value+"']/ancestor::li");
+				refGenericUtils.clickOnElement(by_listBox_value, value);
+				refGenericUtils.waitUntilPageLoads();
+				label = label.replace("Available ","");
+				By valueXpath=null;
+				if(label.equals("Contextual")) {
+					valueXpath = By.xpath("//button[@title='Move selection to Chosen']");
+				}else {
+					valueXpath = By.xpath("//button[@title='Move selection to Selected "+label+"']");
+				}
+				refGenericUtils.clickOnElement(valueXpath, "Move Selection Right Button");
+				refGenericUtils.waitUntilPageLoads();
+			}else if(label.endsWith("Date")) {
+				label = label.replace(".Date","");
+				By dateXpath=null;
+				By dateXpath1 = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-m-bottom_x-small']//input");
+				By dateXpath2 = By.xpath("//*[text()='"+label+"']/../..//div[@class='form-element']//input");
+				By dateXpath3= By.xpath("//*[text()='"+label+"']/..//input");
+				if(refGenericUtils.findElementsCount(dateXpath1,label)==1)
+					dateXpath=dateXpath1;
+				else if(refGenericUtils.findElementsCount(dateXpath2,label)==1)
+					dateXpath=dateXpath2;
+				else if(refGenericUtils.findElementsCount(dateXpath3,label)==1)
+					dateXpath=dateXpath3;
+				refGenericUtils.click_using_javaScript(dateXpath, label);
+				refGenericUtils.toEnterTextValue(dateXpath, value, label);
+				refGenericUtils.keyboard_action(dateXpath, "Enter");
+			}else if(label.endsWith("SearchBox")) {
+				label=label.replace(".SearchBox", "");
+				By textBox=null; By valueXpath=null;
+				By textBox1=By.xpath("//span[text()='"+label+"']/../..//input[@type='text']");
+				By textBox2=By.xpath("//label[text()='"+label+"']/../..//input[@type='text']");
+				By valueXpath1=By.xpath("//span[text()='"+label+"']/../..//div[contains(@title, '"+value+"')]//mark");
+				By valueXpath2=By.xpath("//div[@class='slds-lookup__menu']//div[text()='"+value+"']");
+				if((refGenericUtils.findElementsCount(textBox1,label)==1)||(refGenericUtils.findElementsCount(valueXpath1,value)==1)) {
+					textBox=textBox1;
+					valueXpath=valueXpath1;
+				}else if((refGenericUtils.findElementsCount(textBox2,label)==1)||(refGenericUtils.findElementsCount(valueXpath2,value)==1)) {
+					textBox=textBox2;
+					valueXpath=valueXpath2;
+				}
+				refGenericUtils.waitForElement(textBox, 5, label);
+				refGenericUtils.toEnterTextValue(textBox, value, label);
+				refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
+			}else if(label.endsWith("Checkbox")) {
+				label=label.replace(".Checkbox", "");
+				By checkbox=null;
+				By checkbox1=By.xpath("//span[text()='"+label+"']/../..//input[@type='checkbox']");
+				if((refGenericUtils.findElementsCount(checkbox1,label)==1) && value.equalsIgnoreCase("Y")){
+					checkbox=checkbox1;
+					refGenericUtils.clickOnElement(checkbox, label+" Checkbox");
+				}
+			}
+			else if (label.endsWith(".Lookup")){
+				label = label.replace(".Lookup", "");
+
+				By lookupFieldInputBox = null; By lookupFieldOptions = null;
+
+				By lFIB1 = By.xpath("//label[text()='"+label+"']//ancestor::lightning-lookup//input");
+				By lFO1 = By.xpath("//label[text()='"+label+"']//ancestor::lightning-lookup//ul/li/lightning-base-combobox-item");
+
+				refGenericUtils.clickOnElement(lFIB1,"lFIB1");
+				refGenericUtils.ClearTextBox(lFIB1,"lFIB1");
+				driver.findElement(lFIB1).sendKeys(value);
+				refGenericUtils.waitForVisibilty(lFO1, 5, "lookup field Option");
+				refGenericUtils.click_using_javaScript(lFO1, "lookup field option");
+
+
+			}
+
+		});
+	}
+
+
+
 
 	public void account_assignment_data(DataTable dataTable, Map<String, Integer> map_of_cols) {
 		Map<String,String> data = feature_file_data(dataTable);

@@ -558,15 +558,16 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.clickOnElement(objectRepository.get("UserHomePage.GlobalSearch.TextBox"), "UserHomePage.GlobalSearch.TextBox");
 		refGenericUtils.stop_script_for(2000);
 		refGenericUtils.clickOnElement(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
-		//refGenericUtils.ClearTextBox(objectRepository.get("HomePage.GlobalSearch.SearchType"), "HomePage.GlobalSearch.SearchType");
-		//refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.GlobalSearch.SearchType"), "GlobalSearch.SearchType");
-		By searchType=By.xpath("(//div[@class='slds-grid slds-p-top--x-small slds-p-horizontal--x-small slds-size--1-of-1 slds-combobox-group header']//*[text()='"+objectName+"'])[1]");
-		refGenericUtils.click_using_javaScript(searchType, "GlobalSearch.SearchType");
-		refGenericUtils.stop_script_for(2000);
+
 		refGenericUtils.sendKeysJS(objectRepository.get("HomePage.GlobalSearch.SearchType"), objectName);
-		//refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.SearchType"), objectName, "HomePage.GlobalSearch.SearchType");
-		//refGenericUtils.keyboard_action(objectRepository.get("HomePage.GlobalSearch.SearchType"), "Enter");
-		refGenericUtils.click_using_javaScript(searchType, "searchType");
+		By searchType=By.xpath("(//div[@class='slds-grid slds-p-top--x-small slds-p-horizontal--x-small slds-size--1-of-1 slds-combobox-group header']" +
+				"//*[text()='"+objectName+"'])[1]");
+
+		refGenericUtils.waitForElement(searchType,10,"Search Object Type");
+		refGenericUtils.click_using_javaScript(searchType, "Search Object Option");
+
+		refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.GlobalSearch.TextBox"), "TextBox");
+		refGenericUtils.stop_script_for(1000);
 		refGenericUtils.sendKeysJS(objectRepository.get("HomePage.GlobalSearch.TextBox"), searchText);
 		//refGenericUtils.click_using_javaScript(objectRepository.get("HomePage.GlobalSearch.TextBox"), "HomePage.GlobalSearch.TextBox");
 		//refGenericUtils.toEnterTextValue(objectRepository.get("HomePage.GlobalSearch.TextBox"), searchText, "GlobalSearch");
@@ -864,12 +865,11 @@ public class AppGenericUtils extends BaseUtil {
 //
 
 
-	@When("User clicks Next Button")
-	public void user_clicks_Next_button(){
+	@When("User clicks {string} Button")
+	public void user_clicks_that_action_button(String buttonLabel){
 		refGenericUtils.take_screenshot();
-		refGenericUtils.waitForElement(objectRepository.get("CreateNewOpportunity.Next.Button"), 10, "CreateNewOpportunity.Next.Button");
-		refGenericUtils.click_using_javaScript(objectRepository.get("CreateNewOpportunity.Next.Button"), "CreateNewOpportunity.Next.Button");
-
+		By xpathButton = By.xpath("//footer//button[text()='"+buttonLabel+"']");
+		refGenericUtils.click_using_javaScript(xpathButton, buttonLabel+"button");
 	}
 
 
@@ -891,12 +891,14 @@ public class AppGenericUtils extends BaseUtil {
 
 				//Different combinations of possible textboxes
 				By textBox1 = By.xpath("//lightning-formatted-rich-text//*[text()='"+label+"']/../../..//input");
-
+				By textBox2 = By.xpath("//*[text()='"+label+"']//ancestor::lightning-input//input");
 
 //				System.out.print("textBox5"+textBox5);
 
-				if(refGenericUtils.findElementsCount(textBox1,label)==1)
+				if(refGenericUtils.findElementsCount(textBox1, label)==1)
 					textBox=textBox1;
+				else if(refGenericUtils.findElementsCount(textBox2, label)==1)
+					textBox = textBox2;
 
 
 				refGenericUtils.waitForElement(textBox, 20, label);
@@ -904,12 +906,18 @@ public class AppGenericUtils extends BaseUtil {
 				refGenericUtils.ClearTextBox(textBox, label);
 				refGenericUtils.toEnterTextValue(textBox, value, label);
 			}
+
+
+			/*............................................................................................*/
+
+
 			else if(label.endsWith("SelectDropdown")) {
 				label=label.replace(".SelectDropdown","");
 				By dropDownXpath = null;
 				By dropDownXpath1 = By.xpath("//*[text()='"+label+"']/ancestor::div[contains(@class, 'slds-form-element')]//Select");
-				By dropDownXpath2 = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-m-bottom_x-small']//select");
+				By dropDownXpath2 = By.xpath("//*[text()='"+label+"']/ancestor::div[contains(@class,'slds-m-bottom_x-small')]//select");
 				By dropDownXpath3 = By.xpath("//*[text()='"+label+"']/ancestor::div[contains(@class, 'select')]//Select");
+				By dropDownXpath4 = By.xpath("");
 				if(refGenericUtils.findElementsCount(dropDownXpath1,label)==1) {
 					dropDownXpath=dropDownXpath1;
 					refGenericUtils.waitForElement(dropDownXpath, 5, label);
@@ -933,40 +941,63 @@ public class AppGenericUtils extends BaseUtil {
 					refGenericUtils.waitUntilPageLoads();
 				}
 			}
+
+
+			/*............................................................................................*/
+			/* Abhishek Chunduri-24/05/2024
+			*
+			* Just add Dropdown button's Xpath in "dropDownXpaths" List if existing one's are not matched
+			* add Dropdown Values Xpath in "valueXpaths" List if existing one's are not matched
+			* for loop will match the respective possible available combination based on Label
+			* */
+
 			else if(label.endsWith("SingleInputDropdown")) {
 
-//
-			
 				label=label.replace(".SingleInputDropdown","");
-				By dropDownXpath=null; By valueXpath=null;
+
+				//Possible Field's button Xpaths
+				List<String> dropDownXpaths = Arrays.asList(
+						"//flowruntime-screen-field//label[text()='"+label+"']/..//button",
+						"//*[text()='"+label+"']/..//button",
+						"//*[text()='"+label+"']/..//input"
+				);
+
+				//Possible Field's dropdown Value Xpaths
+				List<String> valueXpaths = Arrays.asList(
+						"//flowruntime-screen-field//label[text()='"+label+"']/..//lightning-base-combobox-item/span",
+						"//flowruntime-screen-field//label[text()='"+label+"']/..//lightning-base-combobox-item/span[2]/span",
+						"//*[text()='"+label+"']/..//lightning-base-combobox-item/span[2]/span",
+						"//*[text()='"+label+"']/..//ul/li//span[@class='slds-truncate']"
+				);
+
+				for (String dPath: dropDownXpaths){
+
+					if(refGenericUtils.findElementsCount(By.xpath(dPath), label)==1){
+
+						refGenericUtils.waitForElement(By.xpath(dPath), 10,label);
+						refGenericUtils.scrollToViewElement(By.xpath(dPath), label);
+						refGenericUtils.click_using_javaScript(By.xpath(dPath), label);
+
+						for (int i=0; i<valueXpaths.size();i++){
+							if(refGenericUtils.findElementsCount(By.xpath(valueXpaths.get(i)),label+"'s Dropdown Values")>0){
+								refGenericUtils.click_Fromlist_of_Textvalues(By.xpath(valueXpaths.get(i)),value, label+" : "+ value);
+								break;
+							}
+
+						}
 
 
 
-				By dropDownXpath1 = By.xpath("//flowruntime-screen-field//label[text()='"+label+"']/..//button");
-				By valueXpath1 = By.xpath("//flowruntime-screen-field//label[text()='"+label+"']/..//lightning-base-combobox-item/span");
+					}
 
-				if((refGenericUtils.findElementsCount(dropDownXpath1,"Single Input Dropdown" )==1)&&(refGenericUtils.findElementsCount(valueXpath1,"input values")>0)){
-//
-					dropDownXpath=dropDownXpath1;
-					valueXpath=valueXpath1;
-					refGenericUtils.waitForElement(dropDownXpath, 5, label);
-					refGenericUtils.scrollToViewElement(dropDownXpath, label);
-					refGenericUtils.click_using_javaScript(dropDownXpath, label);
-					refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
-				}else if((refGenericUtils.findElementsCount(dropDownXpath1,"Single Input Dropdown" )==1)){
-//
-					dropDownXpath=dropDownXpath1;
-					valueXpath=valueXpath1;
-					refGenericUtils.waitForElement(dropDownXpath, 5, label);
-					refGenericUtils.scrollToViewElement(dropDownXpath, label);
-					refGenericUtils.clickOnElement(dropDownXpath, "dropDownXpath");
-					refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
 				}
-
-
 
 				refGenericUtils.waitUntilPageLoads();
 			}
+
+
+			/*............................................................................................*/
+
 			else if(label.endsWith("DuellistBox")) {
 				label = label.replace(".DuellistBox","");
 				By by_listBox_value = By.xpath("//*[text()='"+label+"']/..//span[@title='"+value+"']/ancestor::li");
@@ -981,10 +1012,15 @@ public class AppGenericUtils extends BaseUtil {
 				}
 				refGenericUtils.clickOnElement(valueXpath, "Move Selection Right Button");
 				refGenericUtils.waitUntilPageLoads();
-			}else if(label.endsWith("Date")) {
+			}
+
+			/*............................................................................................*/
+
+
+			else if(label.endsWith("Date")) {
 				label = label.replace(".Date","");
 				By dateXpath=null;
-				By dateXpath1 = By.xpath("//*[text()='"+label+"']/ancestor::div[@class='slds-m-bottom_x-small']//input");
+				By dateXpath1 = By.xpath("//*[text()='"+label+"']/ancestor::div[contains(@class,'slds-m-bottom_x-small')]//input[@class='slds-input']");
 				By dateXpath2 = By.xpath("//*[text()='"+label+"']/../..//div[@class='form-element']//input");
 				By dateXpath3= By.xpath("//*[text()='"+label+"']/..//input");
 				if(refGenericUtils.findElementsCount(dateXpath1,label)==1)
@@ -996,7 +1032,13 @@ public class AppGenericUtils extends BaseUtil {
 				refGenericUtils.click_using_javaScript(dateXpath, label);
 				refGenericUtils.toEnterTextValue(dateXpath, value, label);
 				refGenericUtils.keyboard_action(dateXpath, "Enter");
-			}else if(label.endsWith("SearchBox")) {
+			}
+
+
+			/*............................................................................................*/
+
+
+			else if(label.endsWith("SearchBox")) {
 				label=label.replace(".SearchBox", "");
 				By textBox=null; By valueXpath=null;
 				By textBox1=By.xpath("//span[text()='"+label+"']/../..//input[@type='text']");
@@ -1013,7 +1055,12 @@ public class AppGenericUtils extends BaseUtil {
 				refGenericUtils.waitForElement(textBox, 5, label);
 				refGenericUtils.toEnterTextValue(textBox, value, label);
 				refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
-			}else if(label.endsWith("Checkbox")) {
+			}
+
+			/*............................................................................................*/
+
+
+			else if(label.endsWith("Checkbox")) {
 				label=label.replace(".Checkbox", "");
 				By checkbox=null;
 				By checkbox1=By.xpath("//span[text()='"+label+"']/../..//input[@type='checkbox']");
@@ -1022,6 +1069,11 @@ public class AppGenericUtils extends BaseUtil {
 					refGenericUtils.clickOnElement(checkbox, label+" Checkbox");
 				}
 			}
+
+
+
+			/*............................................................................................*/
+
 			else if (label.endsWith(".Lookup")){
 				label = label.replace(".Lookup", "");
 

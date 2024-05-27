@@ -7,7 +7,7 @@
   	
   	"HomePage.AccountsTab":"//one-app-nav-bar-item-root//a[contains(@title, 'Accounts')]",
   	"HomePage.NewButton":"//ul[contains(@class,'branding-actions')]//a[@title='New']",
-  	"HomePage.GlobalSearch.TextBox":"//div[@class='slds-grid slds-size_1-of-1 slds-grid--align-center forceSearchAssistant']//button[@aria-label='Search']",
+  	"HomePage.GlobalSearch.TextBox":"//lightning-input//input[@placeholder='Search...']",
   	"HomePage.GlobalSearch.AccountOption" : "//span[text()='Account']/ancestor::div[@role='option']",
   	"HomePage.GlobalSearch.SearchType":"//input[@class='slds-combobox__input slds-input slds-combobox__input-value']",
   	"HomePage.SearchType.Opportunities":"//span[@title='Opportunities']",
@@ -74,7 +74,6 @@
   	"Opportunity.Advertiser.Input":"//label[text()='Select an Advertiser']/..//input",
   	"Opportunity.RecordType.Print.RadioButton":"//legend[text()='Select a record type']/..//*[text()='Print']/ancestor::label/span[1]",
 
-	"CreateNewOpportunity.Next.Button": "//footer//button[text()='Next']",
 	"CreateNewOpportunity.AccountAssignmentValidation": "//span[contains(text(), 'This account is not assigned to you')]",
 	"CreateNewOpportunity.Create.Button": "//footer//button[text()='Create']",
   	

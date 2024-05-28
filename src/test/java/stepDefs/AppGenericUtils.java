@@ -884,8 +884,17 @@ public class AppGenericUtils extends BaseUtil {
 		account_info.forEach((label, value) -> {
 
 //			System.out.println(label + value);
+			if(label.contains("Opportunity") && label.endsWith("Name")) {
+				account_name_text = value.replace("{TimeStamp}", refGenericUtils.get_Date("MMMdd'_'HHmm"));
+				System.out.println("label: "+  label);
+				refGenericUtils.waitForElement(objectRepository.get(label), 5, label);
+				refGenericUtils.scrollToViewElement(objectRepository.get(label), label);
+				refGenericUtils.toEnterTextValue(objectRepository.get(label), account_name_text, label);
+			}
 
-			if(label.endsWith("TextBox")) {
+			/*............................................................................................*/
+
+			else if(label.endsWith("TextBox")) {
 				label=label.replace(".TextBox", "");
 				By textBox=null;
 

@@ -31,10 +31,10 @@ public class Opportunity extends BaseUtil {
 
 		By tabName = null;
 		By buttonName = null;
-		if (opportunity_type.equalsIgnoreCase("Print")) {
+		if (opportunity_type.equalsIgnoreCase("Print") || opportunity_type.equalsIgnoreCase("Direct Media")) {
 			tabName = By.xpath("//a[@data-tab-value='Print']");
 			buttonName = By.xpath("//button[text()='Create New Opportunity']");
-		} else if (opportunity_type.equalsIgnoreCase("Digital")) {
+		} else if (opportunity_type.equalsIgnoreCase("Digital") || opportunity_type.equalsIgnoreCase("Programmatic")) {
 			tabName = By.xpath("//a[@data-tab-value='Digital']");
 			buttonName = By.xpath("//div[contains(@class,'slds-grid cMDP_DigitalOpportunityList')]//button[contains(@type,'button')]" +
 					"[normalize-space()='Create New Opportunity']");

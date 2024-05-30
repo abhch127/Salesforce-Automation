@@ -5,40 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad7084a9-d05a-4a2b-9a16-67d474155dad" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/runners/RunnerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/runners/RunnerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/stepDefs/AppGenericUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/stepDefs/AppGenericUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/stepDefs/Opportunity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/stepDefs/Opportunity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/configs/objects.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/configs/objects.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/Opportunity.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/Opportunity.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/ExtentPdf.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/ExtentPdf.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/Spark-TestNG.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/Spark-TestNG.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded10.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded10.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded11.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded11.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded12.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded12.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded13.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded13.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded14.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded14.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded15.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded15.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded16.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded16.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded17.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded17.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded18.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded18.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded19.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded19.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded20.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded20.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded21.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded21.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded22.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded22.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded23.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded23.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded24.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded24.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded25.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded25.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded26.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded26.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded3.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded4.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded4.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded5.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded5.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded6.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded6.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded7.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded7.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded8.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded8.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded9.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded9.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,17 +47,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/AbhishekChunduri/Desktop/SalesForce Projects/Salesforce.Automation&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/AbhishekChunduri/Desktop/SalesForce Projects/Salesforce.Automation",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.4218391",
+    "settings.editor.selected.configurable": "configurable.group.appearance"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="TestNG.RunnerTest">
     <configuration name="Scenario: Advertiser Account Creation" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />

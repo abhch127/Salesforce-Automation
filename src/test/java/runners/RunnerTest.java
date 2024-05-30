@@ -15,7 +15,7 @@ import org.apache.xmlbeans.impl.xb.xsdschema.Attribute;
 				"rerun:target/rerun.txt", 
 				"junit:target/cucumber-results.xml"}, // to generate different types of reporting
 		monochrome = true, // display the console output in a proper readable format
-		tags= "@OpportunityCreationBasicSceanrios",
+		tags= "@OpportunityCreation-Print",
 		dryRun = false, publish = true) // to check the mapping is proper between feature file and step definition file
 
 public class RunnerTest extends AbstractTestNGCucumberTests {

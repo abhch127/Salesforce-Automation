@@ -4,70 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4213a836-9d3f-4a45-91cc-3c9c80e933ea" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/stepDefs/OpprtunityAdUnit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/CreateOpportunity.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/Opportunity_Product_Creation.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Drivers/chromedriver-win64/LICENSE.chromedriver" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/chromedriver-win64/LICENSE.chromedriver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pages/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pages/LoginPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utilities/GenericUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utilities/GenericUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/runners/RunnerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/runners/RunnerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/stepDefs/AppGenericUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/stepDefs/AppGenericUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/stepDefs/Opportunity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/stepDefs/Opportunity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/configs/environment.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/configs/environment.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/configs/objects.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/configs/objects.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/GlobalSearch.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/GlobalSearch.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/ExtentPdf.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/ExtentPdf.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/Spark-TestNG.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/Spark-TestNG.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded10.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded10.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded11.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded11.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded12.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded12.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded13.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded13.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded14.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded14.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded15.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded15.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded16.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded16.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded3.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded4.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded5.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded6.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded6.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded7.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded7.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded8.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded8.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded9.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded9.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/Default suite/Default test.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/Default suite/Default test.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/Default suite/Default test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/Default suite/Default test.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/Default suite/testng-failed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/Default suite/testng-failed.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/emailable-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/emailable-report.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/jquery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/jquery.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/junitreports/TEST-runners.RunnerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/junitreports/TEST-runners.RunnerTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/old/Default suite/classes.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/old/Default suite/classes.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/old/Default suite/groups.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/old/Default suite/groups.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/old/Default suite/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/old/Default suite/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/old/Default suite/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/old/Default suite/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/old/Default suite/methods-alphabetical.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/old/Default suite/methods-alphabetical.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/old/Default suite/methods-not-run.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/old/Default suite/methods-not-run.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/old/Default suite/methods.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/old/Default suite/methods.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/old/Default suite/toc.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/old/Default suite/toc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/old/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/old/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/testng-failed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/testng-failed.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/testng-reports.css" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/testng-reports.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/testng-reports.js" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/testng-reports.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/testng-reports1.css" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/testng-reports1.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/testng-reports2.js" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/testng-reports2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/testng-results.xml" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/testng-results.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4213a836-9d3f-4a45-91cc-3c9c80e933ea" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -155,7 +92,7 @@
       <workItem from="1719400962087" duration="7255000" />
       <workItem from="1719907827820" duration="2804000" />
       <workItem from="1720597922579" duration="3937000" />
-      <workItem from="1720691263178" duration="6036000" />
+      <workItem from="1720691263178" duration="6399000" />
     </task>
     <servers />
   </component>

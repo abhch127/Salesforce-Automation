@@ -3,8 +3,8 @@
   "salesforce": {
     "qa": {
       "url": "https://test.salesforce.com/",
-      "username1": "abhishek.chunduri@meredith.com.qa",
-      "password1": "asabhi9972AB##",
+      "username1": "testgenericuser@meredith.com.qa",
+      "password1": "Networth@1234",
       "profilePath":"C:\\Users\\AbhishekChunduri\\AppData\\Local\\Google\\Chrome\\User Data"
     },
     "uat": {

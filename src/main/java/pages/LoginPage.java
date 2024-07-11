@@ -26,6 +26,7 @@ public class LoginPage {
 	
 	public void loginToApplication() {
 		String	url = envDetails.get("url").toString();
+		System.out.println(url);
 		String	username = envDetails.get("username" + Integer.parseInt(usernumber.split("\\.")[0])).toString();
 		String  password = envDetails.get("password" + Integer.parseInt(usernumber.split("\\.")[0])).toString();
 		//String profile=envDetails.get("profilePath").toString();

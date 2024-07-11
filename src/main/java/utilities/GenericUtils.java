@@ -113,7 +113,23 @@ public class GenericUtils extends BaseUtil {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public WebElement findElementByJSPath(String query, String elementName){
+		WebElement element = null;
+		try{
+			String javascript = query;
+			JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+			element = (WebElement) jsExecutor.executeScript(javascript);
+		}
+		catch(Exception e){
+			softAssert.fail("Failed to find the Web Element "+ elementName);
+			take_screenshot();
+			e.printStackTrace();
+		}
+
+		return element;
+	}
+
 	public boolean checkbox_if_selected(By byXpath, String elementName) {
 		boolean if_selected = false;
 		try {
@@ -142,6 +158,29 @@ public class GenericUtils extends BaseUtil {
 			}
 		} catch (Exception e) {
 			softAssert.fail("Failed to click on " + ElementName);
+			take_screenshot();
+			e.printStackTrace();
+		}
+
+	}
+
+	//used for scrolling to particular element and taking screenshot
+	public <Element> void moveToElement(Element element, String ElementName) {
+		String element_class = element.getClass().getName();
+		try {
+			if (element_class.endsWith("ByXPath")) {
+				Actions action = new Actions(driver);
+				By byxpath = (By) element;
+				WebElement element_to_be_moved = driver.findElement(byxpath);
+				action.moveToElement(element_to_be_moved).build().perform();
+			}
+			if (element_class.endsWith("RemoteWebElement")) {
+				WebElement element_to_be_moved = (WebElement) element;
+				Actions action = new Actions(driver);
+				action.moveToElement(element_to_be_moved).build().perform();
+			}
+		} catch (Exception e) {
+			softAssert.fail("Failed to move to " + ElementName);
 			take_screenshot();
 			e.printStackTrace();
 		}
@@ -432,6 +471,20 @@ public int findElementsCount(By byxpath, String element_name){
 		}
 
 		return elements;
+	}
+
+	public WebElement findElement(By byxpath, String element_name){
+		WebElement element = null;
+		try{
+			element = driver.findElement(byxpath);
+
+		}catch(Exception E){
+			E.printStackTrace();
+			softAssert.fail("Unable to find the Element "+element_name);
+			take_screenshot();
+		}
+
+		return element;
 	}
 
 

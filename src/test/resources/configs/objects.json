@@ -73,14 +73,28 @@
   	"Opportunity Name": "//*[text()='Opportunity Name']//ancestor::lightning-input//input",
   	"Opportunity.NewPrintOpportunity.button":"//button[text()='Create New Print Opportunity']",
   	"Opportunity.Advertiser.Input":"//label[text()='Select an Advertiser']/..//input",
+	"Opportunity.Delete.Button": "//button[text()='Delete']",
   	"Opportunity.RecordType.Print.RadioButton":"//legend[text()='Select a record type']/..//*[text()='Print']/ancestor::label/span[1]",
+
+	"OpportunityAdUnit.CreateNew.Button": "//button[text()='Create New']",
+	"OpportunityAdUnit.DeleteSelected.Button": "//button[text()='Delete Selected']",
+	"OpportunityAdUnit.CreateNew.Save.Button": "//button[text()='Save']",
+	"OpportunityAdUnit.CreateNew.Cancel.Button":"//button[text()='Cancel']",
+	"OpportunityAdUnit.AdUnitTile.CheckBox": "//ul/li//input[@type='checkbox']",
+	"OpportunityAdUnit.AdUnitTitle": "//div[@class='slds-tabs_scoped cMDP_LineItemList']",
 
 	"CreateNewOpportunity.AccountAssignmentValidation": "//span[contains(text(), 'This account is not assigned to you')]",
 	"CreateNewOpportunity.Create.Button": "//footer//button[text()='Create']",
   	
   	"PipelinePage.Clone.Button":"//button[text()='Clone']",
-	"PipelinePage.MyTeamOpps.CheckBox": "//lightning-input//span[contains(@class,'slds-checkbox_faux')]",
+	"PipelinePage.PRINTTAB.MyTeamOpps.CheckBox": "//lightning-input//span[@class='slds-checkbox_faux']",
+	"PipelinePage.DIGITALTAB.MyTeamOpps.CheckBox": "//div[@class='cMDP_DigitalOpportunityList']//span[@class='slds-checkbox_faux']",,
 	"Pipeline.CreateNewOpportunity.Button": "//button[text()='Create New Opportunity']",
+
+
+	"Pipeline.OppDetailPage": "//div[contains(@class,'Opportunity Details')]",
+	"Pipeline.OppDetailPage.OppOpenImageButton": "//div[@class='slds-card__body']//img/..",
+
   	
   	"ClonePopup.Header" : "//h2//span[contains(text(), 'Clone')]",
   	"ClonePopup.SelectedIssue.DuellistBox" : "//span[text()='Selected Issues']/..//span[@class='slds-truncate']",

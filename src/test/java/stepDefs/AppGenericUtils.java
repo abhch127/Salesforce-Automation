@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
 
+import io.cucumber.java.DataTableType;
+import org.apache.poi.ss.formula.functions.T;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.openqa.selenium.JavascriptExecutor;
 
 import base.BaseUtil;
 import factory.DriverFactory;
@@ -539,6 +542,29 @@ public class AppGenericUtils extends BaseUtil {
 		refGenericUtils.waitUntilPageLoads();
 		refGenericUtils.take_screenshot();
 	}
+
+	@When("user creates a new Pipeline for {string} Advertiser")
+	public void user_creates_new_pipeline_for_advertiser(String advertiser, DataTable dataTable){
+		globalSearch("Accounts", advertiser);
+
+		//Lands on Account Page
+		refGenericUtils.waitUntilPageLoads();
+		refGenericUtils.take_screenshot();
+		refGenericUtils.click_using_javaScript(objectRepository.get("AccountPage.CreateNewPipeline.Button"), "AccountPage.CreateNewPipeline.Button");
+		refGenericUtils.waitForElement(objectRepository.get("AccountPage.NewPipeline.Popup"), 10,"AccountPage.NewPipeline.Popup");
+		enter_values_updated(dataTable);
+		refGenericUtils.take_screenshot();
+		refGenericUtils.click_using_javaScript(objectRepository.get("NewPipelinePopup.Save.Button"), "NewPipelinePopup.Save.Button");
+		refGenericUtils.stop_script_for(5000);
+
+	}
+
+	/*This method continues from Pipeline Page
+	* Selects the first Opp from the Opp Section (Print, Direct, Digital) based on Provided data from user
+	* Opens that Opp to create Product
+	* */
+
+
 	
 	public void setup_page_search_textbox(String text_value, String textBox_element_name) {
 		refGenericUtils.waitUntilPageLoads();
@@ -550,7 +576,7 @@ public class AppGenericUtils extends BaseUtil {
 	}
 
 
-	@When("user searches object name as {string} and record name as {string} and lands on record")
+	@When("User searches object name as {string} and record name as {string} and lands on record")
 	public void globalSearch(String objectName, String searchText){
 //		refGenericUtils.refreshBrowser();
 		refGenericUtils.waitUntilPageLoads();
@@ -787,84 +813,6 @@ public class AppGenericUtils extends BaseUtil {
 
 
 
-
-//	//Updates Opportunity Entries Dynamically
-//	public void createOpportunityDynamically(DataTable datatable){
-//		List<WebElement> Elements = null;
-//		List<String> labels = null;
-//
-////		On Opp Creation first Page
-////		* Collect all fields present on the Page
-////		* Match the collected field labels with Datatable fields
-////		* Shrink the Datatable with only matching field with keeping original one intact
-////		* call "update_Opp_Entries(shrinkedDatatable)"
-////		*
-//		// Repeat the Same Process for Next Page, by checking the Account Assignment Validation Page
-//
-//		List<Map<String, String>> datatable_Map = datatable.asMaps(String.class, String.class);
-//		List<Map<String, String>> finalDataMap = null;
-//
-//
-//		By xpath1 = By.xpath("//flowruntime-screen-field//lightning-formatted-text/span");
-//		By xpath2 = By.xpath("//flowruntime-screen-field//label/span");
-//		By xpath3 = By.xpath("//flowruntime-screen-field//label");
-//
-//		List<WebElement> ele1 = refGenericUtils.findElementsCount(xpath1, "xpath1") >0? refGenericUtils.findElements(xpath1,"xpath1"): null;
-//		List<WebElement> ele2 = refGenericUtils.findElementsCount(xpath2, "xpath2") >0? refGenericUtils.findElements(xpath2,"xpath2"): null;
-//		List<WebElement> ele3 = refGenericUtils.findElementsCount(xpath3, "xpath3") >0? refGenericUtils.findElements(xpath3,"xpath1"): null;
-//
-//		ele1.addAll(ele2);
-//		ele1.addAll(ele3);
-//
-//		Elements = ele1;
-//
-//		for(WebElement ele : Elements){
-//			String extractedLabel = null;
-//			if(ele!=null){
-//				extractedLabel = refGenericUtils.fetchingTextvalueofElement(ele, "Element");
-//			} else continue;
-//
-//			labels.add(extractedLabel);
-//		}
-//
-//		//datatable_Map, [('Key':'Value'),(),()]
-//		for(int i=0; i < datatable_Map.size(); i++){
-//			String key = datatable_Map.get(i).keySet().toArray()[1].toString();
-//			if(key.contains(labels.get(i))){
-//				finalDataMap.add( datatable_Map.get(i));
-//			}
-//
-//
-//		}
-//
-////		DataTable finalDataMapTable = DataTable.create(finalDataMap);
-//
-//
-//		refAccountCreation.update_Opp_entries(dataTable);
-//		refGenericUtils.take_screenshot();
-//		refGenericUtils.clickOnElement(objectRepository.get("CreateNewOpportunity.Next.Button"), "Opportunity Creation Next Button");
-//		refGenericUtils.waitUntilPageLoads();
-//		By accountAssignmentValidation = objectRepository.get("CreateNewOpportunity.AccountAssignmentValidation");
-//
-//		//if the "This account is not assigned to you? Do you wish to Continue" window appears then IF condition handles it
-//		if(refGenericUtils.findElementsCount(accountAssignmentValidation, "Account Assignment validation")>0){
-//
-//			refGenericUtils.take_screenshot();
-//			refGenericUtils.clickOnElement(objectRepository.get("CreateNewOpportunity.Next.Button"), "Next Button");
-//		}
-//
-//		refGenericUtils.waitUntilPageLoads();
-//		refAccountCreation.update_Opp_entries(dataTable);
-//		refGenericUtils.take_screenshot();
-//
-//		//New Oportunity Create Button
-//		refGenericUtils.waitForElement(objectRepository.get("CreateNewOpportunity.Create.Button"),10, "Opportunity Create Button");
-//		refGenericUtils.click_using_javaScript(objectRepository.get("CreateNewOpportunity.Create.Button"), "Opportunity Create Button");
-//
-//	}
-//
-
-
 	@When("User clicks {string} Button")
 	public void user_clicks_that_action_button(String buttonLabel){
 		refGenericUtils.take_screenshot();
@@ -873,15 +821,14 @@ public class AppGenericUtils extends BaseUtil {
 	}
 
 
-	//Updates entries of Opportunities only
-
+	//Updates entries of fields from Datatable
 	@When("User updates the Opportunity entries")
-	public void update_Opp_entries(DataTable dataTable) {
+	public void update_field_entries(DataTable dataTable) {
 		refGenericUtils.stop_script_for(5000);
-		Map<String,String> account_info = feature_file_data(dataTable);
-		System.out.println("account_info: " + account_info);
+		Map<String,String> data = feature_file_data(dataTable);
+		System.out.println("object_info: " + data);
 		//ex:- (OpportunityName.TextBox, "Test_Opp_TimeStamp")
-		account_info.forEach((label, value) -> {
+		data.forEach((label, value) -> {
 
 //			System.out.println(label + value);
 			if(label.contains("Opportunity") && label.endsWith("Name")) {
@@ -968,16 +915,20 @@ public class AppGenericUtils extends BaseUtil {
 				List<String> dropDownXpaths = Arrays.asList(
 						"//flowruntime-screen-field//label[text()='"+label+"']/..//button",
 						"//*[text()='"+label+"']/..//button",
+						"//*[text()='"+label+"']/ancestor::lightning-combobox//button",
 						"//*[text()='"+label+"']/..//input"
 				);
 
 				//Possible Field's dropdown Value Xpaths
 				List<String> valueXpaths = Arrays.asList(
-						"//flowruntime-screen-field//label[text()='"+label+"']/..//lightning-base-combobox-item/span",
 						"//flowruntime-screen-field//label[text()='"+label+"']/..//lightning-base-combobox-item/span[2]/span",
+						"//flowruntime-screen-field//label[text()='"+label+"']/..//lightning-base-combobox-item/span",
 						"//*[text()='"+label+"']/..//lightning-base-combobox-item/span[2]/span",
+						"//*[text()='"+label+"']/ancestor::lightning-combobox//lightning-base-combobox-item/span[2]/span",
 						"//*[text()='"+label+"']/..//ul/li//span[@class='slds-truncate']"
 				);
+
+				int selected = 0;
 
 				for (String dPath: dropDownXpaths){
 
@@ -990,14 +941,14 @@ public class AppGenericUtils extends BaseUtil {
 						for (int i=0; i<valueXpaths.size();i++){
 							if(refGenericUtils.findElementsCount(By.xpath(valueXpaths.get(i)),label+"'s Dropdown Values")>0){
 								refGenericUtils.click_Fromlist_of_Textvalues(By.xpath(valueXpaths.get(i)),value, label+" : "+ value);
+								selected = 1;
 								break;
 							}
 
 						}
-
-
-
 					}
+
+					if (selected==1) break;
 
 				}
 
@@ -1102,6 +1053,251 @@ public class AppGenericUtils extends BaseUtil {
 
 		});
 	}
+
+
+	public void update_field_entries(Map<String,String> fields) {
+		refGenericUtils.stop_script_for(2000);
+//		if (object.getClass().getTypeName().contains("Hashmap")){
+//			mapValues = (Map<String,String>)object;
+//		}
+//		else {
+//			mapValues =  feature_file_data((DataTable)object);
+//		}
+
+
+		System.out.println("update_field_entries_from_map: " + fields);
+		//ex:- (OpportunityName.TextBox, "Test_Opp_TimeStamp")
+		fields.forEach((label, value) -> {
+
+//			System.out.println(label + value);
+			if(label.contains("Opportunity") && label.endsWith("Name")) {
+				account_name_text = value.replace("{TimeStamp}", refGenericUtils.get_Date("MMMdd'_'HHmm"));
+				System.out.println("label: "+  label);
+				refGenericUtils.waitForElement(objectRepository.get(label), 5, label);
+				refGenericUtils.scrollToViewElement(objectRepository.get(label), label);
+				refGenericUtils.toEnterTextValue(objectRepository.get(label), account_name_text, label);
+			}
+
+			/*............................................................................................*/
+
+			else if(label.endsWith("TextBox")) {
+				label=label.replace(".TextBox", "");
+				By textBox=null;
+
+				//Different combinations of possible textboxes
+				By textBox1 = By.xpath("//lightning-formatted-rich-text//*[text()='"+label+"']/../../..//input");
+				By textBox2 = By.xpath("//*[text()='"+label+"']//ancestor::lightning-input//input");
+
+//				System.out.print("textBox5"+textBox5);
+
+				if(refGenericUtils.findElementsCount(textBox1, label)==1)
+					textBox=textBox1;
+				else if(refGenericUtils.findElementsCount(textBox2, label)==1)
+					textBox = textBox2;
+
+				System.out.println("textbox: "+textBox);
+				refGenericUtils.waitForElement(textBox, 20, label);
+				refGenericUtils.scrollToViewElement(textBox, label);
+				refGenericUtils.ClearTextBox(textBox, label);
+				refGenericUtils.toEnterTextValue(textBox, value, label);
+			}
+
+
+			/*............................................................................................*/
+
+
+			else if(label.endsWith("SelectDropdown")) {
+				label=label.replace(".SelectDropdown","");
+				By dropDownXpath = null;
+				By dropDownXpath1 = By.xpath("//*[text()='"+label+"']/ancestor::div[contains(@class, 'slds-form-element')]//Select");
+				By dropDownXpath2 = By.xpath("//*[text()='"+label+"']/ancestor::div[contains(@class,'slds-m-bottom_x-small')]//select");
+				By dropDownXpath3 = By.xpath("//*[text()='"+label+"']/ancestor::div[contains(@class, 'select')]//Select");
+				By dropDownXpath4 = By.xpath("");
+				if(refGenericUtils.findElementsCount(dropDownXpath1,label)==1) {
+					dropDownXpath=dropDownXpath1;
+					refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.select_dropdown_value(dropDownXpath, value, label);
+					refGenericUtils.waitUntilPageLoads();
+				}
+				else if(refGenericUtils.findElementsCount(dropDownXpath3,label)==1) {
+					dropDownXpath=dropDownXpath3;
+					refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.select_dropdown_value(dropDownXpath, value, label);
+					refGenericUtils.waitUntilPageLoads();
+				}
+				else if(refGenericUtils.findElementsCount(dropDownXpath2,label)==1) {
+					dropDownXpath=dropDownXpath2;
+					refGenericUtils.waitForElement(dropDownXpath, 5, label);
+					refGenericUtils.scrollToViewElement(dropDownXpath, label);
+					refGenericUtils.click_using_javaScript(dropDownXpath, label);
+					refGenericUtils.toEnterTextValue(dropDownXpath, value, label);
+					refGenericUtils.waitUntilPageLoads();
+				}
+			}
+
+
+			/*............................................................................................*/
+			/* Abhishek Chunduri-24/05/2024
+			 *
+			 * Just add Dropdown button's Xpath in "dropDownXpaths" List if existing one's are not matched
+			 * add Dropdown Values Xpath in "valueXpaths" List if existing one's are not matched
+			 * for loop will match the respective possible available combination based on Label
+			 * */
+
+			else if(label.endsWith("SingleInputDropdown")) {
+				//Type of Assignment
+				label=label.replace(".SingleInputDropdown","");
+				System.out.println("label: "+label);
+
+				//Possible Field's button Xpaths
+				List<String> dropDownXpaths = Arrays.asList(
+						"//flowruntime-screen-field//label[text()='"+label+"']/..//button",
+						"//*[text()='"+label+"']/..//button",
+						"//*[text()='"+label+"']/ancestor::lightning-combobox//button",
+						"//*[text()='"+label+"']/..//input"
+				);
+
+				//Possible Field's dropdown Value Xpaths
+				List<String> valueXpaths = Arrays.asList(
+						"//flowruntime-screen-field//label[text()='"+label+"']/..//lightning-base-combobox-item/span[2]/span",
+						"//flowruntime-screen-field//label[text()='"+label+"']/..//lightning-base-combobox-item/span",
+						"//*[text()='"+label+"']/..//lightning-base-combobox-item/span[2]/span",
+						"//*[text()='"+label+"']/ancestor::lightning-combobox//lightning-base-combobox-item/span[2]/span",
+						"//*[text()='"+label+"']/..//ul/li//span[@class='slds-truncate']"
+				);
+
+				int selected = 0;
+
+				for (String dPath: dropDownXpaths){
+
+					if(refGenericUtils.findElementsCount(By.xpath(dPath), label)==1){
+
+						refGenericUtils.waitForElement(By.xpath(dPath), 10,label);
+						refGenericUtils.scrollToViewElement(By.xpath(dPath), label);
+						refGenericUtils.click_using_javaScript(By.xpath(dPath), label);
+
+						for (int i=0; i<valueXpaths.size();i++){
+							if(refGenericUtils.findElementsCount(By.xpath(valueXpaths.get(i)),label+"'s Dropdown Values")>0){
+								refGenericUtils.click_Fromlist_of_Textvalues(By.xpath(valueXpaths.get(i)),value, label+" : "+ value);
+								selected = 1;
+								break;
+
+							}
+
+						}//end of inner For
+					}
+
+					if(selected == 1) break;
+
+				}//end of outer For
+
+				refGenericUtils.waitUntilPageLoads();
+			}
+
+
+			/*............................................................................................*/
+
+			else if(label.endsWith("DuellistBox")) {
+				label = label.replace(".DuellistBox","");
+				By by_listBox_value = By.xpath("//*[text()='"+label+"']/..//span[@title='"+value+"']/ancestor::li");
+				refGenericUtils.clickOnElement(by_listBox_value, value);
+				refGenericUtils.waitUntilPageLoads();
+				label = label.replace("Available ","");
+				By valueXpath=null;
+				if(label.equals("Contextual")) {
+					valueXpath = By.xpath("//button[@title='Move selection to Chosen']");
+				}else {
+					valueXpath = By.xpath("//button[@title='Move selection to Selected "+label+"']");
+				}
+				refGenericUtils.clickOnElement(valueXpath, "Move Selection Right Button");
+				refGenericUtils.waitUntilPageLoads();
+			}
+
+			/*............................................................................................*/
+
+
+			else if(label.endsWith("Date")) {
+				label = label.replace(".Date","");
+				By dateXpath=null;
+				By dateXpath1 = By.xpath("//*[text()='"+label+"']/ancestor::div[contains(@class,'slds-m-bottom_x-small')]//input[@class='slds-input']");
+				By dateXpath2 = By.xpath("//*[text()='"+label+"']/../..//div[@class='form-element']//input");
+				By dateXpath3= By.xpath("//*[text()='"+label+"']/..//input");
+				if(refGenericUtils.findElementsCount(dateXpath1,label)==1)
+					dateXpath=dateXpath1;
+				else if(refGenericUtils.findElementsCount(dateXpath2,label)==1)
+					dateXpath=dateXpath2;
+				else if(refGenericUtils.findElementsCount(dateXpath3,label)==1)
+					dateXpath=dateXpath3;
+				refGenericUtils.click_using_javaScript(dateXpath, label);
+				refGenericUtils.toEnterTextValue(dateXpath, value, label);
+				refGenericUtils.keyboard_action(dateXpath, "Enter");
+			}
+
+
+			/*............................................................................................*/
+
+
+			else if(label.endsWith("SearchBox")) {
+				label=label.replace(".SearchBox", "");
+				By textBox=null; By valueXpath=null;
+				By textBox1=By.xpath("//span[text()='"+label+"']/../..//input[@type='text']");
+				By textBox2=By.xpath("//label[text()='"+label+"']/../..//input[@type='text']");
+				By valueXpath1=By.xpath("//span[text()='"+label+"']/../..//div[contains(@title, '"+value+"')]//mark");
+				By valueXpath2=By.xpath("//div[@class='slds-lookup__menu']//div[text()='"+value+"']");
+				if((refGenericUtils.findElementsCount(textBox1,label)==1)||(refGenericUtils.findElementsCount(valueXpath1,value)==1)) {
+					textBox=textBox1;
+					valueXpath=valueXpath1;
+				}else if((refGenericUtils.findElementsCount(textBox2,label)==1)||(refGenericUtils.findElementsCount(valueXpath2,value)==1)) {
+					textBox=textBox2;
+					valueXpath=valueXpath2;
+				}
+				refGenericUtils.waitForElement(textBox, 5, label);
+				refGenericUtils.toEnterTextValue(textBox, value, label);
+				refGenericUtils.click_Fromlist_of_Textvalues(valueXpath,value, label+" : "+ value);
+			}
+
+			/*............................................................................................*/
+
+
+			else if(label.endsWith("Checkbox")) {
+				label=label.replace(".Checkbox", "");
+				By checkbox=null;
+				By checkbox1=By.xpath("//span[text()='"+label+"']/../..//input[@type='checkbox']");
+				if((refGenericUtils.findElementsCount(checkbox1,label)==1) && value.equalsIgnoreCase("Y")){
+					checkbox=checkbox1;
+					refGenericUtils.clickOnElement(checkbox, label+" Checkbox");
+				}
+			}
+
+
+
+			/*............................................................................................*/
+
+			else if (label.endsWith(".Lookup")){
+				label = label.replace(".Lookup", "");
+
+				By lookupFieldInputBox = null; By lookupFieldOptions = null;
+
+				By lFIB1 = By.xpath("//label[text()='"+label+"']//ancestor::lightning-lookup//input");
+				By lFO1 = By.xpath("//label[text()='"+label+"']//ancestor::lightning-lookup//ul/li/lightning-base-combobox-item");
+
+				refGenericUtils.clickOnElement(lFIB1,"lFIB1");
+				refGenericUtils.ClearTextBox(lFIB1,"lFIB1");
+				driver.findElement(lFIB1).sendKeys(value);
+				refGenericUtils.waitForVisibilty(lFO1, 5, "lookup field Option");
+				refGenericUtils.click_using_javaScript(lFO1, "lookup field option");
+
+
+			}
+
+		});
+	}
+
+
+
+
 
 
 

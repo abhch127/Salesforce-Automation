@@ -7,6 +7,20 @@
     <list default="true" id="4213a836-9d3f-4a45-91cc-3c9c80e933ea" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/runners/RunnerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/runners/RunnerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/stepDefs/Opportunity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/stepDefs/Opportunity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/extent.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/extent.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/CreateOpportunity.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/CreateOpportunity.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/ExtentPdf.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/ExtentPdf.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/Spark-TestNG.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/Spark-TestNG.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded3.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded4.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded5.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded6.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded6.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded7.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded7.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded8.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded8.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded9.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/reports/Salesforce/embedded9.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,25 +38,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;TestNG.RunnerTest.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/abhishekch/Desktop/untitled folder/Salesforce-Automation&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.language&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "TestNG.RunnerTest.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/abhishekch/Desktop/untitled folder/Salesforce-Automation",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.language",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="RunnerTest" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="Salesforce" />
@@ -67,14 +81,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -97,7 +103,10 @@
       <workItem from="1720597922579" duration="3937000" />
       <workItem from="1720691263178" duration="6399000" />
       <workItem from="1720702555424" duration="861000" />
-      <workItem from="1720789543386" duration="40000" />
+      <workItem from="1720789543386" duration="1738000" />
+      <workItem from="1721389452112" duration="27000" />
+      <workItem from="1721389487058" duration="22000" />
+      <workItem from="1721389704497" duration="31000" />
     </task>
     <servers />
   </component>
@@ -115,7 +124,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -124,11 +145,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/stepDefs/Opportunity.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/stepDefs/AppGenericUtils.java</url>
           <line>1151</line>

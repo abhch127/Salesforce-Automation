@@ -5,18 +5,20 @@ Feature: Opportunity Creation
   Background:
     Given Admin has already logged into the application
 
-    @CreateOpportunity-Print
+    @CreateOpportunity-Print  @regression
     Scenario: Create Print Opportunity and Validate
-      Given User searches object name as "Pipeline" and record name as "KRAFT HEINZ COMPANY, THE 2024" and lands on record
+      Given User searches object name as "Pipeline" and record name as "KRAFT HEINZ COMPANY, THE 2025" and lands on record
       When User creates "Print" Opportunity and Validate
         | Element Name                       | Values                   |
         | Brand                              | CLASSICO PRODUCTS        |
         | Advertiser                         | KRAFT HEINZ COMPANY, THE |
         | Title                              | ALLRECIPES               |
-        | Issue                              | SPRING 2024 ALLRECIPES   |
+        | Issue                              | SPRING 2025 ALLRECIPES   |
         | Planning Agency                    | BPN                      |
         | Opp Estimate                       | 10001                    |
         | Foundry/Content Strategy involved? | Yes                      |
+        | Sales Category                      | Auto                    |
+        | Sub Category                        | Other - Auto            |
 
   @CreateOpportunity-Digital
   Scenario: Create Digital Opportunity and Validate
@@ -55,10 +57,12 @@ Feature: Opportunity Creation
       | Brand                              | CLASSICO PRODUCTS        |
       | Advertiser                         | KRAFT HEINZ COMPANY, THE |
       | Title                              | ALLRECIPES               |
-      | Issue                              | SPRING 2024 ALLRECIPES   |
+      | Issue                              | SPRING 2025 ALLRECIPES   |
       | Planning Agency                    | BPN                      |
       | Opp Estimate                       | 10001                    |
       | Foundry/Content Strategy involved? | Yes                      |
+      | Sales Category                      | Auto                    |
+      | Sub Category                        | Other - Auto            |
 
   @CreateOpportunity-Programmatic
   Scenario: Create Digital Opportunity and Validate

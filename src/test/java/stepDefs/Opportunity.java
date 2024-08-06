@@ -13,10 +13,7 @@ import io.cucumber.java.en.When;
 import pages.LoginPage;
 import utilities.GenericUtils;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Opportunity extends BaseUtil {
 
@@ -81,11 +78,32 @@ public class Opportunity extends BaseUtil {
 		refGenericUtils.stop_script_for(3000);
 
 		refGenericUtils.take_screenshot();
-		int count = !opportunity_type.equalsIgnoreCase("F360")?
+	/*	int count = !opportunity_type.equalsIgnoreCase("F360")?
 				                                          refGenericUtils.findElementsCount(objectRepository.get("Pipeline.CreateNewOpportunity.Button"), "Create New Opportunity Button for Print"):
+
 				                                          refGenericUtils.findElementsCount(buttonName,"Create New Opportunity Button for F360");
 
-		if (count == 1) {
+	 */
+
+		List<By> validationElementXpath = Arrays.asList(
+				By.xpath("//*[contains(text(),'Create "+opportunity_type+" Opportunity')]")
+				);
+
+
+
+
+
+		/*-------------------------------------------------------------------------------------------------------------------*/
+		int count = 0;
+		for(By xpath: validationElementXpath){
+			if(refGenericUtils.findElementsCount(xpath, "validation xpath")>0){
+				count = 1;
+				break;
+			}
+
+		}
+
+		if (count == 0) {
 			BaseUtil.scenario.log("New "+opportunity_type+" Opportunity  has been created Successfully");
 			refGenericUtils.take_screenshot();
 		}
@@ -117,6 +135,8 @@ public class Opportunity extends BaseUtil {
 			secondPagefieldsMap.put("Planning Agency.Lookup",Opp_info.get("Planning Agency"));
 			secondPagefieldsMap.put("Opp Estimate.TextBox",Opp_info.get("Opp Estimate"));
 			secondPagefieldsMap.put("Foundry/Content Strategy involved?.SelectDropdown",Opp_info.get("Foundry/Content Strategy involved?"));
+			secondPagefieldsMap.put("Sales Category.SingleInputDropdown",Opp_info.get("Sales Category"));
+			secondPagefieldsMap.put("Sub Category.SingleInputDropdown",Opp_info.get("Sub Category"));
 		}
 		else
 		if (opp_type.equalsIgnoreCase("Digital") ||opp_type.equalsIgnoreCase("Programmatic")  ){
